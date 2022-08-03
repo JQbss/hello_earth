@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hello_earth/pages/dasboard/dashboard_page.dart';
 
 class Routing {
   static const String dashboard = 'dashboard';
-  static const String onboarding = 'onboarding';
 
   const Routing._();
 
@@ -11,10 +11,7 @@ class Routing {
     final Widget child;
     switch (routeName) {
       case dashboard:
-        child = SizedBox.shrink();
-        break;
-      case onboarding:
-        child = SizedBox.shrink();
+        child = DashboardPage();
         break;
       default:
         return null;
@@ -22,6 +19,7 @@ class Routing {
 
     return buildRoute(
       settings: settings,
+      fullscreenDialog: false,
       child: child,
     );
   }

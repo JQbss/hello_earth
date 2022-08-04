@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hello_earth/pages/dasboard/dashboard_page.dart';
+import 'package:hello_earth/pages/dashboard/dashboard_page.dart';
 
 class Routing {
   static const String dashboard = 'dashboard';

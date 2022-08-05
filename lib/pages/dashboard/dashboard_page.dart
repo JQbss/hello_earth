@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hello_earth/blocs/session_bloc.dart';
 import 'package:hello_earth/pages/bloc_page_state.dart';
 import 'package:hello_earth/pages/dashboard/commons/dashboard_tab.dart';
 import 'package:hello_earth/pages/dashboard/dashboard_bloc.dart';
@@ -16,6 +19,8 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends BlocPageState<DashboardPage, DashboardBloc> with WidgetsBindingObserver {
+  late final StreamSubscription _sessionStateSubscription;
+
   static const List<DashboardTab> _tabs = [
     DashboardTab.home,
     DashboardTab.settings,
@@ -29,6 +34,17 @@ class _DashboardPageState extends BlocPageState<DashboardPage, DashboardBloc> wi
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    _initSessionStateObserver();
+  }
+  
+  void _checkSession(){
+    bloc.add(CheckS)
+  }
+
+  void _initSessionStateObserver() {
+    _sessionStateSubscription = BlocProvider.of<SessionBloc>(context).stream.listen((_) {
+      
+    });
   }
 
   @override

@@ -23,3 +23,10 @@ class ChangeTabRequested extends DashboardEvent {
         tab,
       ];
 }
+
+class CheckSessionRequested extends DashboardEvent {
+  CheckSessionRequested();
+
+  @override
+
+}

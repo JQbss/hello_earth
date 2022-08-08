@@ -28,5 +28,8 @@ class CheckSessionRequested extends DashboardEvent {
   CheckSessionRequested();
 
   @override
-
+  List<dynamic> get props => [
+        ...super.props,
+        UniquePropProvider.get(),
+      ];
 }

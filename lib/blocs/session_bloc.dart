@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hello_earth/storages/secure_storage.dart';
+import 'package:hello_earth/storages/session_storage.dart';
 import 'package:hello_earth/ui/models/parent_model.dart';
 
 part 'session_event.dart';
@@ -10,10 +10,10 @@ part 'session_event.dart';
 part 'session_state.dart';
 
 class SessionBloc extends Bloc<SessionEvent, SessionState> {
-  final SecureStorage secureStorage;
+  final SessionStorage sessionStorage;
 
   SessionBloc({
-    required this.secureStorage,
+    required this.sessionStorage,
   }) : super(SessionInitial()) {
     on<SessionAuthenticationSucceed>(_onSessionAuthenticationSucceed);
     on<SessionStatusRequested>(_onSessionStatusRequested);

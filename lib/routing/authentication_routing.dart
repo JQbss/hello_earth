@@ -10,18 +10,15 @@ class AuthenticationRouting {
 
   const AuthenticationRouting._();
 
+  static bool canHandleRoute(String? routeName) => Routing.canHandleRoute(routeName, _prefix);
+
   static Route? getMainRoute(RouteSettings settings) {
     final String? routeName = settings.name;
     final Widget child;
 
     switch (routeName) {
       case signIn:
-        child = BlocProvider<SignInBloc>(
-          create: (_) {
-            return SignInBloc();
-          },
-          child: const SignInPage(),
-        );
+        child = const SignInPage();
         break;
       default:
         return null;

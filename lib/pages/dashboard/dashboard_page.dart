@@ -34,17 +34,18 @@ class _DashboardPageState extends BlocPageState<DashboardPage, DashboardBloc> wi
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    _checkSession();
     _initSessionStateObserver();
   }
-  
-  void _checkSession(){
-    bloc.add(CheckS)
+
+  void _checkSession() {
+    bloc.add(
+      CheckSessionRequested(),
+    );
   }
 
   void _initSessionStateObserver() {
-    _sessionStateSubscription = BlocProvider.of<SessionBloc>(context).stream.listen((_) {
-      
-    });
+    _sessionStateSubscription = BlocProvider.of<SessionBloc>(context).stream.listen((_) {});
   }
 
   @override

@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:hello_earth/pages/navigators/global_navigator.dart';
 import 'package:hello_earth/storages/secure_storage.dart';
+import 'package:hello_earth/storages/session_storage.dart';
 
 class Injector {
   static final Injector _instance = Injector._();
@@ -19,7 +20,11 @@ class Injector {
   }
 
   void _initStorage() {
-    _getIt.registerFactory(() => SecureStorage());
+    _getIt
+      ..registerFactory(() => SecureStorage())
+      ..registerFactory(
+        () => SessionStorage(secureStorage: get<SecureStorage>()),
+      );
   }
 
   T get<T extends Object>([

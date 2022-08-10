@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hello_earth/pages/authentication/sign_in_bloc.dart';
-import 'package:hello_earth/pages/authentication/sign_in_page.dart';
+import 'package:hello_earth/pages/authentication/sign_in/sign_in_bloc.dart';
+import 'package:hello_earth/pages/authentication/sign_in/sign_in_page.dart';
 import 'package:hello_earth/routing/routing.dart';
 
 class AuthenticationRouting {
@@ -18,7 +18,11 @@ class AuthenticationRouting {
 
     switch (routeName) {
       case signIn:
-        child = const SignInPage();
+        child = BlocProvider<SignInBloc>(
+          create: (_) => SignInBloc(),
+          child: const SignInPage(),
+        );
+        //child = const SignInPage();
         break;
       default:
         return null;

@@ -29,8 +29,9 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         email: emailTextFieldData.text,
         password: passwordTextFieldData.text,
       );
+      print(credential);
     } catch (error) {
-
+      print(error);
     }
   }
 }

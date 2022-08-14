@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hello_earth/blocs/session_bloc.dart';
+import 'package:hello_earth/blocs/session/session_bloc.dart';
 import 'package:hello_earth/commons/unique_prop_provider.dart';
 import 'package:hello_earth/pages/dashboard/commons/dashboard_tab.dart';
 import 'package:hello_earth/storages/secure_storage.dart';

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hello_earth/blocs/session_bloc.dart';
+import 'package:hello_earth/blocs/session/session_bloc.dart';
 import 'package:hello_earth/pages/bloc_page_state.dart';
 import 'package:hello_earth/pages/dashboard/commons/dashboard_tab.dart';
 import 'package:hello_earth/pages/dashboard/dashboard_bloc.dart';

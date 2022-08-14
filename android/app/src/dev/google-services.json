@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "257672881682",
+    "project_id": "helloearth-dev",
+    "storage_bucket": "helloearth-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:257672881682:android:f8d6960f96ff6416f51acb",
+        "android_client_info": {
+          "package_name": "pl.umk.hello_earth.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "257672881682-217ssf9lqggqdbguob0gnn9eqf0ct4k4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxcsoIgnFandNxyKhujBR14IC79t18JBE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "257672881682-217ssf9lqggqdbguob0gnn9eqf0ct4k4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

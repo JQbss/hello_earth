@@ -1,9 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hello_earth/blocs/theme/theme_bloc.dart';
+import 'package:hello_earth/injector/injector.dart';
+import 'package:hello_earth/pages/navigators/global_navigator.dart';
+import 'package:hello_earth/styles/app_colors/app_colors_light.dart';
+import 'package:hello_earth/styles/app_colors/app_colors_theme.dart';
 
-abstract class AppColors {
-  final Color appBackground;
+class AppColors {
+  static late AppColorsTheme colors = _initColors();
 
-  const AppColors({
-    required this.appBackground,
-  });
+  const AppColors._();
+
+  static Color get appBackground => colors.appBackground;
+
+  static AppColorsTheme _initColors() {
+    final BuildContext? context = Injector().get<GlobalNavigator>().currentContext;
+    if (context == null) {
+      return AppColorsLight();
+    }
+    return BlocProvider.of<ThemeBloc>(context).colors;
+  }
 }

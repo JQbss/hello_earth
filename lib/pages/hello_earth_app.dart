@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_earth/blocs/session/session_bloc.dart';
+import 'package:hello_earth/blocs/theme/theme_bloc.dart';
 import 'package:hello_earth/extensions/string_extension.dart';
 import 'package:hello_earth/injector/injector.dart';
 import 'package:hello_earth/pages/app/app_bloc.dart';
@@ -29,12 +30,14 @@ class _HelloEarthAppState extends State<HelloEarthApp> {
   late final AppBloc _appBloc;
   late final DashboardBloc _dashboardBloc;
   late final SessionBloc _sessionBloc;
+  late final ThemeBloc _themeBloc;
 
   @override
   void initState() {
     super.initState();
     _initAppBloc();
     _initSessionBloc();
+    _initThemeBloc();
     _initDashboardBloc();
   }
 
@@ -43,14 +46,12 @@ class _HelloEarthAppState extends State<HelloEarthApp> {
     _appBloc.close();
     _dashboardBloc.close();
     _sessionBloc.close();
+    _themeBloc.close();
     super.dispose();
   }
 
   void _initAppBloc() {
-    _appBloc = AppBloc(
-      colors: AppColorsDark(),
-      test: 'zzzz',
-    );
+    _appBloc = AppBloc();
   }
 
   void _initDashboardBloc() {
@@ -74,6 +75,13 @@ class _HelloEarthAppState extends State<HelloEarthApp> {
     ));
   }
 
+  void _initThemeBloc() async {
+    _themeBloc = ThemeBloc(
+      colors: AppColorsDark(),
+      themeName: 'dark',
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -86,6 +94,9 @@ class _HelloEarthAppState extends State<HelloEarthApp> {
         ),
         BlocProvider(
           create: (_) => _sessionBloc,
+        ),
+        BlocProvider(
+          create: (_) => _themeBloc,
         ),
       ],
       child: AppRouteCoordinator(

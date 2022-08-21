@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hello_earth/pages/app/app_bloc.dart';
+import 'package:hello_earth/blocs/theme/theme_bloc.dart';
 import 'package:hello_earth/pages/authentication/sign_in/sign_in_bloc.dart';
 import 'package:hello_earth/pages/authentication/sign_in/sign_in_page.dart';
 import 'package:hello_earth/routing/routing.dart';
@@ -18,7 +18,7 @@ class AuthenticationRouting {
     final Widget child;
     switch (routeName) {
       case signIn:
-        child = BlocBuilder<AppBloc, AppState>(
+        child = BlocBuilder<ThemeBloc, ThemeState>(
           builder: (context, state) {
             return BlocProvider<SignInBloc>(
               create: (_) => SignInBloc(),

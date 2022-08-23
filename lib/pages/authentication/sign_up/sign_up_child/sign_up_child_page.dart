@@ -7,8 +7,16 @@ class SignUpChildPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text('Dziecko'),
+    return Scaffold(
+      body: _buildBody(),
+    );
+  }
+
+  Widget _buildBody() {
+    return Column(
+      children: [
+
+      ],
     );
   }
 }

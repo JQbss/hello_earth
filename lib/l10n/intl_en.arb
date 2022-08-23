@@ -1,1 +1,8 @@
-{}
+{
+  "signUp": "Zarejestruj się",
+  "signIn": "Zaloguj się",
+  "registration": "Rejestracja",
+  "logIn": "Logowanie",
+  "playerRegistration": "Rejestracja gracza",
+  "parentRegistration": "Rejestracja rodzica"
+}

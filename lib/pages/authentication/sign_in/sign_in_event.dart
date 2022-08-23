@@ -7,6 +7,20 @@ abstract class SignInEvent extends Equatable {
   List<dynamic> get props => [];
 }
 
+class SignInViewChangeRequested extends SignInEvent {
+  final bool isFormEnabled;
+
+  const SignInViewChangeRequested({
+    required this.isFormEnabled,
+  });
+
+  @override
+  List<dynamic> get props => [
+        ...super.props,
+        isFormEnabled,
+      ];
+}
+
 class SignInWithEmailRequested extends SignInEvent {
   SignInWithEmailRequested();
 

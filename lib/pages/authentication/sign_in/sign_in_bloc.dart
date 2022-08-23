@@ -11,10 +11,14 @@ part 'sign_in_event.dart';
 part 'sign_in_state.dart';
 
 class SignInBloc extends Bloc<SignInEvent, SignInState> {
+  bool isFormEnabled;
   final TextFieldData emailTextFieldData = TextFieldData();
   final TextFieldData passwordTextFieldData = TextFieldData();
 
-  SignInBloc() : super(SignInInitial()) {
+  SignInBloc({
+    required this.isFormEnabled,
+  }) : super(SignInInitial()) {
+    on<SignInViewChangeRequested>(_onSignInViewChangeRequested);
     on<SignInWithEmailRequested>(_onSignInWithEmailRequested);
   }
 
@@ -33,5 +37,17 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     } catch (error) {
       print(error);
     }
+  }
+
+  Future<void> _onSignInViewChangeRequested(
+    SignInViewChangeRequested event,
+    Emitter<SignInState> emit,
+  ) async {
+    isFormEnabled = event.isFormEnabled;
+    emit(
+      SignInViewChanged(
+        isFormEnabled: isFormEnabled,
+      ),
+    );
   }
 }

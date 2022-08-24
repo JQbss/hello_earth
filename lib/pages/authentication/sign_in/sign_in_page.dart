@@ -32,7 +32,10 @@ class _SignInPageState extends BlocPageState<SignInPage, SignInBloc> {
         });
   }
 
-  void _onStateChange(BuildContext context, SignInState state) {}
+  void _onStateChange(
+    BuildContext context,
+    SignInState state,
+  ) {}
 
   Widget _buildBody() {
     return SingleChildScrollView(

@@ -5,6 +5,7 @@ import 'package:hello_earth/widgets/data_text_field.dart';
 class SignInBody extends StatelessWidget {
   final TextFieldData emailTextFieldData;
   final TextFieldData passwordTextFieldData;
+
   const SignInBody({
     super.key,
     required this.emailTextFieldData,
@@ -21,9 +22,10 @@ class SignInBody extends StatelessWidget {
     );
   }
 
-  Widget _buildEmailTextField(BuildContext context){
+  Widget _buildEmailTextField(BuildContext context) {
     return DataTextField(emailTextFieldData);
   }
+
   Widget _buildPasswordTextField(BuildContext context) {
     return DataTextField(passwordTextFieldData);
   }

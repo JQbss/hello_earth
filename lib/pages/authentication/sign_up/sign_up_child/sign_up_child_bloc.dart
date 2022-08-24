@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hello_earth/commons/text_field_data.dart';
@@ -12,8 +14,13 @@ class SignUpChildBloc extends Bloc<SignUpChildEvent, SignUpChildState> {
   final TextFieldData passwordTextFieldData = TextFieldData();
 
   SignUpChildBloc() : super(SignUpChildInitial()) {
-    on<SignUpChildEvent>((event, emit) {
-      // TODO: implement event handler
-    });
+    on<SignUpChildRequested>(_onSignUpChildRequested);
+  }
+
+  Future<void> _onSignUpChildRequested(
+    SignUpChildRequested event,
+    Emitter<SignUpChildState> emit,
+  ) async {
+    print(emailTextFieldData.text);
   }
 }

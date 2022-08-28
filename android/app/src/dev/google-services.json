@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "257672881682",
+    "firebase_url": "https://helloearth-dev-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "helloearth-dev",
     "storage_bucket": "helloearth-dev.appspot.com"
   },

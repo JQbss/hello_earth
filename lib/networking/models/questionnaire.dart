@@ -1,5 +1,5 @@
 import 'package:hello_earth/commons/from_json_factory.dart';
-import 'package:hello_earth/networking/model/contraindication.dart';
+import 'package:hello_earth/networking/models/contraindication.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'questionnaire.g.dart';

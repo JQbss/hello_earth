@@ -1,6 +1,6 @@
 import 'package:hello_earth/mappers/questionnaire_mappers.dart';
 import 'package:hello_earth/mappers/role_mappers.dart';
-import 'package:hello_earth/networking/model/child.dart';
+import 'package:hello_earth/networking/models/child.dart';
 import 'package:hello_earth/ui/models/child_model.dart';
 
 extension ChildMapper on Child {

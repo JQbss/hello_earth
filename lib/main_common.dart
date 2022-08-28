@@ -8,11 +8,12 @@ import 'package:hello_earth/storages/session_storage.dart';
 
 Future<void> mainCommon(Environment environment) async {
   await WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   final SessionStorage sessionStorage = Injector().get<SessionStorage>();
   final bool isChild = await sessionStorage.hasChildToken();
   final bool isParent = await sessionStorage.hasParentToken();
   await Configuration.initialize(environment);
-  await Firebase.initializeApp();
+
   runApp(
     HelloEarthApp(
       isChild: isChild,

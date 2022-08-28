@@ -1,6 +1,6 @@
 import 'package:hello_earth/commons/from_json_factory.dart';
-import 'package:hello_earth/networking/model/role.dart';
-import 'package:hello_earth/networking/model/user.dart';
+import 'package:hello_earth/networking/models/role.dart';
+import 'package:hello_earth/networking/models/user_networking.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'parent.g.dart';
@@ -8,7 +8,7 @@ part 'parent.g.dart';
 @JsonSerializable(
   createToJson: false,
 )
-class Parent extends User {
+class Parent extends UserNetworking {
   static const FromJsonFactory<Parent> fromJsonFactory = _$ParentFromJson;
   final Role role;
 

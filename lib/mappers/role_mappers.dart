@@ -1,4 +1,4 @@
-import 'package:hello_earth/networking/model/role.dart';
+import 'package:hello_earth/networking/models/role.dart';
 import 'package:hello_earth/ui/models/role_model.dart';
 
 extension RoleMapper on Role {

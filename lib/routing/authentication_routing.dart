@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_earth/blocs/theme/theme_bloc.dart';
+import 'package:hello_earth/injector/injector.dart';
 import 'package:hello_earth/pages/authentication/sign_in/sign_in_bloc.dart';
 import 'package:hello_earth/pages/authentication/sign_in/sign_in_page.dart';
 import 'package:hello_earth/pages/authentication/sign_up/sign_up_child/sign_up_child_bloc.dart';
 import 'package:hello_earth/pages/authentication/sign_up/sign_up_child/sign_up_child_page.dart';
 import 'package:hello_earth/pages/authentication/sign_up/sign_up_parent/sign_up_parent_bloc.dart';
 import 'package:hello_earth/pages/authentication/sign_up/sign_up_parent/sign_up_parent_page.dart';
+import 'package:hello_earth/repositories/credential/network_credential_repository.dart';
+import 'package:hello_earth/repositories/user/network_user_repository.dart';
 import 'package:hello_earth/routing/routing.dart';
 
 class AuthenticationRouting {
@@ -28,6 +31,8 @@ class AuthenticationRouting {
           builder: (_, __) {
             return BlocProvider<SignInBloc>(
               create: (_) => SignInBloc(
+                credentialRepository: Injector().get<NetworkCredentialRepository>(),
+                userRepository: Injector().get<NetworkUserRepository>(),
                 isFormEnabled: true,
               ),
               child: SignInPage(),
@@ -49,7 +54,10 @@ class AuthenticationRouting {
         child = BlocBuilder<ThemeBloc, ThemeState>(
           builder: (_, __) {
             return BlocProvider<SignUpParentBloc>(
-              create: (_) => SignUpParentBloc(),
+              create: (_) => SignUpParentBloc(
+                credentialRepository: Injector().get<NetworkCredentialRepository>(),
+                userRepository: Injector().get<NetworkUserRepository>(),
+              ),
               child: SignUpParentPage(),
             );
           },

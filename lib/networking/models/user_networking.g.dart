@@ -1,12 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user.dart';
+part of 'user_networking.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-User _$UserFromJson(Map<String, dynamic> json) => User(
+UserNetworking _$UserNetworkingFromJson(Map<String, dynamic> json) =>
+    UserNetworking(
       email: json['email'] as String?,
       uid: json['uid'] as String?,
       userName: json['userName'] as String?,

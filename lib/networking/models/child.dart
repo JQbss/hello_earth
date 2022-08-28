@@ -1,7 +1,7 @@
 import 'package:hello_earth/commons/from_json_factory.dart';
-import 'package:hello_earth/networking/model/questionnaire.dart';
-import 'package:hello_earth/networking/model/role.dart';
-import 'package:hello_earth/networking/model/user.dart';
+import 'package:hello_earth/networking/models/questionnaire.dart';
+import 'package:hello_earth/networking/models/role.dart';
+import 'package:hello_earth/networking/models/user_networking.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'child.g.dart';
@@ -9,7 +9,7 @@ part 'child.g.dart';
 @JsonSerializable(
   createToJson: false,
 )
-class Child extends User {
+class Child extends UserNetworking {
   static const FromJsonFactory<Child> fromJsonFactory = _$ChildFromJson;
   final String? familyId;
   final bool? isQuestionnaireCompleted;

@@ -1,4 +1,4 @@
-import 'package:hello_earth/networking/model/contraindication.dart';
+import 'package:hello_earth/networking/models/contraindication.dart';
 import 'package:hello_earth/ui/models/contraindication_model.dart';
 
 extension ContraindicationMappers on Contraindication {

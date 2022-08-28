@@ -13,8 +13,17 @@ class AppColors {
 
   static Color get appBackground => colors.appBackground;
 
+  static Color get error => colors.error;
+
+  static Color get primary => colors.primary;
+
+  static Color get secondary => colors.secondary;
+
+  static Color get buttonText => colors.buttonText;
+
   static AppColorsTheme _initColors() {
-    final BuildContext? context = Injector().get<GlobalNavigator>().currentContext;
+    final BuildContext? context =
+        Injector().get<GlobalNavigator>().currentContext;
     if (context == null) {
       return AppColorsLight();
     }

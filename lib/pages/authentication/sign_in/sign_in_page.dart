@@ -6,6 +6,8 @@ import 'package:hello_earth/pages/authentication/sign_in/sign_in_bloc.dart';
 import 'package:hello_earth/pages/authentication/sign_in/widgets/sign_in_body.dart';
 import 'package:hello_earth/pages/bloc_page_state.dart';
 import 'package:hello_earth/routing/authentication_routing.dart';
+import 'package:hello_earth/styles/app_colors/app_colors.dart';
+import 'package:hello_earth/styles/app_dimensions.dart';
 import 'package:hello_earth/widgets/adaptive_button.dart';
 
 class SignInPage extends StatefulWidget {
@@ -39,38 +41,62 @@ class _SignInPageState extends BlocPageState<SignInPage, SignInBloc> {
 
   Widget _buildBody() {
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          Row(
-            children: [
-              AdaptiveButton(
+      child: Container(
+        height: MediaQuery.of(context).size.height,
+        child: Column(
+          children: [
+            Expanded(
+              child: SizedBox.shrink(),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 child: Container(
-                  child: Text(S.of(context).logIn),
-                ),
-                onPressed: () => {
-                  bloc.add(
-                    SignInViewChangeRequested(
-                      isFormEnabled: true,
-                    ),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          AdaptiveButton(
+                            child: Container(
+                              child: Text(S.of(context).logIn),
+                              color: AppColors.primary,
+                            ),
+                            onPressed: () => {
+                              bloc.add(
+                                SignInViewChangeRequested(
+                                  isFormEnabled: true,
+                                ),
+                              ),
+                            },
+                          ),
+                          AdaptiveButton(
+                            child: Container(
+                              child: Text(S.of(context).registration),
+                            ),
+                            onPressed: () => {
+                              bloc.add(
+                                SignInViewChangeRequested(
+                                  isFormEnabled: false,
+                                ),
+                              ),
+                            },
+                          ),
+                        ],
+                      ),
+                      bloc.isFormEnabled
+                          ? _buildSignInBody()
+                          : _buildSignUpBody(),
+                    ],
                   ),
-                },
-              ),
-              AdaptiveButton(
-                child: Container(
-                  child: Text(S.of(context).registration),
                 ),
-                onPressed: () => {
-                  bloc.add(
-                    SignInViewChangeRequested(
-                      isFormEnabled: false,
-                    ),
-                  ),
-                },
               ),
-            ],
-          ),
-          bloc.isFormEnabled ? _buildSignInBody() : _buildSignUpBody(),
-        ],
+            ),
+            Expanded(
+              child:
+                  bloc.isFormEnabled ? _buildSignInButton() : SizedBox.shrink(),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -82,18 +108,36 @@ class _SignInPageState extends BlocPageState<SignInPage, SignInBloc> {
           emailTextFieldData: bloc.emailTextFieldData,
           passwordTextFieldData: bloc.passwordTextFieldData,
         ),
-        _buildSignInButton(),
       ],
     );
   }
 
   Widget _buildSignInButton() {
-    return AdaptiveButton(
-      child: Container(
-        child: Text(S.of(context).signIn),
-      ),
-      onPressed: () => bloc.add(
-        SignInWithEmailRequested(),
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 20.0),
+        child: AdaptiveButton(
+          child: Container(
+            decoration: BoxDecoration(
+                color: AppColors.primary,
+                borderRadius:
+                    BorderRadius.circular(AppDimensions.defaultRadius)),
+            child: Center(
+              child: Text(
+                S.of(context).signIn,
+                style: TextStyle(
+                  color: AppColors.buttonText,
+                ),
+              ),
+            ),
+            width: AppDimensions.width.button,
+            height: AppDimensions.height.button,
+          ),
+          onPressed: () => bloc.add(
+            SignInWithEmailRequested(),
+          ),
+        ),
       ),
     );
   }

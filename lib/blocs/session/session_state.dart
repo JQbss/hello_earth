@@ -3,39 +3,31 @@ part of 'session_bloc.dart';
 abstract class SessionState extends Equatable {
   const SessionState();
 
-  bool get isSessionActive => (this is SessionActive);
-
-  bool get isParent => (this as SessionActive).isParent;
-
-  bool get isChild => !(this as SessionActive).isParent;
-
   @override
   List<dynamic> get props => [];
 }
 
-class SessionInitial extends SessionState {}
-
-class SessionLoading extends SessionState {
-  const SessionLoading();
+class SessionInitial extends SessionState {
+  const SessionInitial();
 }
 
-class SessionActive extends SessionState {
-  final bool isParent;
-  final bool needsRegistration;
-  final ParentModel? parentModel;
-
-  const SessionActive({
-    required this.isParent,
-    required this.parentModel,
-    required this.needsRegistration,
-  });
+class SessionChildActive extends SessionState {
+  const SessionChildActive();
 
   @override
   List<dynamic> get props => [
         ...super.props,
-        isParent,
-        needsRegistration,
-        parentModel,
+        UniquePropProvider.get(),
+      ];
+}
+
+class SessionParentActive extends SessionState {
+  const SessionParentActive();
+
+  @override
+  List<dynamic> get props => [
+        ...super.props,
+        UniquePropProvider.get(),
       ];
 }
 

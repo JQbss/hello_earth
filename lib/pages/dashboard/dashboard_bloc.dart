@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_earth/blocs/session/session_bloc.dart';
 import 'package:hello_earth/commons/unique_prop_provider.dart';
 import 'package:hello_earth/pages/dashboard/commons/dashboard_tab.dart';
-import 'package:hello_earth/storages/secure_storage.dart';
-import 'package:hello_earth/storages/session_storage.dart';
 
 part 'dashboard_event.dart';
 
@@ -12,12 +10,10 @@ part 'dashboard_state.dart';
 
 class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   final SessionBloc sessionBloc;
-  final SessionStorage sessionStorage;
 
   DashboardBloc({
     required this.sessionBloc,
-  })  : sessionStorage = sessionBloc.sessionStorage,
-        super(const DashboardInitial()) {
+  }) : super(const DashboardInitial()) {
     on<ChangeTabRequested>(_onChangeTabRequested);
     on<CheckSessionRequested>(_onCheckSessionRequested);
   }
@@ -53,8 +49,6 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     );
     try {
       final SessionState sessionState = sessionBloc.state;
-      final bool isChild = await sessionStorage.hasChildToken();
-      final bool isParent = await sessionStorage.hasParentToken();
       // if (sessionState is! SessionActive && !isChild && !isParent){
       //
       // }

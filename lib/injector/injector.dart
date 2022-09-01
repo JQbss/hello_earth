@@ -5,7 +5,6 @@ import 'package:hello_earth/pages/navigators/global_navigator.dart';
 import 'package:hello_earth/repositories/credential/network_credential_repository.dart';
 import 'package:hello_earth/repositories/user/network_user_repository.dart';
 import 'package:hello_earth/storages/secure_storage.dart';
-import 'package:hello_earth/storages/session_storage.dart';
 
 class Injector {
   static final Injector _instance = Injector._();
@@ -58,9 +57,8 @@ class Injector {
 
   void _initStorage() {
     _getIt
-      ..registerFactory(() => SecureStorage())
       ..registerFactory(
-        () => SessionStorage(secureStorage: get<SecureStorage>()),
+        () => SecureStorage(),
       );
   }
 

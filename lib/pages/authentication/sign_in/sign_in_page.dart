@@ -37,7 +37,11 @@ class _SignInPageState extends BlocPageState<SignInPage, SignInBloc> {
   void _onStateChange(
     BuildContext context,
     SignInState state,
-  ) {}
+  ) {
+    if (state is SignInSuccess) {
+      //BlocProvider.of<SessionBloc>(context).add();
+    }
+  }
 
   Widget _buildBody() {
     return SingleChildScrollView(
@@ -83,17 +87,14 @@ class _SignInPageState extends BlocPageState<SignInPage, SignInBloc> {
                           ),
                         ],
                       ),
-                      bloc.isFormEnabled
-                          ? _buildSignInBody()
-                          : _buildSignUpBody(),
+                      bloc.isFormEnabled ? _buildSignInBody() : _buildSignUpBody(),
                     ],
                   ),
                 ),
               ),
             ),
             Expanded(
-              child:
-                  bloc.isFormEnabled ? _buildSignInButton() : SizedBox.shrink(),
+              child: bloc.isFormEnabled ? _buildSignInButton() : SizedBox.shrink(),
             ),
           ],
         ),
@@ -120,9 +121,7 @@ class _SignInPageState extends BlocPageState<SignInPage, SignInBloc> {
         child: AdaptiveButton(
           child: Container(
             decoration: BoxDecoration(
-                color: AppColors.primary,
-                borderRadius:
-                    BorderRadius.circular(AppDimensions.defaultRadius)),
+                color: AppColors.primary, borderRadius: BorderRadius.circular(AppDimensions.defaultRadius)),
             child: Center(
               child: Text(
                 S.of(context).signIn,

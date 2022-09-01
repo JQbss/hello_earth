@@ -2,23 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_earth/blocs/session/session_bloc.dart';
 import 'package:hello_earth/blocs/theme/theme_bloc.dart';
-import 'package:hello_earth/extensions/string_extension.dart';
 import 'package:hello_earth/injector/injector.dart';
 import 'package:hello_earth/pages/app/app_bloc.dart';
 import 'package:hello_earth/pages/app/app_page.dart';
 import 'package:hello_earth/pages/dashboard/dashboard_bloc.dart';
 import 'package:hello_earth/pages/navigators/global_navigator.dart';
+import 'package:hello_earth/repositories/credential/network_credential_repository.dart';
+import 'package:hello_earth/repositories/user/network_user_repository.dart';
 import 'package:hello_earth/routing/app_route_coordinator.dart';
-import 'package:hello_earth/storages/session_storage.dart';
 import 'package:hello_earth/styles/app_colors/app_colors_dark.dart';
 
 class HelloEarthApp extends StatefulWidget {
-  final bool isChild;
-  final bool isParent;
-
   const HelloEarthApp({
-    required this.isChild,
-    required this.isParent,
     super.key,
   });
 
@@ -36,8 +31,8 @@ class _HelloEarthAppState extends State<HelloEarthApp> {
   void initState() {
     super.initState();
     _initAppBloc();
-    _initSessionBloc();
     _initThemeBloc();
+    _initSessionBloc();
     _initDashboardBloc();
   }
 
@@ -60,22 +55,17 @@ class _HelloEarthAppState extends State<HelloEarthApp> {
     );
   }
 
-  void _initSessionBloc() async {
-    final SessionStorage sessionStorage = Injector().get<SessionStorage>();
+  void _initSessionBloc() {
     _sessionBloc = SessionBloc(
-      sessionStorage: Injector().get<SessionStorage>(),
+      credentialRepository: Injector().get<NetworkCredentialRepository>(),
+      userRepository: Injector().get<NetworkUserRepository>(),
     );
-    final bool isChild = await sessionStorage.hasChildToken();
-    final bool isParent = await sessionStorage.hasParentToken();
-    if (!isChild && !isParent) return;
-    _sessionBloc.add(CreateSessionRequested(
-      isChild: isChild,
-      isParent: isParent,
-      token: (isChild ? await sessionStorage.getChildToken() : await sessionStorage.getParentToken()).orEmpty(),
-    ));
+    _sessionBloc.add(
+      SessionStatusRequested(),
+    );
   }
 
-  void _initThemeBloc() async {
+  void _initThemeBloc() {
     _themeBloc = ThemeBloc(
       colors: AppColorsDark(),
       themeName: 'dark',
@@ -90,10 +80,10 @@ class _HelloEarthAppState extends State<HelloEarthApp> {
           create: (_) => _appBloc,
         ),
         BlocProvider(
-          create: (_) => _dashboardBloc,
+          create: (_) => _sessionBloc,
         ),
         BlocProvider(
-          create: (_) => _sessionBloc,
+          create: (_) => _dashboardBloc,
         ),
         BlocProvider(
           create: (_) => _themeBloc,
@@ -109,7 +99,7 @@ class _HelloEarthAppState extends State<HelloEarthApp> {
   }
 
   String _getInitialRoute() {
-    if (widget.isChild || widget.isParent) {
+    if (_sessionBloc.isParent()) {
       return 'dashboard';
     } else {
       return 'authentication/signIn';

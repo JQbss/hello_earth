@@ -16,6 +16,7 @@ class AppRouteCoordinator extends StatefulWidget {
 }
 
 class _AppRouteCoordinatorState extends State<AppRouteCoordinator> {
+  //dodać listenery do głównych bloców takich jaj sesja i stąd sterować routingiem
   @override
   Widget build(BuildContext context) {
     return widget.child;

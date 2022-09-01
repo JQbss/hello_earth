@@ -7,26 +7,6 @@ abstract class SessionEvent extends Equatable {
   List<dynamic> get props => [];
 }
 
-class CreateSessionRequested extends SessionEvent {
-  final bool isChild;
-  final bool isParent;
-  final String token;
-
-  const CreateSessionRequested({
-    required this.isChild,
-    required this.isParent,
-    required this.token,
-  });
-
-  @override
-  List<dynamic> get props => [
-        ...super.props,
-        isChild,
-        isParent,
-        token,
-      ];
-}
-
 class SessionAuthenticationSucceed extends SessionEvent {
   const SessionAuthenticationSucceed();
 }

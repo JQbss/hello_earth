@@ -19,6 +19,11 @@ class NetworkCredentialRepository implements CredentialRepository {
   }
 
   @override
+  User? currentFirebaseUser() {
+    return auth.currentUser;
+  }
+
+  @override
   Future<UserCredential> signInUser(CredentialRequest credentialRequest) async {
     final UserCredential credential = await auth.signInWithEmailAndPassword(
       email: credentialRequest.email,

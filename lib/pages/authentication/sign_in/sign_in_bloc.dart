@@ -43,18 +43,24 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         email: emailTextFieldData.text,
         password: passwordTextFieldData.text,
       );
-      final User? userCredential = (await credentialRepository.signInUser(credentialRequest)).user;
-      if (userCredential == null) {
+      final UserCredential userCredential = await credentialRepository.signInUser(credentialRequest);
+      final User? firebaseUser = userCredential.user;
+      if (firebaseUser == null) {
         return;
       }
       final BaseResponse<UserNetworking> userResponse = await userRepository.me(
-        userId: userCredential.uid,
+        userId: firebaseUser.uid,
       );
       final UserNetworking user = userResponse.data;
-      if (user.role == Role.parent && !userCredential.emailVerified) {
+      if (user.role == Role.parent && !firebaseUser.emailVerified) {
         credentialRepository.signOut();
         return;
       }
+      emit(
+        SignInSuccess(
+          userCredential: userCredential,
+        ),
+      );
     } catch (error) {
       print(error);
     }

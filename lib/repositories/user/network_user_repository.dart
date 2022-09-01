@@ -1,4 +1,6 @@
 
+import 'dart:convert';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:hello_earth/networking/endpoints.dart';
 import 'package:hello_earth/networking/models/base_response.dart';
@@ -25,7 +27,7 @@ class NetworkUserRepository implements UserRepository {
   Future<BaseResponse<UserNetworking>> me({
     required String userId,
   }) async {
-    final DataSnapshot response = await reference.child('${Endpoints.users.user}/$userId').get();
-    return BaseResponse<UserNetworking>.fromJson(response.value as Map<String, dynamic>);
+    final DataSnapshot dataSnapshot = await reference.child('${Endpoints.users.user}/$userId').get();
+    return BaseResponse<UserNetworking>.fromJson(jsonDecode(jsonEncode(dataSnapshot.value)) as Map<String, dynamic>);
   }
 }

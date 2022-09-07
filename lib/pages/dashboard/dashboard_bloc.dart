@@ -15,7 +15,6 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     required this.sessionBloc,
   }) : super(const DashboardInitial()) {
     on<ChangeTabRequested>(_onChangeTabRequested);
-    on<CheckSessionRequested>(_onCheckSessionRequested);
   }
 
   Future<void> _onChangeTabRequested(
@@ -34,33 +33,6 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
           tab: event.tab,
           routeName: event.routeName,
         ),
-      );
-    }
-    return Future.value();
-  }
-
-  Future<void> _onCheckSessionRequested(
-    CheckSessionRequested event,
-    Emitter<DashboardState> emit,
-  ) async {
-    final DashboardState entryState = state;
-    emit(
-      CheckSessionInProgress(entryState),
-    );
-    try {
-      final SessionState sessionState = sessionBloc.state;
-      // if (sessionState is! SessionActive && !isChild && !isParent){
-      //
-      // }
-      emit(
-        DashboardState(
-          tab: entryState.tab,
-        ),
-      );
-      //final SessionState sessionState = sessionB
-    } catch (error) {
-      emit(
-        CheckSessionFailure(state),
       );
     }
     return Future.value();

@@ -23,7 +23,7 @@ class SessionBloc extends Bloc<SessionEvent, SessionState> {
     required this.credentialRepository,
     this.user = null,
     required this.userRepository,
-  }) : super(SessionInactive()) {
+  }) : super(SessionInitial()) {
     on<SessionAuthenticationSucceed>(_onSessionAuthenticationSucceed);
     on<SessionStatusRequested>(_onSessionStatusRequested);
     on<SessionLogOutRequested>(_onSessionLogOutRequested);
@@ -48,6 +48,9 @@ class SessionBloc extends Bloc<SessionEvent, SessionState> {
     SessionStatusRequested event,
     Emitter<SessionState> emit,
   ) async {
+    emit(
+      SessionInitial(),
+    );
     User? firebaseUser = credentialRepository.currentFirebaseUser();
     if (firebaseUser != null) {
       final BaseResponse<UserNetworking> userResponse = await userRepository.me(

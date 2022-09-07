@@ -42,7 +42,7 @@ class SignUpParentBloc extends Bloc<SignUpParentEvent, SignUpParentState> {
       if (user == null) {
         return;
       }
-      user.sendEmailVerification();
+      await user.sendEmailVerification();
       UserRequest userRequest = UserRequest(
         email: emailTextFieldData.text,
         familyId: user.uid,

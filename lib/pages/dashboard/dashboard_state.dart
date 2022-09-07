@@ -23,20 +23,6 @@ class DashboardInitial extends DashboardState {
         );
 }
 
-class CheckSessionFailure extends DashboardState {
-  CheckSessionFailure(DashboardState state)
-      : super(
-          tab: state.tab,
-        );
-}
-
-class CheckSessionInProgress extends DashboardState {
-  CheckSessionInProgress(DashboardState state)
-      : super(
-          tab: state.tab,
-        );
-}
-
 class PopTabToRoot extends DashboardState {
   PopTabToRoot({
     String? routeName,

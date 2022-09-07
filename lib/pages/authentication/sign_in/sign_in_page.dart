@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hello_earth/blocs/session/session_bloc.dart';
 import 'package:hello_earth/blocs/theme/theme_bloc.dart';
 import 'package:hello_earth/generated/l10n.dart';
 import 'package:hello_earth/pages/authentication/sign_in/sign_in_bloc.dart';
@@ -8,6 +9,7 @@ import 'package:hello_earth/pages/bloc_page_state.dart';
 import 'package:hello_earth/routing/authentication_routing.dart';
 import 'package:hello_earth/styles/app_colors/app_colors.dart';
 import 'package:hello_earth/styles/app_dimensions.dart';
+import 'package:hello_earth/utils/navigation_utils.dart';
 import 'package:hello_earth/widgets/adaptive_button.dart';
 
 class SignInPage extends StatefulWidget {
@@ -39,7 +41,10 @@ class _SignInPageState extends BlocPageState<SignInPage, SignInBloc> {
     SignInState state,
   ) {
     if (state is SignInSuccess) {
-      //BlocProvider.of<SessionBloc>(context).add();
+      BlocProvider.of<SessionBloc>(context).add(
+        SessionStatusRequested(),
+      );
+      NavigationUtils.moveToDashboard(context);
     }
   }
 

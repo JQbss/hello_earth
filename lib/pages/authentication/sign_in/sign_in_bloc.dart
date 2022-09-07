@@ -36,8 +36,6 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     SignInWithEmailRequested event,
     Emitter<SignInState> emit,
   ) async {
-    print(emailTextFieldData.text);
-    print(passwordTextFieldData.text);
     try {
       CredentialRequest credentialRequest = CredentialRequest(
         email: emailTextFieldData.text,
@@ -46,6 +44,9 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       final UserCredential userCredential = await credentialRepository.signInUser(credentialRequest);
       final User? firebaseUser = userCredential.user;
       if (firebaseUser == null) {
+        emit(
+          SignInFailure(),
+        );
         return;
       }
       final BaseResponse<UserNetworking> userResponse = await userRepository.me(
@@ -54,14 +55,18 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       final UserNetworking user = userResponse.data;
       if (user.role == Role.parent && !firebaseUser.emailVerified) {
         credentialRepository.signOut();
+        emit(
+          SignInFailure(),
+        );
         return;
       }
       emit(
-        SignInSuccess(
-          userCredential: userCredential,
-        ),
+        SignInSuccess(),
       );
     } catch (error) {
+      emit(
+        SignInFailure(),
+      );
       print(error);
     }
   }

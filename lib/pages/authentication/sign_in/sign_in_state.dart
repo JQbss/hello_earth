@@ -7,22 +7,16 @@ abstract class SignInState extends Equatable {
   List<dynamic> get props => [];
 }
 
+class SignInFailure extends SignInState {
+  const SignInFailure();
+}
+
 class SignInInitial extends SignInState {
   const SignInInitial();
 }
 
 class SignInSuccess extends SignInState {
-  final UserCredential userCredential;
-
-  const SignInSuccess({
-    required this.userCredential,
-  });
-
-  @override
-  List<dynamic> get props => [
-        ...super.props,
-        userCredential,
-      ];
+  const SignInSuccess();
 }
 
 class SignInViewChanged extends SignInState {

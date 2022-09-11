@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_earth/blocs/theme/theme_bloc.dart';
-import 'package:hello_earth/pages/parent/homeParent/home_parent_bloc.dart';
-import 'package:hello_earth/pages/parent/homeParent/home_parent_page.dart';
+import 'package:hello_earth/pages/parent/configuration_parent/configuration_parent_page.dart';
 import 'package:hello_earth/routing/routing.dart';
 
-class HomeParentRouting {
-  static const String _prefix = 'homeParent';
-  static const String home = _prefix;
+class ConfigurationRouting {
+  static const String _prefix = 'configuration';
+  static const String parent = '$_prefix/parent';
 
-  const HomeParentRouting._();
+  const ConfigurationRouting._();
 
   static bool canHandleRoute(String? routeName) => Routing.canHandleRoute(routeName, _prefix);
 
@@ -17,20 +16,16 @@ class HomeParentRouting {
     final String? routeName = settings.name;
     final Widget child;
     switch (routeName) {
-      case home:
+      case parent:
         child = BlocBuilder<ThemeBloc, ThemeState>(
           builder: (_, __) {
-            return BlocProvider<HomeParentBloc>(
-              create: (_) => HomeParentBloc(),
-              child: HomeParentPage(),
-            );
+            return ConfigurationParentPage();
           },
         );
         break;
       default:
         return null;
     }
-
     return Routing.buildRoute(
       child: child,
       fullscreenDialog: false,

@@ -1,11 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'parent.dart';
+part of 'family.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Parent _$ParentFromJson(Map<String, dynamic> json) => Parent(
-      uid: json['uid'] as String,
+Family _$FamilyFromJson(Map<String, dynamic> json) => Family(
+      child: Child.fromJson(json['child'] as Map<String, dynamic>),
+      parent: Parent.fromJson(json['parent'] as Map<String, dynamic>),
     );

@@ -23,14 +23,24 @@ class DashboardInitial extends DashboardState {
         );
 }
 
+class DashboardSessionUpdated extends DashboardState {
+  DashboardSessionUpdated()
+      : super(
+          tab: DashboardTab.home,
+        );
+
+  @override
+  List<dynamic> get props => [
+        ...super.props,
+        UniquePropProvider.get(),
+      ];
+}
+
 class PopTabToRoot extends DashboardState {
   PopTabToRoot({
-    String? routeName,
-    required DashboardTab tab,
-  }) : super(
-          tab: tab,
-          routeName: routeName,
-        );
+    super.routeName,
+    required super.tab,
+  });
 
   @override
   List<dynamic> get props => [

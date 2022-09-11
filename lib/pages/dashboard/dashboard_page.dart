@@ -56,6 +56,12 @@ class _DashboardPageState extends BlocPageState<DashboardPage, DashboardBloc> {
       child: BlocConsumer<DashboardBloc, DashboardState>(
         bloc: bloc,
         builder: (_, state) {
+          final SessionState sessionState = BlocProvider.of<SessionBloc>(context).state;
+          if (sessionState is SessionInitial) {
+            return Scaffold(
+              body: CircularProgressIndicator(),
+            );
+          }
           return Scaffold(
             body: _buildBody(state),
             bottomNavigationBar: _buildBottomNavigationBar(
@@ -82,6 +88,9 @@ class _DashboardPageState extends BlocPageState<DashboardPage, DashboardBloc> {
           BlocProvider.of<UserDataBloc>(context).add(
             UserDataGetProfileRequested(),
           );
+          bloc.add(
+            ChangeSessionRequested(),
+          );
         } else if (state is SessionInactive) {
           NavigationUtils.moveToAuthentication(context);
         }
@@ -92,6 +101,9 @@ class _DashboardPageState extends BlocPageState<DashboardPage, DashboardBloc> {
   Widget _buildBody(DashboardState state) {
     Widget child;
     final SessionBloc sessionBloc = BlocProvider.of<SessionBloc>(context);
+    if (sessionBloc.state is SessionInitial) {
+      return CircularProgressIndicator();
+    }
     child = sessionBloc.isParent() ? _buildParentPages(state) : _buildPlayerPages(state);
     return child;
   }

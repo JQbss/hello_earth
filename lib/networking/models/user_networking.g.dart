@@ -9,6 +9,7 @@ part of 'user_networking.dart';
 UserNetworking _$UserNetworkingFromJson(Map<String, dynamic> json) =>
     UserNetworking(
       email: json['email'] as String?,
+      familyId: json['familyId'] as String?,
       uid: json['uid'] as String?,
       userName: json['userName'] as String?,
       role: $enumDecodeNullable(_$RoleEnumMap, json['role']),

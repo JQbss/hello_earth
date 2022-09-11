@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hello_earth/pages/parent/homeParent/home_parent_page.dart';
+import 'package:hello_earth/pages/player/home_player/home_player_page.dart';
 import 'package:hello_earth/routing/routing.dart';
 
 class HomePlayerRouting {
@@ -10,7 +10,7 @@ class HomePlayerRouting {
 
   static Route? getMainRoute(RouteSettings settings) {
     return Routing.buildRoute(
-      child: HomeParentPage(),
+      child: HomePlayerPage(),
       fullscreenDialog: false,
       settings: settings,
     );

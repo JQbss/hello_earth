@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hello_earth/blocs/configuration/configuration_bloc.dart';
 import 'package:hello_earth/commons/unique_prop_provider.dart';
 import 'package:hello_earth/networking/models/base_response.dart';
 import 'package:hello_earth/networking/models/role.dart';
@@ -15,11 +16,13 @@ part 'session_event.dart';
 part 'session_state.dart';
 
 class SessionBloc extends Bloc<SessionEvent, SessionState> {
+  final ConfigurationBloc configurationBloc;
   final CredentialRepository credentialRepository;
   UserNetworking? user;
   final UserRepository userRepository;
 
   SessionBloc({
+    required this.configurationBloc,
     required this.credentialRepository,
     this.user = null,
     required this.userRepository,
@@ -62,6 +65,11 @@ class SessionBloc extends Bloc<SessionEvent, SessionState> {
           SessionChildActive(),
         );
       } else {
+        configurationBloc.add(
+          ConfigurationCheckParentRequested(
+            parentUid: user?.familyId ?? '',
+          ),
+        );
         emit(
           SessionParentActive(),
         );

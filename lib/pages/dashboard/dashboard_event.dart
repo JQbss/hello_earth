@@ -7,6 +7,10 @@ abstract class DashboardEvent extends Equatable {
   List<dynamic> get props => [];
 }
 
+class ChangeSessionRequested extends DashboardEvent {
+  const ChangeSessionRequested();
+}
+
 class ChangeTabRequested extends DashboardEvent {
   final String? routeName;
   final DashboardTab tab;

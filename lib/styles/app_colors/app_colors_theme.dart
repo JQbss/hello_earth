@@ -6,6 +6,7 @@ abstract class AppColorsTheme {
   final Color error;
   final Color secondary;
   final Color buttonText;
+  final Color textFieldBg;
 
   const AppColorsTheme({
     required this.appBackground,
@@ -13,5 +14,6 @@ abstract class AppColorsTheme {
     required this.primary,
     required this.secondary,
     required this.buttonText,
+    required this.textFieldBg,
   });
 }

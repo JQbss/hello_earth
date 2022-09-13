@@ -21,6 +21,8 @@ class AppColors {
 
   static Color get buttonText => colors.buttonText;
 
+  static Color get textFieldBg => colors.textFieldBg;
+
   static AppColorsTheme _initColors() {
     final BuildContext? context =
         Injector().get<GlobalNavigator>().currentContext;

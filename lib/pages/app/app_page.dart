@@ -7,6 +7,7 @@ import 'package:hello_earth/pages/app/app_bloc.dart';
 import 'package:hello_earth/pages/bloc_page_state.dart';
 import 'package:hello_earth/pages/navigators/global_navigator.dart';
 import 'package:hello_earth/routing/routing.dart';
+import 'package:hello_earth/styles/app_colors/app_colors.dart';
 
 class AppPage extends StatefulWidget {
   final String initialRoute;

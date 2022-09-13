@@ -15,7 +15,8 @@ class SignUpParentPage extends StatefulWidget {
   State<SignUpParentPage> createState() => _SignUpParentPageState();
 }
 
-class _SignUpParentPageState extends BlocPageState<SignUpParentPage, SignUpParentBloc> {
+class _SignUpParentPageState
+    extends BlocPageState<SignUpParentPage, SignUpParentBloc> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SignUpParentBloc, SignUpParentState>(
@@ -40,9 +41,21 @@ class _SignUpParentPageState extends BlocPageState<SignUpParentPage, SignUpParen
   Widget _buildBody() {
     return Column(
       children: [
-        DataTextField(bloc.nameTextFieldData),
-        DataTextField(bloc.emailTextFieldData),
-        DataTextField(bloc.passwordTextFieldData),
+        DataTextField(
+          bloc.nameTextFieldData,
+          labelText: S.of(context).textFieldLoginLabel,
+          hintText: S.of(context).textFieldLoginHint,
+        ),
+        DataTextField(
+          bloc.emailTextFieldData,
+          labelText: S.of(context).textFieldEmailLabel,
+          hintText: S.of(context).textFieldEmailHint,
+        ),
+        DataTextField(
+          bloc.passwordTextFieldData,
+          labelText: S.of(context).textFieldPasswordLabel,
+          hintText: S.of(context).textFieldPasswordHint,
+        ),
         _buildSignUpParent(),
       ],
     );

@@ -9,5 +9,6 @@ class AppColorsDark extends AppColorsTheme {
           primary: Color(0xFF7F1F55),
           secondary: Color(0xFFA4AD40),
           buttonText: Colors.white,
+          textFieldBg: Colors.white,
         );
 }

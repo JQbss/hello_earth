@@ -109,6 +109,66 @@ class S {
       args: [],
     );
   }
+
+  /// `E-mail`
+  String get textFieldEmailLabel {
+    return Intl.message(
+      'E-mail',
+      name: 'textFieldEmailLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wpisz adres e-mail`
+  String get textFieldEmailHint {
+    return Intl.message(
+      'Wpisz adres e-mail',
+      name: 'textFieldEmailHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hasło`
+  String get textFieldPasswordLabel {
+    return Intl.message(
+      'Hasło',
+      name: 'textFieldPasswordLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Podaj Hasło`
+  String get textFieldPasswordHint {
+    return Intl.message(
+      'Podaj Hasło',
+      name: 'textFieldPasswordHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login`
+  String get textFieldLoginLabel {
+    return Intl.message(
+      'Login',
+      name: 'textFieldLoginLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wpisz login`
+  String get textFieldLoginHint {
+    return Intl.message(
+      'Wpisz login',
+      name: 'textFieldLoginHint',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -31,6 +31,7 @@ class _SignInPageState extends BlocPageState<SignInPage, SignInBloc> {
         listener: _onStateChange,
         builder: (_, state) {
           return Scaffold(
+            backgroundColor: AppColors.appBackground,
             body: _buildBody(),
           );
         });
@@ -63,43 +64,21 @@ class _SignInPageState extends BlocPageState<SignInPage, SignInBloc> {
                 child: Container(
                   child: Column(
                     children: [
-                      Row(
-                        children: [
-                          AdaptiveButton(
-                            child: Container(
-                              child: Text(S.of(context).logIn),
-                              color: AppColors.primary,
-                            ),
-                            onPressed: () => {
-                              bloc.add(
-                                SignInViewChangeRequested(
-                                  isFormEnabled: true,
-                                ),
-                              ),
-                            },
-                          ),
-                          AdaptiveButton(
-                            child: Container(
-                              child: Text(S.of(context).registration),
-                            ),
-                            onPressed: () => {
-                              bloc.add(
-                                SignInViewChangeRequested(
-                                  isFormEnabled: false,
-                                ),
-                              ),
-                            },
-                          ),
-                        ],
+                      _buildToggleButton(),
+                      const SizedBox(
+                        height: 20,
                       ),
-                      bloc.isFormEnabled ? _buildSignInBody() : _buildSignUpBody(),
+                      bloc.isFormEnabled
+                          ? _buildSignInBody()
+                          : _buildSignUpBody(),
                     ],
                   ),
                 ),
               ),
             ),
             Expanded(
-              child: bloc.isFormEnabled ? _buildSignInButton() : SizedBox.shrink(),
+              child:
+                  bloc.isFormEnabled ? _buildSignInButton() : SizedBox.shrink(),
             ),
           ],
         ),
@@ -126,7 +105,9 @@ class _SignInPageState extends BlocPageState<SignInPage, SignInBloc> {
         child: AdaptiveButton(
           child: Container(
             decoration: BoxDecoration(
-                color: AppColors.primary, borderRadius: BorderRadius.circular(AppDimensions.defaultRadius)),
+                color: AppColors.primary,
+                borderRadius:
+                    BorderRadius.circular(AppDimensions.defaultRadius)),
             child: Center(
               child: Text(
                 S.of(context).signIn,
@@ -170,6 +151,46 @@ class _SignInPageState extends BlocPageState<SignInPage, SignInBloc> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildToggleButton() {
+    return Container(
+      color: Colors.pink,
+      alignment: Alignment.center,
+      child: Row(
+        children: [
+          Expanded(
+            child: AdaptiveButton(
+              child: Container(
+                child: Text(S.of(context).logIn),
+                color: AppColors.primary,
+              ),
+              onPressed: () => {
+                bloc.add(
+                  SignInViewChangeRequested(
+                    isFormEnabled: true,
+                  ),
+                ),
+              },
+            ),
+          ),
+          Expanded(
+            child: AdaptiveButton(
+              child: Container(
+                child: Text(S.of(context).registration),
+              ),
+              onPressed: () => {
+                bloc.add(
+                  SignInViewChangeRequested(
+                    isFormEnabled: false,
+                  ),
+                ),
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

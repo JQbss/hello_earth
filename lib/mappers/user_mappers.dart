@@ -6,6 +6,7 @@ extension UserMapper on UserNetworking {
   UserModel mapToUserModel() {
     return UserModel(
       email: email,
+      familyId: familyId,
       uid: uid,
       userName: userName,
       role: role?.mapToRoleModel(),

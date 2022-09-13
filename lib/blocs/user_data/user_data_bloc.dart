@@ -44,7 +44,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     try {
       emit(
         UserDataGetUserSuccess(
-          user: userModel,
+          profile: userModel,
         ),
       );
     } catch (error) {

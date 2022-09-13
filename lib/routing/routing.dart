@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hello_earth/pages/dashboard/dashboard_page.dart';
 import 'package:hello_earth/routing/authentication_routing.dart';
+import 'package:hello_earth/routing/configuration_routing.dart';
+import 'package:hello_earth/routing/dashboard_tabs/parent/home_parent_routing.dart';
 
 class Routing {
   static const String dashboard = 'dashboard';
@@ -12,6 +14,10 @@ class Routing {
 
     if (AuthenticationRouting.canHandleRoute(routeName)) {
       return AuthenticationRouting.getMainRoute(settings);
+    } else if (HomeParentRouting.canHandleRoute(routeName)) {
+      return HomeParentRouting.getMainRoute(settings);
+    } else if (ConfigurationRouting.canHandleRoute(routeName)) {
+      return ConfigurationRouting.getMainRoute(settings);
     }
 
     final Widget child;

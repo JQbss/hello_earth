@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hello_earth/blocs/configuration/configuration_bloc.dart';
 import 'package:hello_earth/blocs/session/session_bloc.dart';
 import 'package:hello_earth/blocs/theme/theme_bloc.dart';
 import 'package:hello_earth/blocs/user_data/user_data_bloc.dart';
@@ -9,6 +10,7 @@ import 'package:hello_earth/pages/app/app_page.dart';
 import 'package:hello_earth/pages/dashboard/dashboard_bloc.dart';
 import 'package:hello_earth/pages/navigators/global_navigator.dart';
 import 'package:hello_earth/repositories/credential/network_credential_repository.dart';
+import 'package:hello_earth/repositories/family/natwork_family_repository.dart';
 import 'package:hello_earth/repositories/user/network_user_repository.dart';
 import 'package:hello_earth/routing/app_route_coordinator.dart';
 import 'package:hello_earth/routing/routing.dart';
@@ -25,6 +27,7 @@ class HelloEarthApp extends StatefulWidget {
 
 class _HelloEarthAppState extends State<HelloEarthApp> {
   late final AppBloc _appBloc;
+  late final ConfigurationBloc _configurationBloc;
   late final DashboardBloc _dashboardBloc;
   late final SessionBloc _sessionBloc;
   late final ThemeBloc _themeBloc;
@@ -34,6 +37,7 @@ class _HelloEarthAppState extends State<HelloEarthApp> {
   void initState() {
     super.initState();
     _initAppBloc();
+    _initConfigurationBloc();
     _initThemeBloc();
     _initSessionBloc();
     _initDashboardBloc();
@@ -43,6 +47,7 @@ class _HelloEarthAppState extends State<HelloEarthApp> {
   @override
   void dispose() {
     _appBloc.close();
+    _configurationBloc.close();
     _dashboardBloc.close();
     _sessionBloc.close();
     _themeBloc.close();
@@ -54,6 +59,12 @@ class _HelloEarthAppState extends State<HelloEarthApp> {
     _appBloc = AppBloc();
   }
 
+  void _initConfigurationBloc() {
+    _configurationBloc = ConfigurationBloc(
+      familyRepository: Injector().get<NetworkFamilyRepository>(),
+    );
+  }
+
   void _initDashboardBloc() {
     _dashboardBloc = DashboardBloc(
       sessionBloc: _sessionBloc,
@@ -62,6 +73,7 @@ class _HelloEarthAppState extends State<HelloEarthApp> {
 
   void _initSessionBloc() {
     _sessionBloc = SessionBloc(
+      configurationBloc: _configurationBloc,
       credentialRepository: Injector().get<NetworkCredentialRepository>(),
       userRepository: Injector().get<NetworkUserRepository>(),
     );
@@ -90,6 +102,9 @@ class _HelloEarthAppState extends State<HelloEarthApp> {
       providers: [
         BlocProvider(
           create: (_) => _appBloc,
+        ),
+        BlocProvider(
+          create: (_) => _configurationBloc,
         ),
         BlocProvider(
           create: (_) => _sessionBloc,

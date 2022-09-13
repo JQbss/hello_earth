@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hello_earth/routing/authentication_routing.dart';
+import 'package:hello_earth/routing/configuration_routing.dart';
 import 'package:hello_earth/routing/routing.dart';
 
 class NavigationUtils {
@@ -11,6 +12,15 @@ class NavigationUtils {
       rootNavigator: true,
     ).pushReplacementNamed(
       AuthenticationRouting.signIn,
+    );
+  }
+
+  static void moveToConfigurationParent(BuildContext context) {
+    Navigator.of(
+      context,
+      rootNavigator: true,
+    ).pushReplacementNamed(
+      ConfigurationRouting.parent,
     );
   }
 

@@ -1,24 +1,32 @@
 part of 'user_data_bloc.dart';
 
 abstract class UserDataState extends Equatable {
-  const UserDataState();
+  final UserModel? profile;
+
+  const UserDataState({
+    required this.profile,
+  });
 
   @override
-  List<Object> get props => [];
+  List<dynamic> get props => [
+        profile,
+      ];
 }
 
 class UserDataInitial extends UserDataState {
-  const UserDataInitial();
+  const UserDataInitial({
+    super.profile = null,
+  });
 }
 
 class UserDataGetUserSuccess extends UserDataState {
-  final UserModel user;
-
   const UserDataGetUserSuccess({
-    required this.user,
+    required super.profile,
   });
 }
 
 class UserDataGetUserFailure extends UserDataState {
-  const UserDataGetUserFailure();
+  const UserDataGetUserFailure({
+    super.profile = null,
+  });
 }

@@ -10,12 +10,14 @@ part 'user_networking.g.dart';
 class UserNetworking {
   static const FromJsonFactory<UserNetworking> fromJsonFactory = _$UserNetworkingFromJson;
   final String? email;
+  final String? familyId;
   final String? uid;
   final String? userName;
   final Role? role;
 
   const UserNetworking({
     required this.email,
+    required this.familyId,
     required this.uid,
     required this.userName,
     required this.role,

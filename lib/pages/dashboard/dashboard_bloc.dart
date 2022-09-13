@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_earth/blocs/session/session_bloc.dart';
@@ -15,6 +17,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     required this.sessionBloc,
   }) : super(const DashboardInitial()) {
     on<ChangeTabRequested>(_onChangeTabRequested);
+    on<ChangeSessionRequested>(_onChangeSessionRequested);
   }
 
   Future<void> _onChangeTabRequested(
@@ -36,5 +39,14 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       );
     }
     return Future.value();
+  }
+
+  Future<void> _onChangeSessionRequested(
+    ChangeSessionRequested event,
+    Emitter<DashboardState> emit,
+  ) async {
+    emit(
+      DashboardSessionUpdated(),
+    );
   }
 }

@@ -7,16 +7,14 @@ part of 'child.dart';
 // **************************************************************************
 
 Child _$ChildFromJson(Map<String, dynamic> json) => Child(
-      email: json['email'] as String?,
       familyId: json['familyId'] as String?,
       isQuestionnaireCompleted: json['isQuestionnaireCompleted'] as bool?,
-      uid: json['uid'] as String?,
-      userName: json['userName'] as String?,
       questionnaire: json['questionnaire'] == null
           ? null
           : Questionnaire.fromJson(
               json['questionnaire'] as Map<String, dynamic>),
       role: $enumDecode(_$RoleEnumMap, json['role']),
+      uid: json['uid'] as String,
     );
 
 const _$RoleEnumMap = {

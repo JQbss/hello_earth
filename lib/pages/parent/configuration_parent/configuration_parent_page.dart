@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_earth/blocs/configuration/configuration_bloc.dart';
+import 'package:hello_earth/blocs/user_data/user_data_bloc.dart';
 import 'package:hello_earth/pages/bloc_page_state.dart';
+import 'package:hello_earth/ui/models/user_model.dart';
+import 'package:hello_earth/widgets/adaptive_button.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class ConfigurationParentPage extends StatefulWidget {
   const ConfigurationParentPage({
@@ -33,12 +37,41 @@ class _ConfigurationParentPageState extends BlocPageState<ConfigurationParentPag
   }
 
   Widget _buildCreateFamilyBody() {
-    return Container(
-      child: Text('Utworzenie rodziny'),
+    final UserModel? userModel = BlocProvider.of<UserDataBloc>(context).state.profile;
+    return Center(
+      child: AdaptiveButton(
+        child: Text('Utworzenie rodziny'),
+        onPressed: () => {
+          bloc.add(
+            ConfigurationCreateFamilyRequested(
+              parent: userModel,
+            ),
+          )
+        },
+      ),
     );
   }
 
   Widget _buildQRCodeBody() {
-    return Container();
+    final UserModel? userModel = BlocProvider.of<UserDataBloc>(context).state.profile;
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 150,
+            child: QrImage(
+              data: userModel?.familyId ?? '',
+            ),
+          ),
+          AdaptiveButton(
+            child: Text(
+              'Odśwież',
+            ),
+            onPressed: () => {},
+          ),
+        ],
+      ),
+    );
   }
 }

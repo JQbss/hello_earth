@@ -15,6 +15,14 @@ class ConfigurationFamilyCreateNeeded extends ConfigurationState {
   const ConfigurationFamilyCreateNeeded();
 }
 
+class ConfigurationUserCreateNeeded extends ConfigurationState {
+  const ConfigurationUserCreateNeeded();
+}
+
 class ConfigurationCompleted extends ConfigurationState {
   const ConfigurationCompleted();
+}
+
+class QuestionnaireCompleteNeeded extends ConfigurationState {
+  const QuestionnaireCompleteNeeded();
 }

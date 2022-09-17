@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:firebase_database/firebase_database.dart';
@@ -28,6 +27,10 @@ class NetworkUserRepository implements UserRepository {
     required String userId,
   }) async {
     final DataSnapshot dataSnapshot = await reference.child('${Endpoints.users.user}/$userId').get();
-    return BaseResponse<UserNetworking>.fromJson(jsonDecode(jsonEncode(dataSnapshot.value)) as Map<String, dynamic>);
+    final Map<String, dynamic> json = {
+      ...(jsonDecode(jsonEncode(dataSnapshot.value)) as Map<String, dynamic>),
+      'uid': dataSnapshot.key,
+    };
+    return BaseResponse<UserNetworking>.fromJson(json);
   }
 }

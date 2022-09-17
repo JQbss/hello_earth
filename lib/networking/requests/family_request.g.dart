@@ -8,5 +8,5 @@ part of 'family_request.dart';
 
 Map<String, dynamic> _$FamilyRequestToJson(FamilyRequest instance) =>
     <String, dynamic>{
-      'parent': instance.parent,
+      'parent': instance.parent.toJson(),
     };

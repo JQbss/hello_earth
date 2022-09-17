@@ -4,6 +4,7 @@ part 'parent_request.g.dart';
 
 @JsonSerializable(
   createFactory: false,
+  explicitToJson: true,
 )
 class ParentRequest {
   final String uid;

@@ -11,4 +11,6 @@ class _Users {
 
 class _Families {
   final String families = 'families';
+  final String parent = 'parent';
+  final String player = 'player';
 }

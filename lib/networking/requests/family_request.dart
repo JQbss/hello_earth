@@ -5,6 +5,7 @@ part 'family_request.g.dart';
 
 @JsonSerializable(
   createFactory: false,
+  explicitToJson: true,
 )
 class FamilyRequest {
   final ParentRequest parent;

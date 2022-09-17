@@ -29,6 +29,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Rejestracja gracza"),
         "registration": MessageLookupByLibrary.simpleMessage("Rejestracja"),
         "signIn": MessageLookupByLibrary.simpleMessage("Zaloguj się"),
-        "signUp": MessageLookupByLibrary.simpleMessage("Zarejestruj się")
+        "signUp": MessageLookupByLibrary.simpleMessage("Zarejestruj się"),
+        "textFieldEmailHint":
+            MessageLookupByLibrary.simpleMessage("Wpisz adres e-mail"),
+        "textFieldEmailLabel": MessageLookupByLibrary.simpleMessage("E-mail"),
+        "textFieldLoginHint":
+            MessageLookupByLibrary.simpleMessage("Wpisz login"),
+        "textFieldLoginLabel": MessageLookupByLibrary.simpleMessage("Login"),
+        "textFieldPasswordHint":
+            MessageLookupByLibrary.simpleMessage("Podaj Hasło"),
+        "textFieldPasswordLabel": MessageLookupByLibrary.simpleMessage("Hasło")
       };
 }

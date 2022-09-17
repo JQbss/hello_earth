@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hello_earth/commons/text_field_data.dart';
+import 'package:hello_earth/generated/l10n.dart';
 import 'package:hello_earth/widgets/data_text_field.dart';
 
 class SignInBody extends StatelessWidget {
@@ -17,16 +18,28 @@ class SignInBody extends StatelessWidget {
     return Column(
       children: [
         _buildEmailTextField(context),
+        const SizedBox(
+          height: 40,
+        ),
         _buildPasswordTextField(context),
       ],
     );
   }
 
   Widget _buildEmailTextField(BuildContext context) {
-    return DataTextField(emailTextFieldData);
+    return DataTextField(
+      emailTextFieldData,
+      labelText: S.of(context).textFieldEmailLabel,
+      hintText: S.of(context).textFieldEmailHint,
+    );
   }
 
   Widget _buildPasswordTextField(BuildContext context) {
-    return DataTextField(passwordTextFieldData);
+    return DataTextField(
+      passwordTextFieldData,
+      labelText: S.of(context).textFieldPasswordLabel,
+      hintText: S.of(context).textFieldPasswordHint,
+      obscureText: true,
+    );
   }
 }

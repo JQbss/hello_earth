@@ -4,5 +4,11 @@
   "registration": "Rejestracja",
   "logIn": "Logowanie",
   "playerRegistration": "Rejestracja gracza",
-  "parentRegistration": "Rejestracja rodzica"
+  "parentRegistration": "Rejestracja rodzica",
+  "textFieldEmailLabel": "E-mail",
+  "textFieldEmailHint": "Wpisz adres e-mail",
+  "textFieldPasswordLabel": "Hasło",
+  "textFieldPasswordHint": "Podaj Hasło",
+  "textFieldLoginLabel": "Login",
+  "textFieldLoginHint": "Wpisz login"
 }

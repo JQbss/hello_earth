@@ -5,6 +5,7 @@ import 'package:hello_earth/pages/authentication/sign_up/sign_up_child/sign_up_c
 import 'package:hello_earth/pages/bloc_page_state.dart';
 import 'package:hello_earth/widgets/adaptive_button.dart';
 import 'package:hello_earth/widgets/data_text_field.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class SignUpChildPage extends StatefulWidget {
   const SignUpChildPage({
@@ -15,8 +16,9 @@ class SignUpChildPage extends StatefulWidget {
   State<SignUpChildPage> createState() => _SignUpChildPageState();
 }
 
-class _SignUpChildPageState
-    extends BlocPageState<SignUpChildPage, SignUpChildBloc> {
+class _SignUpChildPageState extends BlocPageState<SignUpChildPage, SignUpChildBloc> {
+  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SignUpChildBloc, SignUpChildState>(
@@ -29,6 +31,9 @@ class _SignUpChildPageState
   }
 
   Widget _buildBody() {
+    if (bloc.state is! QrCodeScanCompleted) {
+      return _buildQrScanner();
+    }
     return Column(
       children: [
         DataTextField(
@@ -61,4 +66,12 @@ class _SignUpChildPageState
       onPressed: () => {},
     );
   }
+
+  Widget _buildQrScanner() {
+    return QRView(
+      key: qrKey,
+      onQRViewCreated: bloc.onQRViewCreated,
+    );
+  }
+
 }

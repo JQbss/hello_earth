@@ -40,7 +40,7 @@ class ConfigurationBloc extends Bloc<ConfigurationEvent, ConfigurationState> {
     );
     if (!isPlayerExists) {
       emit(
-        ConfigurationUserCreateNeeded(),
+        ConfigurationPlayerCreateNeeded(),
       );
       return;
     }
@@ -69,7 +69,7 @@ class ConfigurationBloc extends Bloc<ConfigurationEvent, ConfigurationState> {
         uid: parentUid,
       );
       emit(
-        ConfigurationUserCreateNeeded(),
+        ConfigurationPlayerCreateNeeded(),
       );
     } catch (error) {
       print(error);
@@ -86,7 +86,7 @@ class ConfigurationBloc extends Bloc<ConfigurationEvent, ConfigurationState> {
     );
     if (!isPlayerExists) {
       emit(
-        ConfigurationUserCreateNeeded(),
+        ConfigurationPlayerCreateNeeded(),
       );
     } else {
       emit(

@@ -15,8 +15,8 @@ class ConfigurationFamilyCreateNeeded extends ConfigurationState {
   const ConfigurationFamilyCreateNeeded();
 }
 
-class ConfigurationUserCreateNeeded extends ConfigurationState {
-  const ConfigurationUserCreateNeeded();
+class ConfigurationPlayerCreateNeeded extends ConfigurationState {
+  const ConfigurationPlayerCreateNeeded();
 }
 
 class ConfigurationCompleted extends ConfigurationState {

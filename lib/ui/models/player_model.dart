@@ -1,13 +1,11 @@
 import 'package:hello_earth/ui/models/questionnaire_model.dart';
 
-class ChildModel {
-  final String? familyId;
+class PlayerModel {
   final bool? isQuestionnaireCompleted;
   final QuestionnaireModel? questionnaire;
-  final String uid;
+  final String? uid;
 
-  ChildModel({
-    required this.familyId,
+  PlayerModel({
     required this.isQuestionnaireCompleted,
     required this.questionnaire,
     required this.uid,

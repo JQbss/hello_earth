@@ -10,6 +10,10 @@ class SignUpChildInitial extends SignUpChildState {
   const SignUpChildInitial();
 }
 
+class SignUpChildSuccess extends SignUpChildState {
+  const SignUpChildSuccess();
+}
+
 class QrCodeScanCompleted extends SignUpChildState {
   const QrCodeScanCompleted();
 }

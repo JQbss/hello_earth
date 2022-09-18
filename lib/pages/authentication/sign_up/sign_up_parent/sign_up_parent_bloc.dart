@@ -53,7 +53,7 @@ class SignUpParentBloc extends Bloc<SignUpParentEvent, SignUpParentState> {
         user: userRequest,
         userId: user.uid,
       );
-      credentialRepository.signOut();
+      await credentialRepository.signOut();
       emit(
         SignUpParentSuccess(),
       );

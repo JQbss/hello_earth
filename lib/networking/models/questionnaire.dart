@@ -6,6 +6,7 @@ part 'questionnaire.g.dart';
 
 @JsonSerializable(
   createToJson: false,
+  explicitToJson: true,
 )
 class Questionnaire {
   static const FromJsonFactory<Questionnaire> fromJsonFactory = _$QuestionnaireFromJson;

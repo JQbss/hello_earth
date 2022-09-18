@@ -7,6 +7,6 @@ part of 'family.dart';
 // **************************************************************************
 
 Family _$FamilyFromJson(Map<String, dynamic> json) => Family(
-      child: Child.fromJson(json['child'] as Map<String, dynamic>),
       parent: Parent.fromJson(json['parent'] as Map<String, dynamic>),
+      player: Player.fromJson(json['player'] as Map<String, dynamic>),
     );

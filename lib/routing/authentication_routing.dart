@@ -9,6 +9,7 @@ import 'package:hello_earth/pages/authentication/sign_up/sign_up_child/sign_up_c
 import 'package:hello_earth/pages/authentication/sign_up/sign_up_parent/sign_up_parent_bloc.dart';
 import 'package:hello_earth/pages/authentication/sign_up/sign_up_parent/sign_up_parent_page.dart';
 import 'package:hello_earth/repositories/credential/network_credential_repository.dart';
+import 'package:hello_earth/repositories/family/natwork_family_repository.dart';
 import 'package:hello_earth/repositories/user/network_user_repository.dart';
 import 'package:hello_earth/routing/routing.dart';
 
@@ -44,7 +45,11 @@ class AuthenticationRouting {
         child = BlocBuilder<ThemeBloc, ThemeState>(
           builder: (_, __) {
             return BlocProvider<SignUpChildBloc>(
-              create: (_) => SignUpChildBloc(),
+              create: (_) => SignUpChildBloc(
+                credentialRepository: Injector().get<NetworkCredentialRepository>(),
+                familyRepository: Injector().get<NetworkFamilyRepository>(),
+                userRepository: Injector().get<NetworkUserRepository>(),
+              ),
               child: SignUpChildPage(),
             );
           },

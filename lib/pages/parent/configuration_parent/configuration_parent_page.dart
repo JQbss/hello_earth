@@ -31,8 +31,10 @@ class _ConfigurationParentPageState extends BlocPageState<ConfigurationParentPag
   Widget _buildBody() {
     if (bloc.state is ConfigurationFamilyCreateNeeded) {
       return _buildCreateFamilyBody();
-    } else {
+    } else if (bloc.state is ConfigurationPlayerCreateNeeded) {
       return _buildQRCodeBody();
+    } else {
+      return _buildQuestionnaireBody();
     }
   }
 
@@ -71,6 +73,14 @@ class _ConfigurationParentPageState extends BlocPageState<ConfigurationParentPag
             onPressed: () => {},
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildQuestionnaireBody() {
+    return Center(
+      child: Text(
+        'Kwestionariusz',
       ),
     );
   }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hello_earth/blocs/session/session_bloc.dart';
 import 'package:hello_earth/generated/l10n.dart';
 import 'package:hello_earth/pages/authentication/sign_up/sign_up_child/sign_up_child_bloc.dart';
 import 'package:hello_earth/pages/bloc_page_state.dart';
+import 'package:hello_earth/utils/navigation_utils.dart';
 import 'package:hello_earth/widgets/adaptive_button.dart';
 import 'package:hello_earth/widgets/data_text_field.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -21,13 +23,23 @@ class _SignUpChildPageState extends BlocPageState<SignUpChildPage, SignUpChildBl
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SignUpChildBloc, SignUpChildState>(
+    return BlocConsumer<SignUpChildBloc, SignUpChildState>(
+      listener: _onStateChange,
       builder: (context, state) {
         return Scaffold(
           body: _buildBody(),
         );
       },
     );
+  }
+
+  void _onStateChange(BuildContext context, SignUpChildState state) {
+    BlocProvider.of<SessionBloc>(context).add(
+      SessionStatusRequested(),
+    );
+    if (state is SignUpChildSuccess) {
+      NavigationUtils.moveToDashboard(context);
+    }
   }
 
   Widget _buildBody() {
@@ -63,7 +75,9 @@ class _SignUpChildPageState extends BlocPageState<SignUpChildPage, SignUpChildBl
           S.of(context).signUp,
         ),
       ),
-      onPressed: () => {},
+      onPressed: () => bloc.add(
+        SignUpChildRequested(),
+      ),
     );
   }
 
@@ -73,5 +87,4 @@ class _SignUpChildPageState extends BlocPageState<SignUpChildPage, SignUpChildBl
       onQRViewCreated: bloc.onQRViewCreated,
     );
   }
-
 }

@@ -2,9 +2,13 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:hello_earth/mappers/player_mappers.dart';
+import 'package:hello_earth/networking/models/base_response.dart';
+import 'package:hello_earth/networking/models/player.dart';
 import 'package:hello_earth/networking/requests/family_request.dart';
 import 'package:hello_earth/networking/requests/parent_request.dart';
 import 'package:hello_earth/repositories/family/family_repository.dart';
+import 'package:hello_earth/ui/models/player_model.dart';
 import 'package:hello_earth/ui/models/user_model.dart';
 
 part 'configuration_event.dart';
@@ -41,6 +45,17 @@ class ConfigurationBloc extends Bloc<ConfigurationEvent, ConfigurationState> {
     if (!isPlayerExists) {
       emit(
         ConfigurationPlayerCreateNeeded(),
+      );
+      return;
+    }
+    final BaseResponse<Player> player = await familyRepository.getPlayer(
+      familyId: event.parentUid,
+    );
+    final PlayerModel playerModel = player.data.mapToPlayerModel();
+    final bool? isQuestionnaireCompleted = playerModel.isQuestionnaireCompleted;
+    if (isQuestionnaireCompleted == null || !isQuestionnaireCompleted) {
+      emit(
+        QuestionnaireCompleteNeeded(),
       );
       return;
     }

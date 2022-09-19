@@ -4,5 +4,9 @@
   "registration": "Rejestracja",
   "logIn": "Logowanie",
   "playerRegistration": "Rejestracja gracza",
-  "parentRegistration": "Rejestracja rodzica"
+  "parentRegistration": "Rejestracja rodzica",
+  "contraindicationDishwasher": "Czy istnieją przeciwskazania do używania zmywarki?",
+  "contraindicationMilk": "Czy istnieją przeciwskazania do spożywaia mleka?",
+  "contraindicationOutside": "Czy istnieją przeciwskazania do wychodzenia na zewnątrz np. do sklepu?",
+  "contraindicationSesame": "Czy istnieją przeciwskazania do spożywania sezamu?"
 }

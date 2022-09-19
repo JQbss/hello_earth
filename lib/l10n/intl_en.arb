@@ -10,5 +10,9 @@
   "textFieldPasswordLabel": "Hasło",
   "textFieldPasswordHint": "Podaj Hasło",
   "textFieldLoginLabel": "Login",
-  "textFieldLoginHint": "Wpisz login"
+  "textFieldLoginHint": "Wpisz login",
+  "contraindicationDishwasher": "Czy istnieją przeciwskazania do używania zmywarki?",
+  "contraindicationMilk": "Czy istnieją przeciwskazania do spożywaia mleka?",
+  "contraindicationOutside": "Czy istnieją przeciwskazania do wychodzenia na zewnątrz np. do sklepu?",
+  "contraindicationSesame": "Czy istnieją przeciwskazania do spożywania sezamu?"
 }

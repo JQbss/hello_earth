@@ -48,3 +48,20 @@ class CheckUserRegisterCompletedRequested extends ConfigurationEvent {
         parentUid,
       ];
 }
+
+class SaveQuestionnaireRequested extends ConfigurationEvent {
+  final String? familyUid;
+  final List<Contraindication> listOfContraindications;
+
+  const SaveQuestionnaireRequested({
+    required this.familyUid,
+    required this.listOfContraindications,
+  });
+
+  @override
+  List<dynamic> get props => [
+        ...super.props,
+        familyUid,
+        listOfContraindications,
+      ];
+}

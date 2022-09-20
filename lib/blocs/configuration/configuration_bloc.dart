@@ -27,6 +27,7 @@ class ConfigurationBloc extends Bloc<ConfigurationEvent, ConfigurationState> {
   }) : super(ConfigurationInitial()) {
     on<CheckUserRegisterCompletedRequested>(_onCheckUserRegisterCompletedRequested);
     on<ConfigurationCheckParentRequested>(_onConfigurationCheckParentRequested);
+    on<ConfigurationCheckPlayerRequested>(_onConfigurationCheckPlayerRequested);
     on<ConfigurationCreateFamilyRequested>(_onConfigurationCreateFamilyRequested);
     on<SaveQuestionnaireRequested>(_onSaveQuestionnaireRequested);
   }
@@ -55,6 +56,26 @@ class ConfigurationBloc extends Bloc<ConfigurationEvent, ConfigurationState> {
     }
     final BaseResponse<Player> player = await familyRepository.getPlayer(
       familyId: event.parentUid,
+    );
+    final PlayerModel playerModel = player.data.mapToPlayerModel();
+    final bool? isQuestionnaireCompleted = playerModel.isQuestionnaireCompleted;
+    if (isQuestionnaireCompleted == null || !isQuestionnaireCompleted) {
+      emit(
+        QuestionnaireCompleteNeeded(),
+      );
+      return;
+    }
+    emit(
+      ConfigurationCompleted(),
+    );
+  }
+
+  Future<void> _onConfigurationCheckPlayerRequested(
+    ConfigurationCheckPlayerRequested event,
+    Emitter<ConfigurationState> emit,
+  ) async {
+    final BaseResponse<Player> player = await familyRepository.getPlayer(
+      familyId: event.familyId,
     );
     final PlayerModel playerModel = player.data.mapToPlayerModel();
     final bool? isQuestionnaireCompleted = playerModel.isQuestionnaireCompleted;

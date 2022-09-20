@@ -24,6 +24,15 @@ class NavigationUtils {
     );
   }
 
+  static void moveToConfigurationPlayer(BuildContext context) {
+    Navigator.of(
+      context,
+      rootNavigator: true,
+    ).pushReplacementNamed(
+      ConfigurationRouting.player,
+    );
+  }
+
   static void moveToDashboard(BuildContext context) {
     Navigator.of(
       context,

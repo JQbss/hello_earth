@@ -61,6 +61,11 @@ class SessionBloc extends Bloc<SessionEvent, SessionState> {
       );
       user = userResponse.data;
       if (user?.role == Role.child) {
+        configurationBloc.add(
+          ConfigurationCheckPlayerRequested(
+            familyId: user?.familyId ?? '',
+          ),
+        );
         emit(
           SessionChildActive(),
         );

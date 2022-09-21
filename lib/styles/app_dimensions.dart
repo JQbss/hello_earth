@@ -11,7 +11,7 @@ class AppDimensions {
 }
 
 class _Height {
-  final double button = 40;
+  final double button = 50;
 }
 
 class _Width {

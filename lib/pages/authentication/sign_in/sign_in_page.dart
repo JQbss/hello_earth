@@ -60,13 +60,15 @@ class _SignInPageState extends BlocPageState<SignInPage, SignInBloc> {
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20.0,
+                ),
                 child: Container(
                   child: Column(
                     children: [
                       _buildToggleButton(),
                       const SizedBox(
-                        height: 20,
+                        height: 50,
                       ),
                       bloc.isFormEnabled
                           ? _buildSignInBody()
@@ -132,19 +134,40 @@ class _SignInPageState extends BlocPageState<SignInPage, SignInBloc> {
       children: [
         AdaptiveButton(
           child: Container(
-            child: Text(
-              S.of(context).playerRegistration,
+            child: Center(
+              child: Text(
+                S.of(context).playerRegistration,
+                style: TextStyle(color: AppColors.buttonText),
+              ),
             ),
+            decoration: BoxDecoration(
+              color: AppColors.primary,
+              borderRadius: BorderRadius.circular(AppDimensions.radius.button),
+            ),
+            height: AppDimensions.height.button,
+            width: AppDimensions.width.button,
           ),
           onPressed: () => Navigator.of(context).pushNamed(
             AuthenticationRouting.signUpChild,
           ),
         ),
+        SizedBox(
+          height: 30,
+        ),
         AdaptiveButton(
           child: Container(
-            child: Text(
-              S.of(context).parentRegistration,
+            decoration: BoxDecoration(
+              color: AppColors.secondary,
+              borderRadius: BorderRadius.circular(AppDimensions.radius.button),
             ),
+            child: Center(
+              child: Text(
+                S.of(context).parentRegistration,
+                style: TextStyle(color: AppColors.buttonText),
+              ),
+            ),
+            height: AppDimensions.height.button,
+            width: AppDimensions.width.button,
           ),
           onPressed: () => Navigator.of(context).pushNamed(
             AuthenticationRouting.signUpParent,

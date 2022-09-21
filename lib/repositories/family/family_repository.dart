@@ -1,6 +1,7 @@
 import 'package:hello_earth/networking/models/base_response.dart';
 import 'package:hello_earth/networking/models/player.dart';
 import 'package:hello_earth/networking/requests/family_request.dart';
+import 'package:hello_earth/networking/requests/finish_questionnaire_request.dart';
 import 'package:hello_earth/networking/requests/player_request.dart';
 
 abstract class FamilyRepository {
@@ -24,5 +25,10 @@ abstract class FamilyRepository {
 
   Future<bool> isUserExists({
     required String uid,
+  });
+
+  Future<void> updateQuestionnaire({
+    required String familyId,
+    required FinishQuestionnaireRequest questionnaireRequest,
   });
 }

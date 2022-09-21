@@ -169,6 +169,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Czy istnieją przeciwskazania do używania zmywarki?`
+  String get contraindicationDishwasher {
+    return Intl.message(
+      'Czy istnieją przeciwskazania do używania zmywarki?',
+      name: 'contraindicationDishwasher',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Czy istnieją przeciwskazania do spożywaia mleka?`
+  String get contraindicationMilk {
+    return Intl.message(
+      'Czy istnieją przeciwskazania do spożywaia mleka?',
+      name: 'contraindicationMilk',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Czy istnieją przeciwskazania do wychodzenia na zewnątrz np. do sklepu?`
+  String get contraindicationOutside {
+    return Intl.message(
+      'Czy istnieją przeciwskazania do wychodzenia na zewnątrz np. do sklepu?',
+      name: 'contraindicationOutside',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Czy istnieją przeciwskazania do spożywania sezamu?`
+  String get contraindicationSesame {
+    return Intl.message(
+      'Czy istnieją przeciwskazania do spożywania sezamu?',
+      name: 'contraindicationSesame',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

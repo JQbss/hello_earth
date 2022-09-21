@@ -5,6 +5,7 @@ import 'package:hello_earth/networking/endpoints.dart';
 import 'package:hello_earth/networking/models/base_response.dart';
 import 'package:hello_earth/networking/models/player.dart';
 import 'package:hello_earth/networking/requests/family_request.dart';
+import 'package:hello_earth/networking/requests/finish_questionnaire_request.dart';
 import 'package:hello_earth/networking/requests/player_request.dart';
 import 'package:hello_earth/repositories/family/family_repository.dart';
 
@@ -57,5 +58,15 @@ class NetworkFamilyRepository implements FamilyRepository {
     final DatabaseEvent event =
         await reference.child('${Endpoints.families.families}/$uid/${Endpoints.families.player}').once();
     return event.snapshot.exists;
+  }
+
+  @override
+  Future<void> updateQuestionnaire({
+    required String familyId,
+    required FinishQuestionnaireRequest questionnaireRequest,
+  }) async {
+    await reference
+        .child('${Endpoints.families.families}/${familyId}/${Endpoints.families.player}')
+        .update(questionnaireRequest.toJson());
   }
 }

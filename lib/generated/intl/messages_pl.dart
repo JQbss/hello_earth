@@ -22,6 +22,14 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "contraindicationDishwasher": MessageLookupByLibrary.simpleMessage(
+            "Czy istnieją przeciwskazania do używania zmywarki?"),
+        "contraindicationMilk": MessageLookupByLibrary.simpleMessage(
+            "Czy istnieją przeciwskazania do spożywaia mleka?"),
+        "contraindicationOutside": MessageLookupByLibrary.simpleMessage(
+            "Czy istnieją przeciwskazania do wychodzenia na zewnątrz np. do sklepu?"),
+        "contraindicationSesame": MessageLookupByLibrary.simpleMessage(
+            "Czy istnieją przeciwskazania do spożywania sezamu?"),
         "logIn": MessageLookupByLibrary.simpleMessage("Logowanie"),
         "parentRegistration":
             MessageLookupByLibrary.simpleMessage("Rejestracja rodzica"),

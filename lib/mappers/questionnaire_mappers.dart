@@ -6,7 +6,7 @@ import 'package:hello_earth/mappers/contraindication_mappers.dart';
 extension QuestionnaireMappers on Questionnaire {
   QuestionnaireModel mapToQuestionnaireMode() {
     return QuestionnaireModel(
-      contraindications: contraindications?.orEmptyFilterNotNull().mapTopContraindicationModels(),
+      contraindications: contraindications?.orEmptyFilterNotNull().mapToContraindicationModels(),
     );
   }
 }

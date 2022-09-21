@@ -21,6 +21,20 @@ class ConfigurationCheckParentRequested extends ConfigurationEvent {
       ];
 }
 
+class ConfigurationCheckPlayerRequested extends ConfigurationEvent {
+  final String familyId;
+
+  const ConfigurationCheckPlayerRequested({
+    required this.familyId,
+  });
+
+  @override
+  List<dynamic> get props => [
+        ...super.props,
+        familyId,
+      ];
+}
+
 class ConfigurationCreateFamilyRequested extends ConfigurationEvent {
   final UserModel? parent;
 
@@ -46,5 +60,22 @@ class CheckUserRegisterCompletedRequested extends ConfigurationEvent {
   List<dynamic> get props => [
         ...super.props,
         parentUid,
+      ];
+}
+
+class SaveQuestionnaireRequested extends ConfigurationEvent {
+  final String? familyUid;
+  final List<Contraindication> listOfContraindications;
+
+  const SaveQuestionnaireRequested({
+    required this.familyUid,
+    required this.listOfContraindications,
+  });
+
+  @override
+  List<dynamic> get props => [
+        ...super.props,
+        familyUid,
+        listOfContraindications,
       ];
 }

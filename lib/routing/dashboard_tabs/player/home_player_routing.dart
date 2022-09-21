@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hello_earth/blocs/theme/theme_bloc.dart';
+import 'package:hello_earth/pages/player/home_player/home_player_bloc.dart';
 import 'package:hello_earth/pages/player/home_player/home_player_page.dart';
 import 'package:hello_earth/routing/routing.dart';
 
@@ -9,8 +12,25 @@ class HomePlayerRouting {
   const HomePlayerRouting._();
 
   static Route? getMainRoute(RouteSettings settings) {
+    final String? routeName = settings.name;
+    final Widget child;
+    switch (routeName) {
+      case home:
+        child = BlocBuilder<ThemeBloc, ThemeState>(
+          builder: (_, __) {
+            return BlocProvider<HomePlayerBloc>(
+              create: (_) => HomePlayerBloc(),
+              child: HomePlayerPage(),
+            );
+          },
+        );
+        break;
+      default:
+        return null;
+    }
+
     return Routing.buildRoute(
-      child: HomePlayerPage(),
+      child: child,
       fullscreenDialog: false,
       settings: settings,
     );

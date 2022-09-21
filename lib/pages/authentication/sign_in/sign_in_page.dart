@@ -107,7 +107,7 @@ class _SignInPageState extends BlocPageState<SignInPage, SignInBloc> {
             decoration: BoxDecoration(
                 color: AppColors.primary,
                 borderRadius:
-                    BorderRadius.circular(AppDimensions.defaultRadius)),
+                    BorderRadius.circular(AppDimensions.radius.button)),
             child: Center(
               child: Text(
                 S.of(context).signIn,
@@ -156,37 +156,69 @@ class _SignInPageState extends BlocPageState<SignInPage, SignInBloc> {
 
   Widget _buildToggleButton() {
     return Container(
-      color: Colors.pink,
+      decoration: BoxDecoration(
+        color: AppColors.disabled,
+        borderRadius: BorderRadius.circular(AppDimensions.radius.toggleButton),
+      ),
       alignment: Alignment.center,
       child: Row(
         children: [
           Expanded(
-            child: AdaptiveButton(
-              child: Container(
-                child: Text(S.of(context).logIn),
-                color: AppColors.primary,
-              ),
-              onPressed: () => {
-                bloc.add(
-                  SignInViewChangeRequested(
-                    isFormEnabled: true,
-                  ),
+            child: Container(
+              decoration: BoxDecoration(
+                color:
+                    bloc.isFormEnabled ? AppColors.primary : AppColors.disabled,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(AppDimensions.radius.toggleButton),
+                  bottomLeft:
+                      Radius.circular(AppDimensions.radius.toggleButton),
+                  topRight: Radius.circular(AppDimensions.radius.toggleButton),
                 ),
-              },
+              ),
+              child: AdaptiveButton(
+                child: Text(S.of(context).logIn,
+                    style: TextStyle(
+                        color: bloc.isFormEnabled
+                            ? AppColors.buttonText
+                            : AppColors.primary)),
+                onPressed: () => {
+                  bloc.add(
+                    SignInViewChangeRequested(
+                      isFormEnabled: true,
+                    ),
+                  ),
+                },
+              ),
             ),
           ),
           Expanded(
-            child: AdaptiveButton(
-              child: Container(
-                child: Text(S.of(context).registration),
-              ),
-              onPressed: () => {
-                bloc.add(
-                  SignInViewChangeRequested(
-                    isFormEnabled: false,
-                  ),
+            child: Container(
+              decoration: BoxDecoration(
+                color:
+                    bloc.isFormEnabled ? AppColors.disabled : AppColors.primary,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(AppDimensions.radius.toggleButton),
+                  bottomRight:
+                      Radius.circular(AppDimensions.radius.toggleButton),
+                  topRight: Radius.circular(AppDimensions.radius.toggleButton),
                 ),
-              },
+              ),
+              child: AdaptiveButton(
+                child: Text(
+                  S.of(context).registration,
+                  style: TextStyle(
+                      color: bloc.isFormEnabled
+                          ? AppColors.primary
+                          : AppColors.buttonText),
+                ),
+                onPressed: () => {
+                  bloc.add(
+                    SignInViewChangeRequested(
+                      isFormEnabled: false,
+                    ),
+                  ),
+                },
+              ),
             ),
           ),
         ],

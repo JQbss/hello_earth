@@ -13,6 +13,8 @@ class AppColors {
 
   static Color get appBackground => colors.appBackground;
 
+  static Color get disabled => colors.disabled;
+
   static Color get error => colors.error;
 
   static Color get primary => colors.primary;
@@ -21,7 +23,7 @@ class AppColors {
 
   static Color get buttonText => colors.buttonText;
 
-  static Color get textFieldBg => colors.textFieldBg;
+  static Color get textFieldBackground => colors.textFieldBackground;
 
   static AppColorsTheme _initColors() {
     final BuildContext? context =

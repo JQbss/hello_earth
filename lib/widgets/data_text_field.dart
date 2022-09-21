@@ -39,12 +39,12 @@ class _DataTextFieldState extends State<DataTextField> {
       decoration: InputDecoration(
         labelStyle: TextStyle(fontSize: 18, color: AppColors.primary),
         filled: true,
-        fillColor: AppColors.textFieldBg,
+        fillColor: AppColors.textFieldBackground,
         hintText: widget.hintText,
         suffixIcon: widget.obscureText ? _buildObscureSuffixIcon() : null,
         labelText: widget.labelText,
         enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppColors.textFieldBg),
+            borderSide: BorderSide(color: AppColors.textFieldBackground),
             borderRadius: BorderRadius.circular(10)),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: AppColors.primary, width: 2.0),

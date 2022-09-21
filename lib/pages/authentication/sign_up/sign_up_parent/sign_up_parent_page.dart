@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_earth/generated/l10n.dart';
+import 'package:hello_earth/modals/sign_up_succeed_dialog.dart';
 import 'package:hello_earth/pages/authentication/sign_up/sign_up_parent/sign_up_parent_bloc.dart';
 import 'package:hello_earth/pages/bloc_page_state.dart';
 import 'package:hello_earth/widgets/adaptive_button.dart';
@@ -15,8 +16,7 @@ class SignUpParentPage extends StatefulWidget {
   State<SignUpParentPage> createState() => _SignUpParentPageState();
 }
 
-class _SignUpParentPageState
-    extends BlocPageState<SignUpParentPage, SignUpParentBloc> {
+class _SignUpParentPageState extends BlocPageState<SignUpParentPage, SignUpParentBloc> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SignUpParentBloc, SignUpParentState>(
@@ -32,8 +32,9 @@ class _SignUpParentPageState
   void _onStateChange(
     BuildContext context,
     SignUpParentState state,
-  ) {
+  ) async {
     if (state is SignUpParentSuccess) {
+      await SignUpSucceedDialog().show(context);
       Navigator.pop(context);
     }
   }

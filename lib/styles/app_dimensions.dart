@@ -20,5 +20,5 @@ class _Width {
 class _Radius  {
   final double input = 15.0;
   final double toggleButton = 20.0;
-  final double button = 15.0;
+  final double button = 20.0;
 }

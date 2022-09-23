@@ -68,7 +68,7 @@ class _SignInPageState extends BlocPageState<SignInPage, SignInBloc> {
                     children: [
                       _buildToggleButton(),
                       const SizedBox(
-                        height: 50,
+                        height: 30,
                       ),
                       bloc.isFormEnabled ? _buildSignInBody() : _buildSignUpBody(),
                     ],
@@ -76,9 +76,9 @@ class _SignInPageState extends BlocPageState<SignInPage, SignInBloc> {
                 ),
               ),
             ),
-            Expanded(
-              child: bloc.isFormEnabled ? _buildSignInButton() : SizedBox.shrink(),
-            ),
+            bloc.isFormEnabled
+                ? _buildSignInButton()
+                : SizedBox(height: AppDimensions.height.button),
           ],
         ),
       ),
@@ -107,7 +107,9 @@ class _SignInPageState extends BlocPageState<SignInPage, SignInBloc> {
         child: AdaptiveButton(
           child: Container(
             decoration: BoxDecoration(
-                color: AppColors.primary, borderRadius: BorderRadius.circular(AppDimensions.radius.button)),
+              color: AppColors.primary,
+              borderRadius: BorderRadius.circular(AppDimensions.radius.button),
+            ),
             child: Center(
               child: Text(
                 S.of(context).signIn,

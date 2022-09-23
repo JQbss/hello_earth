@@ -70,17 +70,14 @@ class _SignInPageState extends BlocPageState<SignInPage, SignInBloc> {
                       const SizedBox(
                         height: 50,
                       ),
-                      bloc.isFormEnabled
-                          ? _buildSignInBody()
-                          : _buildSignUpBody(),
+                      bloc.isFormEnabled ? _buildSignInBody() : _buildSignUpBody(),
                     ],
                   ),
                 ),
               ),
             ),
             Expanded(
-              child:
-                  bloc.isFormEnabled ? _buildSignInButton() : SizedBox.shrink(),
+              child: bloc.isFormEnabled ? _buildSignInButton() : SizedBox.shrink(),
             ),
           ],
         ),
@@ -94,6 +91,9 @@ class _SignInPageState extends BlocPageState<SignInPage, SignInBloc> {
         SignInBody(
           emailTextFieldData: bloc.emailTextFieldData,
           passwordTextFieldData: bloc.passwordTextFieldData,
+          onChanged: (_) => bloc.add(
+            SignInDataTextFieldChanged(),
+          ),
         ),
       ],
     );
@@ -107,9 +107,7 @@ class _SignInPageState extends BlocPageState<SignInPage, SignInBloc> {
         child: AdaptiveButton(
           child: Container(
             decoration: BoxDecoration(
-                color: AppColors.primary,
-                borderRadius:
-                    BorderRadius.circular(AppDimensions.radius.button)),
+                color: AppColors.primary, borderRadius: BorderRadius.circular(AppDimensions.radius.button)),
             child: Center(
               child: Text(
                 S.of(context).signIn,
@@ -189,21 +187,16 @@ class _SignInPageState extends BlocPageState<SignInPage, SignInBloc> {
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                color:
-                    bloc.isFormEnabled ? AppColors.primary : AppColors.disabled,
+                color: bloc.isFormEnabled ? AppColors.primary : AppColors.disabled,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(AppDimensions.radius.toggleButton),
-                  bottomLeft:
-                      Radius.circular(AppDimensions.radius.toggleButton),
+                  bottomLeft: Radius.circular(AppDimensions.radius.toggleButton),
                   topRight: Radius.circular(AppDimensions.radius.toggleButton),
                 ),
               ),
               child: AdaptiveButton(
                 child: Text(S.of(context).logIn,
-                    style: TextStyle(
-                        color: bloc.isFormEnabled
-                            ? AppColors.buttonText
-                            : AppColors.primary)),
+                    style: TextStyle(color: bloc.isFormEnabled ? AppColors.buttonText : AppColors.primary)),
                 onPressed: () => {
                   bloc.add(
                     SignInViewChangeRequested(
@@ -217,22 +210,17 @@ class _SignInPageState extends BlocPageState<SignInPage, SignInBloc> {
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                color:
-                    bloc.isFormEnabled ? AppColors.disabled : AppColors.primary,
+                color: bloc.isFormEnabled ? AppColors.disabled : AppColors.primary,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(AppDimensions.radius.toggleButton),
-                  bottomRight:
-                      Radius.circular(AppDimensions.radius.toggleButton),
+                  bottomRight: Radius.circular(AppDimensions.radius.toggleButton),
                   topRight: Radius.circular(AppDimensions.radius.toggleButton),
                 ),
               ),
               child: AdaptiveButton(
                 child: Text(
                   S.of(context).registration,
-                  style: TextStyle(
-                      color: bloc.isFormEnabled
-                          ? AppColors.primary
-                          : AppColors.buttonText),
+                  style: TextStyle(color: bloc.isFormEnabled ? AppColors.primary : AppColors.buttonText),
                 ),
                 onPressed: () => {
                   bloc.add(

@@ -37,6 +37,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Rejestracja gracza"),
         "registration": MessageLookupByLibrary.simpleMessage("Rejestracja"),
         "signIn": MessageLookupByLibrary.simpleMessage("Zaloguj się"),
-        "signUp": MessageLookupByLibrary.simpleMessage("Zarejestruj się")
+        "signUp": MessageLookupByLibrary.simpleMessage("Zarejestruj się"),
+        "textFieldErrorBlank": MessageLookupByLibrary.simpleMessage(
+            "Podane pole nie może być puste")
       };
 }

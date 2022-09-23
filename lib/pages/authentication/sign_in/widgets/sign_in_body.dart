@@ -6,11 +6,13 @@ import 'package:hello_earth/widgets/data_text_field.dart';
 class SignInBody extends StatelessWidget {
   final TextFieldData emailTextFieldData;
   final TextFieldData passwordTextFieldData;
+  final void Function(String)? onChanged;
 
   const SignInBody({
     super.key,
     required this.emailTextFieldData,
     required this.passwordTextFieldData,
+    required this.onChanged,
   });
 
   @override
@@ -31,6 +33,7 @@ class SignInBody extends StatelessWidget {
       emailTextFieldData,
       labelText: S.of(context).textFieldEmailLabel,
       hintText: S.of(context).textFieldEmailHint,
+      onChanged: onChanged,
     );
   }
 

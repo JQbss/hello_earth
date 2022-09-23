@@ -30,3 +30,7 @@ class SignInWithEmailRequested extends SignInEvent {
         UniquePropProvider.get(),
       ];
 }
+
+class SignInDataTextFieldChanged extends SignInEvent {
+  const SignInDataTextFieldChanged();
+}

@@ -209,6 +209,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Podane pole nie może być puste`
+  String get textFieldErrorBlank {
+    return Intl.message(
+      'Podane pole nie może być puste',
+      name: 'textFieldErrorBlank',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

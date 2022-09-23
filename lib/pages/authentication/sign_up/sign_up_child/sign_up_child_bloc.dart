@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hello_earth/commons/text_field_data.dart';
+import 'package:hello_earth/errors/error_keys.dart';
 import 'package:hello_earth/networking/requests/credential_request.dart';
 import 'package:hello_earth/networking/requests/player_request.dart';
 import 'package:hello_earth/networking/requests/role_request.dart';
@@ -11,6 +12,7 @@ import 'package:hello_earth/networking/requests/user_request.dart';
 import 'package:hello_earth/repositories/credential/credential_repository.dart';
 import 'package:hello_earth/repositories/family/family_repository.dart';
 import 'package:hello_earth/repositories/user/user_repository.dart';
+import 'package:hello_earth/utils/text_field_validators_util.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 part 'sign_up_child_event.dart';
@@ -19,10 +21,19 @@ part 'sign_up_child_state.dart';
 
 class SignUpChildBloc extends Bloc<SignUpChildEvent, SignUpChildState> {
   final CredentialRepository credentialRepository;
-  final TextFieldData emailTextFieldData = TextFieldData();
+  final TextFieldData emailTextFieldData = TextFieldData(
+    (text) => TextFieldValidatorsUtil.validateEmail(text.trim()),
+    errorKey: ErrorKeys.email,
+  );
   final FamilyRepository familyRepository;
-  final TextFieldData nameTextFieldData = TextFieldData();
-  final TextFieldData passwordTextFieldData = TextFieldData();
+  final TextFieldData nameTextFieldData = TextFieldData(
+    (text) => TextFieldValidatorsUtil.validateName(text.trim()),
+    errorKey: ErrorKeys.email,
+  );
+  final TextFieldData passwordTextFieldData = TextFieldData(
+    (text) => TextFieldValidatorsUtil.validatePassword(text.trim()),
+    errorKey: ErrorKeys.password,
+  );
   final UserRepository userRepository;
 
   String? _familyId;

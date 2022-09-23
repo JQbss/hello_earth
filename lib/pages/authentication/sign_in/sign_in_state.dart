@@ -32,3 +32,17 @@ class SignInViewChanged extends SignInState {
         isFormEnabled,
       ];
 }
+
+class SignInDataInputUpdated extends SignInState {
+  final bool dataChanged;
+
+  const SignInDataInputUpdated({
+    required this.dataChanged,
+  });
+
+  @override
+  List<dynamic> get props => [
+        ...super.props,
+        dataChanged,
+      ];
+}

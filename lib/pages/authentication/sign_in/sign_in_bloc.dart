@@ -5,12 +5,14 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hello_earth/commons/text_field_data.dart';
 import 'package:hello_earth/commons/unique_prop_provider.dart';
+import 'package:hello_earth/errors/error_keys.dart';
 import 'package:hello_earth/networking/models/base_response.dart';
 import 'package:hello_earth/networking/models/role.dart';
 import 'package:hello_earth/networking/models/user_networking.dart';
 import 'package:hello_earth/networking/requests/credential_request.dart';
 import 'package:hello_earth/repositories/credential/credential_repository.dart';
 import 'package:hello_earth/repositories/user/user_repository.dart';
+import 'package:hello_earth/utils/text_field_validators_util.dart';
 
 part 'sign_in_event.dart';
 
@@ -20,8 +22,14 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
   final CredentialRepository credentialRepository;
   final UserRepository userRepository;
   bool isFormEnabled;
-  final TextFieldData emailTextFieldData = TextFieldData();
-  final TextFieldData passwordTextFieldData = TextFieldData();
+  final TextFieldData emailTextFieldData = TextFieldData(
+    (text) => TextFieldValidatorsUtil.validateEmail(text.trim()),
+    errorKey: ErrorKeys.email,
+  );
+  final TextFieldData passwordTextFieldData = TextFieldData(
+    (text) => TextFieldValidatorsUtil.validatePassword(text.trim()),
+    errorKey: ErrorKeys.password,
+  );
 
   SignInBloc({
     required this.credentialRepository,
@@ -30,12 +38,16 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
   }) : super(SignInInitial()) {
     on<SignInViewChangeRequested>(_onSignInViewChangeRequested);
     on<SignInWithEmailRequested>(_onSignInWithEmailRequested);
+    on<SignInDataTextFieldChanged>(_onSignInDataTextFieldChanged);
   }
 
   Future<void> _onSignInWithEmailRequested(
     SignInWithEmailRequested event,
     Emitter<SignInState> emit,
   ) async {
+    if (!_isFormValid()) {
+      return;
+    }
     try {
       CredentialRequest credentialRequest = CredentialRequest(
         email: emailTextFieldData.text,
@@ -80,6 +92,27 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       SignInViewChanged(
         isFormEnabled: isFormEnabled,
       ),
+    );
+  }
+
+  Future<void> _onSignInDataTextFieldChanged(
+    SignInDataTextFieldChanged event,
+    Emitter<SignInState> emit,
+  ) async {
+    emit(
+      SignInDataInputUpdated(
+        dataChanged: true,
+      ),
+    );
+  }
+
+  bool _isFormValid() {
+    return TextFieldData.validateTextFieldsAndCheckIfAreValid(
+      [
+        emailTextFieldData,
+        passwordTextFieldData,
+      ],
+      forceErrorIfInvalid: true,
     );
   }
 }

@@ -41,6 +41,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "textFieldEmailHint":
             MessageLookupByLibrary.simpleMessage("Wpisz adres e-mail"),
         "textFieldEmailLabel": MessageLookupByLibrary.simpleMessage("E-mail"),
+        "textFieldErrorBlank": MessageLookupByLibrary.simpleMessage(
+            "Podane pole nie może być puste"),
         "textFieldLoginHint":
             MessageLookupByLibrary.simpleMessage("Wpisz login"),
         "textFieldLoginLabel": MessageLookupByLibrary.simpleMessage("Login"),

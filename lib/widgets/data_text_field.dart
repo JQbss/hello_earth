@@ -10,6 +10,9 @@ class DataTextField extends StatefulWidget {
   final bool obscureText;
   final void Function(String)? onChanged;
 
+  final void Function(bool)? onFocusChanged;
+  final VoidCallback? onSubmitted;
+
   const DataTextField(
     this.data, {
     required this.hintText,
@@ -17,6 +20,8 @@ class DataTextField extends StatefulWidget {
     required this.labelText,
     this.obscureText = false,
     this.onChanged,
+    this.onFocusChanged,
+    this.onSubmitted,
   });
 
   @override
@@ -24,15 +29,36 @@ class DataTextField extends StatefulWidget {
 }
 
 class _DataTextFieldState extends State<DataTextField> {
-  late TextEditingController _textEditingController = widget.data.controller;
-  late bool _obscureText;
+  late TextEditingController _textEditingController;
+  late FocusNode _focusNode;
+  late bool _isObscureText;
+  bool _hadLostFirstFocus = false;
 
-  bool get shouldValidate => widget.data.isErrorForced ? true : true;
+  bool get shouldValidate => widget.data.isErrorForced ? true : _hadLostFirstFocus;
 
   @override
   void initState() {
     super.initState();
-    _obscureText = widget.obscureText;
+    _focusNode = widget.data.focusNode..addListener(_onFocusChanged);
+    _isObscureText = widget.obscureText;
+    _textEditingController = widget.data.controller;
+  }
+
+  @override
+  void dispose() {
+    _focusNode.removeListener(_onFocusChanged);
+    _focusNode.dispose();
+    _textEditingController.dispose();
+    super.dispose();
+  }
+
+  void _onFocusChanged() {
+    widget.onFocusChanged?.call(_focusNode.hasFocus);
+    setState(() {
+      if (!_focusNode.hasFocus) {
+        _hadLostFirstFocus = true;
+      }
+    });
   }
 
   @override
@@ -40,12 +66,15 @@ class _DataTextFieldState extends State<DataTextField> {
     return ValueListenableBuilder<TextFieldError?>(
         valueListenable: widget.data.validationErrorValueNotifier,
         builder: (context, value, _) {
-          final String? errorMessage = 'asdsa'; //shouldValidate && value != null ? value.message(context) : null;
+          final String? errorMessage = shouldValidate && value != null ? value.message(context) : null;
           return TextFormField(
+            autovalidateMode: shouldValidate ? AutovalidateMode.always : AutovalidateMode.disabled,
             controller: _textEditingController,
             cursorColor: AppColors.primary,
-            validator: true ? (text) => errorMessage : null,
+            focusNode: _focusNode,
+            validator: shouldValidate ? (_) => errorMessage : null,
             onChanged: widget.onChanged,
+            onFieldSubmitted: (_) => widget.onSubmitted?.call(),
             decoration: InputDecoration(
               errorStyle: TextStyle(
                 fontSize: 12.0,
@@ -59,7 +88,7 @@ class _DataTextFieldState extends State<DataTextField> {
               fillColor: AppColors.textFieldBackground,
               errorMaxLines: 3,
               hintText: widget.hintText,
-              suffixIcon: widget.obscureText ? _buildObscureSuffixIcon() : null,
+              suffixIcon: _isObscureText ? _buildObscureSuffixIcon() : null,
               labelText: widget.labelText,
               enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: AppColors.textFieldBackground),
@@ -72,7 +101,7 @@ class _DataTextFieldState extends State<DataTextField> {
                 borderRadius: BorderRadius.circular(15),
               ),
             ),
-            obscureText: _obscureText,
+            obscureText: _isObscureText,
           );
         });
   }
@@ -80,12 +109,12 @@ class _DataTextFieldState extends State<DataTextField> {
   Widget _buildObscureSuffixIcon() {
     return IconButton(
       icon: Icon(
-        _obscureText ? Icons.visibility_off : Icons.visibility,
+        _isObscureText ? Icons.visibility_off : Icons.visibility,
         color: AppColors.primary,
       ),
       onPressed: () {
         setState(() {
-          _obscureText = !_obscureText;
+          _isObscureText = !_isObscureText;
         });
       },
     );

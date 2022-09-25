@@ -34,6 +34,7 @@ class SignInBody extends StatelessWidget {
       labelText: S.of(context).textFieldEmailLabel,
       hintText: S.of(context).textFieldEmailHint,
       onChanged: onChanged,
+      onSubmitted: () => FocusScope.of(context).requestFocus(emailTextFieldData.focusNode),
     );
   }
 
@@ -43,6 +44,7 @@ class SignInBody extends StatelessWidget {
       labelText: S.of(context).textFieldPasswordLabel,
       hintText: S.of(context).textFieldPasswordHint,
       obscureText: true,
+      onSubmitted: () => FocusScope.of(context).requestFocus(passwordTextFieldData.focusNode),
     );
   }
 }

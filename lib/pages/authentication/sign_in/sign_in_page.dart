@@ -70,15 +70,14 @@ class _SignInPageState extends BlocPageState<SignInPage, SignInBloc> {
                       const SizedBox(
                         height: 30,
                       ),
-                      bloc.isFormEnabled ? _buildSignInBody() : _buildSignUpBody(),
+                      _buildSignInBody(),
+                      _buildSignUpBody(),
                     ],
                   ),
                 ),
               ),
             ),
-            bloc.isFormEnabled
-                ? _buildSignInButton()
-                : SizedBox(height: AppDimensions.height.button),
+            bloc.isFormEnabled ? _buildSignInButton() : SizedBox(height: AppDimensions.height.button),
           ],
         ),
       ),
@@ -86,16 +85,16 @@ class _SignInPageState extends BlocPageState<SignInPage, SignInBloc> {
   }
 
   Widget _buildSignInBody() {
-    return Column(
-      children: [
-        SignInBody(
-          emailTextFieldData: bloc.emailTextFieldData,
-          passwordTextFieldData: bloc.passwordTextFieldData,
-          onChanged: (_) => bloc.add(
-            SignInDataTextFieldChanged(),
-          ),
+    return Visibility(
+      maintainState: true,
+      visible: bloc.isFormEnabled,
+      child: SignInBody(
+        emailTextFieldData: bloc.emailTextFieldData,
+        passwordTextFieldData: bloc.passwordTextFieldData,
+        onChanged: (_) => bloc.add(
+          SignInDataTextFieldChanged(),
         ),
-      ],
+      ),
     );
   }
 
@@ -130,50 +129,54 @@ class _SignInPageState extends BlocPageState<SignInPage, SignInBloc> {
   }
 
   Widget _buildSignUpBody() {
-    return Column(
-      children: [
-        AdaptiveButton(
-          child: Container(
-            child: Center(
-              child: Text(
-                S.of(context).playerRegistration,
-                style: TextStyle(color: AppColors.buttonText),
+    return Visibility(
+      maintainState: true,
+      visible: !bloc.isFormEnabled,
+      child: Column(
+        children: [
+          AdaptiveButton(
+            child: Container(
+              child: Center(
+                child: Text(
+                  S.of(context).playerRegistration,
+                  style: TextStyle(color: AppColors.buttonText),
+                ),
               ),
-            ),
-            decoration: BoxDecoration(
-              color: AppColors.primary,
-              borderRadius: BorderRadius.circular(AppDimensions.radius.button),
-            ),
-            height: AppDimensions.height.button,
-            width: AppDimensions.width.button,
-          ),
-          onPressed: () => Navigator.of(context).pushNamed(
-            AuthenticationRouting.signUpChild,
-          ),
-        ),
-        SizedBox(
-          height: 30,
-        ),
-        AdaptiveButton(
-          child: Container(
-            decoration: BoxDecoration(
-              color: AppColors.secondary,
-              borderRadius: BorderRadius.circular(AppDimensions.radius.button),
-            ),
-            child: Center(
-              child: Text(
-                S.of(context).parentRegistration,
-                style: TextStyle(color: AppColors.buttonText),
+              decoration: BoxDecoration(
+                color: AppColors.primary,
+                borderRadius: BorderRadius.circular(AppDimensions.radius.button),
               ),
+              height: AppDimensions.height.button,
+              width: AppDimensions.width.button,
             ),
-            height: AppDimensions.height.button,
-            width: AppDimensions.width.button,
+            onPressed: () => Navigator.of(context).pushNamed(
+              AuthenticationRouting.signUpChild,
+            ),
           ),
-          onPressed: () => Navigator.of(context).pushNamed(
-            AuthenticationRouting.signUpParent,
+          SizedBox(
+            height: 30,
           ),
-        ),
-      ],
+          AdaptiveButton(
+            child: Container(
+              decoration: BoxDecoration(
+                color: AppColors.secondary,
+                borderRadius: BorderRadius.circular(AppDimensions.radius.button),
+              ),
+              child: Center(
+                child: Text(
+                  S.of(context).parentRegistration,
+                  style: TextStyle(color: AppColors.buttonText),
+                ),
+              ),
+              height: AppDimensions.height.button,
+              width: AppDimensions.width.button,
+            ),
+            onPressed: () => Navigator.of(context).pushNamed(
+              AuthenticationRouting.signUpParent,
+            ),
+          ),
+        ],
+      ),
     );
   }
 

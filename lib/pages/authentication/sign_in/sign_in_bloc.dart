@@ -5,6 +5,8 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hello_earth/commons/text_field_data.dart';
 import 'package:hello_earth/commons/unique_prop_provider.dart';
+import 'package:hello_earth/errors/api_error_factory.dart';
+import 'package:hello_earth/errors/app_error.dart';
 import 'package:hello_earth/errors/error_keys.dart';
 import 'package:hello_earth/networking/models/base_response.dart';
 import 'package:hello_earth/networking/models/role.dart';
@@ -76,10 +78,19 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         SignInSuccess(),
       );
     } catch (error) {
+      final FirebaseError? firebaseError = ApiErrorFactory.provideFirebaseAuthError(error);
+      if (firebaseError != null) {
+        TextFieldData.forceFirebaseErrors(
+          [
+            emailTextFieldData,
+            passwordTextFieldData,
+          ],
+          apiError: firebaseError,
+        );
+      }
       emit(
         SignInFailure(),
       );
-      print(error);
     }
   }
 

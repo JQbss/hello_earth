@@ -5,7 +5,15 @@ class TextFieldValidatorsUtil {
   const TextFieldValidatorsUtil._();
 
   static TextFieldError validateEmail(String name) {
-    if(ValidatorUtil.isNullOrBlank(name)){
+    if (ValidatorUtil.isNullOrBlank(name)) {
+      return BlankTextFieldError();
+    } else {
+      return NoneTextFieldError();
+    }
+  }
+
+  static TextFieldError validateLogin(String login) {
+    if (ValidatorUtil.isNullOrBlank(login)) {
       return BlankTextFieldError();
     } else {
       return NoneTextFieldError();
@@ -13,15 +21,7 @@ class TextFieldValidatorsUtil {
   }
 
   static TextFieldError validatePassword(String name) {
-    if(ValidatorUtil.isNullOrBlank(name)){
-      return BlankTextFieldError();
-    } else {
-      return NoneTextFieldError();
-    }
-  }
-
-  static TextFieldError validateName(String name) {
-    if(ValidatorUtil.isNullOrBlank(name)){
+    if (ValidatorUtil.isNullOrBlank(name)) {
       return BlankTextFieldError();
     } else {
       return NoneTextFieldError();

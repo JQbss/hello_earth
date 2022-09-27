@@ -18,12 +18,13 @@ part 'sign_up_parent_state.dart';
 
 class SignUpParentBloc extends Bloc<SignUpParentEvent, SignUpParentState> {
   final CredentialRepository credentialRepository;
+
+  final TextFieldData loginTextFieldData = TextFieldData(
+    (text) => TextFieldValidatorsUtil.validateLogin(text.trim()),
+    errorKey: ErrorKeys.login,
+  );
   final TextFieldData emailTextFieldData = TextFieldData(
     (text) => TextFieldValidatorsUtil.validateEmail(text.trim()),
-    errorKey: ErrorKeys.email,
-  );
-  final TextFieldData nameTextFieldData = TextFieldData(
-    (text) => TextFieldValidatorsUtil.validateName(text.trim()),
     errorKey: ErrorKeys.email,
   );
   final TextFieldData passwordTextFieldData = TextFieldData(
@@ -43,6 +44,9 @@ class SignUpParentBloc extends Bloc<SignUpParentEvent, SignUpParentState> {
     SignUpParentRequested event,
     Emitter<SignUpParentState> emit,
   ) async {
+    if (!_isFormValid()) {
+      return;
+    }
     try {
       CredentialRequest credentialRequest = CredentialRequest(
         email: emailTextFieldData.text,
@@ -58,7 +62,7 @@ class SignUpParentBloc extends Bloc<SignUpParentEvent, SignUpParentState> {
         email: emailTextFieldData.text,
         familyId: user.uid,
         role: RoleRequest.parent,
-        userName: nameTextFieldData.text,
+        userName: loginTextFieldData.text,
       );
       await userRepository.addUser(
         user: userRequest,
@@ -71,5 +75,16 @@ class SignUpParentBloc extends Bloc<SignUpParentEvent, SignUpParentState> {
     } catch (error) {
       print(error);
     }
+  }
+
+  bool _isFormValid() {
+    return TextFieldData.validateTextFieldsAndCheckIfAreValid(
+      [
+        loginTextFieldData,
+        emailTextFieldData,
+        passwordTextFieldData,
+      ],
+      forceErrorIfInvalid: true,
+    );
   }
 }

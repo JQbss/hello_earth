@@ -219,6 +219,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Otwórz skaner`
+  String get OpenQRScannerButton {
+    return Intl.message(
+      'Otwórz skaner',
+      name: 'OpenQRScannerButton',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

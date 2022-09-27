@@ -15,5 +15,6 @@
   "contraindicationMilk": "Czy istnieją przeciwskazania do spożywaia mleka?",
   "contraindicationOutside": "Czy istnieją przeciwskazania do wychodzenia na zewnątrz np. do sklepu?",
   "contraindicationSesame": "Czy istnieją przeciwskazania do spożywania sezamu?",
-  "textFieldErrorBlank": "Podane pole nie może być puste"
+  "textFieldErrorBlank": "Podane pole nie może być puste",
+  "OpenQRScannerButton": "Otwórz skaner"
 }

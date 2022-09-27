@@ -43,6 +43,8 @@ class SignUpChildBloc extends Bloc<SignUpChildEvent, SignUpChildState> {
     required this.familyRepository,
     required this.userRepository,
   }) : super(SignUpChildInitial()) {
+    on<SignUpChildOnBoardCloseRequested>(
+        _onSignUpChildOnBoardCloseRequested);
     on<SignUpChildRequested>(_onSignUpChildRequested);
     on<QrCodeScanRequested>(_onQrCodeScanRequested);
   }
@@ -109,6 +111,15 @@ class SignUpChildBloc extends Bloc<SignUpChildEvent, SignUpChildState> {
     _familyId = event.qrCode;
     emit(
       QrCodeScanCompleted(),
+    );
+  }
+
+  Future<void> _onSignUpChildOnBoardCloseRequested(
+      SignUpChildOnBoardCloseRequested event,
+    Emitter<SignUpChildState> emit,
+  ) async {
+    emit(
+      SignUpChildOnBoardClosed(),
     );
   }
 }

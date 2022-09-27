@@ -22,6 +22,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "OpenQRScannerButton":
+            MessageLookupByLibrary.simpleMessage("Otwórz skaner"),
         "contraindicationDishwasher": MessageLookupByLibrary.simpleMessage(
             "Czy istnieją przeciwskazania do używania zmywarki?"),
         "contraindicationMilk": MessageLookupByLibrary.simpleMessage(

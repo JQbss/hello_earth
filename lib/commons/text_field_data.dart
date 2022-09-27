@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hello_earth/commons/text_field_error.dart';
 import 'package:hello_earth/errors/app_error.dart';
+import 'package:hello_earth/injector/injector.dart';
+import 'package:hello_earth/pages/navigators/global_navigator.dart';
 
 class TextFieldData {
   final TextEditingController controller = TextEditingController();
@@ -27,12 +29,13 @@ class TextFieldData {
     }
   }
 
-  bool forceApiError(ApiError apiError) {
+  bool forceApiError(FirebaseError apiError) {
+    final BuildContext? context = Injector().get<GlobalNavigator>().currentContext;
     final String? errorKey = this.errorKey;
-    if (errorKey != null) {
+    if (context != null && errorKey != null) {
       forceError(
         CustomMessageTextFieldError(
-          errorMessage: apiError.getMessage(errorKey),
+          errorMessage: apiError.getMessage(context, errorKey),
         ),
       );
       return true;
@@ -54,10 +57,9 @@ class TextFieldData {
     return isValid;
   }
 
-  /// Returns true if at least one text field data contains API error.
-  static bool forceApiErrors(
+  static bool forceFirebaseErrors(
     List<TextFieldData> textFieldsData, {
-    required ApiError apiError,
+    required FirebaseError apiError,
   }) =>
       textFieldsData
           .map(

@@ -1,5 +1,6 @@
 class Constants {
   static final _DatabaseConfig databaseConfig = _DatabaseConfig();
+  static final _FirebaseErrorCodes firebaseErrorCodes = _FirebaseErrorCodes();
 
   const Constants._();
 }
@@ -7,4 +8,8 @@ class Constants {
 class _DatabaseConfig {
   final String devDatabase = 'https://helloearth-dev-default-rtdb.europe-west1.firebasedatabase.app';
   final String prodDatabase = 'https://helloearth-7e025-default-rtdb.europe-west1.firebasedatabase.app';
+}
+
+class _FirebaseErrorCodes {
+  final String invalidEmail = 'invalid-email';
 }

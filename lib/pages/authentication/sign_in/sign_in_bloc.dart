@@ -7,6 +7,7 @@ import 'package:hello_earth/commons/text_field_data.dart';
 import 'package:hello_earth/commons/unique_prop_provider.dart';
 import 'package:hello_earth/errors/api_error_factory.dart';
 import 'package:hello_earth/errors/app_error.dart';
+import 'package:hello_earth/errors/app_ui_error.dart';
 import 'package:hello_earth/errors/error_keys.dart';
 import 'package:hello_earth/networking/models/base_response.dart';
 import 'package:hello_earth/networking/models/role.dart';
@@ -38,9 +39,29 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     required this.userRepository,
     required this.isFormEnabled,
   }) : super(SignInInitial()) {
+    on<SignInSendEmailRequested>(_onSignInSendEmailRequested);
     on<SignInViewChangeRequested>(_onSignInViewChangeRequested);
     on<SignInWithEmailRequested>(_onSignInWithEmailRequested);
     on<SignInDataTextFieldChanged>(_onSignInDataTextFieldChanged);
+  }
+
+  Future<void> _onSignInSendEmailRequested(
+    SignInSendEmailRequested event,
+    Emitter<SignInState> emit,
+  ) async {
+    CredentialRequest credentialRequest = CredentialRequest(
+      email: emailTextFieldData.text,
+      password: passwordTextFieldData.text,
+    );
+    final User? user = (await credentialRepository.signInUser(credentialRequest)).user;
+    if (user == null) {
+      return;
+    }
+    await user.sendEmailVerification();
+    await credentialRepository.signOut();
+    emit(
+      SignInEmailSent(),
+    );
   }
 
   Future<void> _onSignInWithEmailRequested(
@@ -70,7 +91,9 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       if (user.role == Role.parent && !firebaseUser.emailVerified) {
         credentialRepository.signOut();
         emit(
-          SignInFailure(),
+          SignInFailure(
+            appUiError: SignInEmailError(),
+          ),
         );
         return;
       }

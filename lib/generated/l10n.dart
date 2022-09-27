@@ -219,6 +219,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Rejestracja zakończona sukcesem. Potwierdź swój adres e-mail, aby móc się zalogować`
+  String get signUpSucceedDialogTitle {
+    return Intl.message(
+      'Rejestracja zakończona sukcesem. Potwierdź swój adres e-mail, aby móc się zalogować',
+      name: 'signUpSucceedDialogTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Zamknij`
+  String get signUpSucceedDialogButtonTitle {
+    return Intl.message(
+      'Zamknij',
+      name: 'signUpSucceedDialogButtonTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Twoje konto nie zostało potwierdzone. Sprawdź adres e-mail, lub wyślij wiadomość ponownie`
+  String get signInEmailErrorDialogTitle {
+    return Intl.message(
+      'Twoje konto nie zostało potwierdzone. Sprawdź adres e-mail, lub wyślij wiadomość ponownie',
+      name: 'signInEmailErrorDialogTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Anuluj`
+  String get signInEmailErrorCancel {
+    return Intl.message(
+      'Anuluj',
+      name: 'signInEmailErrorCancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wyślij`
+  String get signInEmailErrorSend {
+    return Intl.message(
+      'Wyślij',
+      name: 'signInEmailErrorSend',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Na podany adres e-mail, został wysłany nowy link aktywacyjny`
+  String get signInEmailSentTitle {
+    return Intl.message(
+      'Na podany adres e-mail, został wysłany nowy link aktywacyjny',
+      name: 'signInEmailSentTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Zamknij`
+  String get signInEmailDialogClose {
+    return Intl.message(
+      'Zamknij',
+      name: 'signInEmailDialogClose',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

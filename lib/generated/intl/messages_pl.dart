@@ -37,7 +37,20 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Rejestracja gracza"),
         "registration": MessageLookupByLibrary.simpleMessage("Rejestracja"),
         "signIn": MessageLookupByLibrary.simpleMessage("Zaloguj się"),
+        "signInEmailDialogClose":
+            MessageLookupByLibrary.simpleMessage("Zamknij"),
+        "signInEmailErrorCancel":
+            MessageLookupByLibrary.simpleMessage("Anuluj"),
+        "signInEmailErrorDialogTitle": MessageLookupByLibrary.simpleMessage(
+            "Twoje konto nie zostało potwierdzone. Sprawdź adres e-mail, lub wyślij wiadomość ponownie"),
+        "signInEmailErrorSend": MessageLookupByLibrary.simpleMessage("Wyślij"),
+        "signInEmailSentTitle": MessageLookupByLibrary.simpleMessage(
+            "Na podany adres e-mail, został wysłany nowy link aktywacyjny"),
         "signUp": MessageLookupByLibrary.simpleMessage("Zarejestruj się"),
+        "signUpSucceedDialogButtonTitle":
+            MessageLookupByLibrary.simpleMessage("Zamknij"),
+        "signUpSucceedDialogTitle": MessageLookupByLibrary.simpleMessage(
+            "Rejestracja zakończona sukcesem. Potwierdź swój adres e-mail, aby móc się zalogować"),
         "textFieldErrorBlank": MessageLookupByLibrary.simpleMessage(
             "Podane pole nie może być puste")
       };

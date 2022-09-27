@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_earth/blocs/session/session_bloc.dart';
 import 'package:hello_earth/blocs/theme/theme_bloc.dart';
+import 'package:hello_earth/errors/app_ui_error.dart';
 import 'package:hello_earth/generated/l10n.dart';
+import 'package:hello_earth/modals/sign_in_email_error_dialog.dart';
 import 'package:hello_earth/pages/authentication/sign_in/sign_in_bloc.dart';
 import 'package:hello_earth/pages/authentication/sign_in/widgets/sign_in_body.dart';
 import 'package:hello_earth/pages/bloc_page_state.dart';
@@ -46,6 +48,21 @@ class _SignInPageState extends BlocPageState<SignInPage, SignInBloc> {
         SessionStatusRequested(),
       );
       NavigationUtils.moveToDashboard(context);
+    } else if (state is SignInFailure && state.appUiError is SignInEmailError) {
+      SignInEmailErrorDialog.show(
+        context,
+        onSendPressed: () {
+          bloc.add(
+            SignInSendEmailRequested(),
+          );
+          Navigator.of(
+            context,
+            rootNavigator: true,
+          ).pop();
+        },
+      );
+    } else if (state is SignInEmailSent) {
+      SignInEmailErrorDialog.showEmailSent(context);
     }
   }
 

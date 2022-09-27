@@ -5,11 +5,15 @@ import 'package:hello_earth/utils/adaptive_widget_utils.dart';
 class AdaptiveButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final Widget child;
+  final double inactiveOpacity;
+  final bool isActive;
 
   const AdaptiveButton({
     super.key,
     required this.child,
     required this.onPressed,
+    this.inactiveOpacity = 0.5,
+    this.isActive = true,
   });
 
   @override
@@ -27,16 +31,38 @@ class AdaptiveButton extends StatelessWidget {
   }
 
   Widget _buildCupertinoButton(BuildContext context) {
-    return CupertinoButton(
-      child: child,
-      onPressed: onPressed,
+    return _buildBoxDecoration(
+      child: CupertinoButton(
+        child: child,
+        onPressed: _getOnPressedCallback(context),
+      ),
     );
   }
 
   Widget _buildMaterialButton(BuildContext context) {
-    return MaterialButton(
-      onPressed: onPressed,
+    return _buildBoxDecoration(
+      child: MaterialButton(
+        child: child,
+        onPressed: _getOnPressedCallback(context),
+      ),
+    );
+  }
+
+  Widget _buildBoxDecoration({
+    required Widget child,
+  }) {
+    return AnimatedOpacity(
+      opacity: isActive ? 1.0 : inactiveOpacity,
+      duration: Duration(microseconds: 300),
       child: child,
     );
+  }
+
+  VoidCallback? _getOnPressedCallback(BuildContext context) {
+    return isActive && onPressed != null
+        ? () {
+            onPressed?.call();
+          }
+        : null;
   }
 }

@@ -8,7 +8,21 @@ abstract class SignInState extends Equatable {
 }
 
 class SignInFailure extends SignInState {
-  const SignInFailure();
+  final AppUiError? appUiError;
+
+  const SignInFailure({
+    this.appUiError,
+  });
+
+  @override
+  List<dynamic> get props => [
+        ...super.props,
+        appUiError,
+      ];
+}
+
+class SignInEmailSent extends SignInState {
+  const SignInEmailSent();
 }
 
 class SignInInitial extends SignInState {

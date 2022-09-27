@@ -38,7 +38,7 @@ class _SignUpParentPageState
     SignUpParentState state,
   ) async {
     if (state is SignUpParentSuccess) {
-      await SignUpSucceedDialog().show(context);
+      await SignUpSucceedDialog.show(context);
       Navigator.pop(context);
     }
   }

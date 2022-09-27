@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:hello_earth/generated/l10n.dart';
 import 'package:hello_earth/widgets/adaptive_button.dart';
 
 class SignUpSucceedDialog {
-  Future<void> show(BuildContext context) {
+  const SignUpSucceedDialog._();
+
+  static Future<void> show(BuildContext context) {
     return showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        content: Text('Rejestracja zakończona sukcesem. Potwierdź swój adres e-mail, aby móc się zalogować'),
+        content: Text(S.of(context).signUpSucceedDialogTitle),
         actionsOverflowDirection: VerticalDirection.down,
         actions: [
           Row(
@@ -14,7 +17,7 @@ class SignUpSucceedDialog {
             children: [
               _buildButton(
                 context,
-                title: 'ok',
+                title: S.of(context).signUpSucceedDialogButtonTitle,
                 onPressed: () => Navigator.of(
                   context,
                   rootNavigator: true,
@@ -27,7 +30,7 @@ class SignUpSucceedDialog {
     );
   }
 
-  Widget _buildButton(
+  static Widget _buildButton(
     BuildContext context, {
     required String title,
     required VoidCallback onPressed,

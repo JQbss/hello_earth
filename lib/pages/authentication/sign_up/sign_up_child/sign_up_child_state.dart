@@ -6,6 +6,10 @@ abstract class SignUpChildState extends Equatable {
   List<dynamic> get props => [];
 }
 
+class SignUpChildOnBoardClosed extends SignUpChildState {
+  const SignUpChildOnBoardClosed();
+}
+
 class SignUpChildInitial extends SignUpChildState {
   const SignUpChildInitial();
 }

@@ -22,5 +22,6 @@
   "signInEmailErrorCancel": "Anuluj",
   "signInEmailErrorSend": "Wyślij",
   "signInEmailSentTitle": "Na podany adres e-mail, został wysłany nowy link aktywacyjny",
-  "signInEmailDialogClose": "Zamknij"
+  "signInEmailDialogClose": "Zamknij",
+  "OpenQRScannerButton": "Otwórz skaner"
 }

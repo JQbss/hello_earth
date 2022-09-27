@@ -3,11 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_earth/generated/l10n.dart';
 import 'package:hello_earth/modals/sign_up_succeed_dialog.dart';
 import 'package:hello_earth/pages/authentication/sign_up/sign_up_parent/sign_up_parent_bloc.dart';
+import 'package:hello_earth/pages/authentication/sign_up/sign_up_parent/widgets/sign_up_body.dart';
 import 'package:hello_earth/pages/bloc_page_state.dart';
 import 'package:hello_earth/styles/app_colors/app_colors.dart';
 import 'package:hello_earth/styles/app_dimensions.dart';
 import 'package:hello_earth/widgets/adaptive_button.dart';
-import 'package:hello_earth/widgets/data_text_field.dart';
+
+import '../../../../commons/text_field_data.dart';
 
 class SignUpParentPage extends StatefulWidget {
   const SignUpParentPage({
@@ -20,6 +22,7 @@ class SignUpParentPage extends StatefulWidget {
 
 class _SignUpParentPageState
     extends BlocPageState<SignUpParentPage, SignUpParentBloc> {
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SignUpParentBloc, SignUpParentState>(
@@ -72,51 +75,15 @@ class _SignUpParentPageState
       ),
     );
   }
-
   Widget _buildSignUpParentBody() {
-    return Column(
-      children: [
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Container(
-            child: Text(
-              'Profil: rodzic',
-              style: TextStyle(
-                color: AppColors.primary,
-                letterSpacing: 1.5,
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
+    return  SignUpBody(
+        loginTextFieldData: bloc.loginTextFieldData,
+        emailTextFieldData: bloc.emailTextFieldData,
+        passwordTextFieldData: bloc.passwordTextFieldData,
+        onChanged: (_) => bloc.add(
+          SignUpParentRequested(),
         ),
-        SizedBox(
-          height: 20,
-        ),
-        DataTextField(
-          bloc.nameTextFieldData,
-          hintText: S.of(context).textFieldLoginHint,
-          labelText: S.of(context).textFieldLoginLabel,
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        DataTextField(
-          bloc.emailTextFieldData,
-          hintText: S.of(context).textFieldEmailHint,
-          labelText: S.of(context).textFieldEmailLabel,
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        DataTextField(
-          bloc.passwordTextFieldData,
-          hintText: S.of(context).textFieldPasswordHint,
-          labelText: S.of(context).textFieldPasswordLabel,
-          obscureText: true,
-        ),
-      ],
-    );
+      );
   }
 
   Widget _buildSignUpParentButton() {

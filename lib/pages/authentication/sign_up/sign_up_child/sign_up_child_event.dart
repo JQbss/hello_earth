@@ -7,6 +7,10 @@ abstract class SignUpChildEvent extends Equatable {
   List<dynamic> get props => [];
 }
 
+class SignUpChildOnBoardCloseRequested extends SignUpChildEvent {
+  const SignUpChildOnBoardCloseRequested();
+}
+
 class SignUpChildRequested extends SignUpChildEvent {
   const SignUpChildRequested();
 }

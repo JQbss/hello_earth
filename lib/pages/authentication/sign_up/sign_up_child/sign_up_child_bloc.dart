@@ -27,7 +27,7 @@ class SignUpChildBloc extends Bloc<SignUpChildEvent, SignUpChildState> {
   );
   final FamilyRepository familyRepository;
   final TextFieldData nameTextFieldData = TextFieldData(
-    (text) => TextFieldValidatorsUtil.validateName(text.trim()),
+    (text) => TextFieldValidatorsUtil.validateLogin(text.trim()),
     errorKey: ErrorKeys.email,
   );
   final TextFieldData passwordTextFieldData = TextFieldData(
@@ -43,6 +43,8 @@ class SignUpChildBloc extends Bloc<SignUpChildEvent, SignUpChildState> {
     required this.familyRepository,
     required this.userRepository,
   }) : super(SignUpChildInitial()) {
+    on<SignUpChildOnBoardCloseRequested>(
+        _onSignUpChildOnBoardCloseRequested);
     on<SignUpChildRequested>(_onSignUpChildRequested);
     on<QrCodeScanRequested>(_onQrCodeScanRequested);
   }
@@ -53,10 +55,11 @@ class SignUpChildBloc extends Bloc<SignUpChildEvent, SignUpChildState> {
   ) async {
     try {
       CredentialRequest credentialRequest = CredentialRequest(
-        email: emailTextFieldData.text,
+        email: emailTextFieldData.text.toLowerCase(),
         password: passwordTextFieldData.text,
       );
-      final User? user = (await credentialRepository.createUser(credentialRequest)).user;
+      final User? user =
+          (await credentialRepository.createUser(credentialRequest)).user;
       final String? familyId = _familyId;
       if (user == null) {
         return;
@@ -66,7 +69,7 @@ class SignUpChildBloc extends Bloc<SignUpChildEvent, SignUpChildState> {
         return;
       }
       UserRequest userRequest = UserRequest(
-        email: emailTextFieldData.text,
+        email: emailTextFieldData.text.toLowerCase(),
         familyId: familyId,
         role: RoleRequest.child,
         userName: nameTextFieldData.text,
@@ -108,6 +111,15 @@ class SignUpChildBloc extends Bloc<SignUpChildEvent, SignUpChildState> {
     _familyId = event.qrCode;
     emit(
       QrCodeScanCompleted(),
+    );
+  }
+
+  Future<void> _onSignUpChildOnBoardCloseRequested(
+      SignUpChildOnBoardCloseRequested event,
+    Emitter<SignUpChildState> emit,
+  ) async {
+    emit(
+      SignUpChildOnBoardClosed(),
     );
   }
 }

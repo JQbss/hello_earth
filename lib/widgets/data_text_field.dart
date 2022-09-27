@@ -34,7 +34,8 @@ class _DataTextFieldState extends State<DataTextField> {
   late bool _isObscureText;
   bool _hadLostFirstFocus = false;
 
-  bool get shouldValidate => widget.data.isErrorForced ? true : _hadLostFirstFocus;
+  bool get shouldValidate =>
+      widget.data.isErrorForced ? true : _hadLostFirstFocus;
 
   @override
   void initState() {
@@ -66,41 +67,19 @@ class _DataTextFieldState extends State<DataTextField> {
     return ValueListenableBuilder<TextFieldError?>(
         valueListenable: widget.data.validationErrorValueNotifier,
         builder: (context, value, _) {
-          final String? errorMessage = shouldValidate && value != null ? value.message(context) : null;
+          final String? errorMessage =
+              shouldValidate && value != null ? value.message(context) : null;
           return TextFormField(
-            autovalidateMode: shouldValidate ? AutovalidateMode.always : AutovalidateMode.disabled,
+            autovalidateMode: shouldValidate
+                ? AutovalidateMode.always
+                : AutovalidateMode.disabled,
             controller: _textEditingController,
             cursorColor: AppColors.primary,
             focusNode: _focusNode,
             validator: shouldValidate ? (_) => errorMessage : null,
             onChanged: widget.onChanged,
             onFieldSubmitted: (_) => widget.onSubmitted?.call(),
-            decoration: InputDecoration(
-              errorStyle: TextStyle(
-                fontSize: 12.0,
-                color: Colors.red,
-              ),
-              labelStyle: TextStyle(
-                fontSize: 18,
-                color: AppColors.primary,
-              ),
-              filled: true,
-              fillColor: AppColors.textFieldBackground,
-              errorMaxLines: 3,
-              hintText: widget.hintText,
-              suffixIcon: _isObscureText ? _buildObscureSuffixIcon() : null,
-              labelText: widget.labelText,
-              enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: AppColors.textFieldBackground),
-                  borderRadius: BorderRadius.circular(10)),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: AppColors.primary,
-                  width: 2.0,
-                ),
-                borderRadius: BorderRadius.circular(15),
-              ),
-            ),
+            decoration: _textFormFieldDecoration(),
             obscureText: _isObscureText,
           );
         });
@@ -117,6 +96,41 @@ class _DataTextFieldState extends State<DataTextField> {
           _isObscureText = !_isObscureText;
         });
       },
+    );
+  }
+
+  InputDecoration _textFormFieldDecoration() {
+    return InputDecoration(
+      errorStyle: TextStyle(
+        fontSize: 14.0,
+        color: AppColors.error,
+      ),
+      labelStyle: TextStyle(
+        fontSize: 18,
+        color: AppColors.primary,
+      ),
+      filled: true,
+      fillColor: AppColors.textFieldBackground,
+      errorMaxLines: 3,
+      hintText: widget.hintText,
+      suffixIcon: _isObscureText ? _buildObscureSuffixIcon() : null,
+      labelText: widget.labelText,
+      enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: AppColors.textFieldBackground),
+          borderRadius: BorderRadius.circular(10)),
+      focusedBorder: _borderStyle(AppColors.primary),
+      errorBorder: _borderStyle(AppColors.error),
+      focusedErrorBorder: _borderStyle(AppColors.error),
+    );
+  }
+
+  OutlineInputBorder _borderStyle(Color color) {
+    return OutlineInputBorder(
+      borderSide: BorderSide(
+        color: color,
+        width: 2.0,
+      ),
+      borderRadius: BorderRadius.circular(15),
     );
   }
 }

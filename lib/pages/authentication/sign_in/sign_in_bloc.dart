@@ -68,7 +68,13 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     SignInWithEmailRequested event,
     Emitter<SignInState> emit,
   ) async {
+    emit(
+      SignInInProgress(),
+    );
     if (!_isFormValid()) {
+      emit(
+        SignInFailure(),
+      );
       return;
     }
     try {

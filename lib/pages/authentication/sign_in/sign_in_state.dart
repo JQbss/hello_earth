@@ -29,6 +29,10 @@ class SignInInitial extends SignInState {
   const SignInInitial();
 }
 
+class SignInInProgress extends SignInState {
+  const SignInInProgress();
+}
+
 class SignInSuccess extends SignInState {
   const SignInSuccess();
 }

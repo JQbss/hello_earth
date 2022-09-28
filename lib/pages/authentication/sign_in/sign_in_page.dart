@@ -13,6 +13,7 @@ import 'package:hello_earth/styles/app_colors/app_colors.dart';
 import 'package:hello_earth/styles/app_dimensions.dart';
 import 'package:hello_earth/utils/navigation_utils.dart';
 import 'package:hello_earth/widgets/adaptive_button.dart';
+import 'package:hello_earth/widgets/loading_button.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({
@@ -24,6 +25,7 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends BlocPageState<SignInPage, SignInBloc> {
+  final GlobalKey _signInButtonKey = GlobalKey();
   late ThemeBloc themeBloc = BlocProvider.of<ThemeBloc>(context);
 
   @override
@@ -94,7 +96,11 @@ class _SignInPageState extends BlocPageState<SignInPage, SignInBloc> {
                 ),
               ),
             ),
-            bloc.isFormEnabled ? _buildSignInButton() : SizedBox(height: AppDimensions.height.button),
+            bloc.isFormEnabled
+                ? _buildSignInButton()
+                : SizedBox(
+                    height: AppDimensions.height.button,
+                  ),
           ],
         ),
       ),
@@ -119,26 +125,26 @@ class _SignInPageState extends BlocPageState<SignInPage, SignInBloc> {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 20.0),
-        child: AdaptiveButton(
-          child: Container(
+        padding: const EdgeInsets.all(20.0).copyWith(
+          top: 0.0,
+        ),
+        child: LoadingButton(
+          isLoading: bloc.state is SignInInProgress,
+          globalKey: _signInButtonKey,
+          child: AdaptiveButton(
             decoration: BoxDecoration(
               color: AppColors.primary,
               borderRadius: BorderRadius.circular(AppDimensions.radius.button),
             ),
-            child: Center(
-              child: Text(
-                S.of(context).signIn,
-                style: TextStyle(
-                  color: AppColors.buttonText,
-                ),
+            child: Text(
+              S.of(context).signIn,
+              style: TextStyle(
+                color: AppColors.buttonText,
               ),
             ),
-            width: AppDimensions.width.button,
-            height: AppDimensions.height.button,
-          ),
-          onPressed: () => bloc.add(
-            SignInWithEmailRequested(),
+            onPressed: () => bloc.add(
+              SignInWithEmailRequested(),
+            ),
           ),
         ),
       ),

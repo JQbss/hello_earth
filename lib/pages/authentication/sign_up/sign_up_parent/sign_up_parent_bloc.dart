@@ -4,6 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hello_earth/commons/text_field_data.dart';
+import 'package:hello_earth/errors/api_error_factory.dart';
+import 'package:hello_earth/errors/app_error.dart';
 import 'package:hello_earth/errors/error_keys.dart';
 import 'package:hello_earth/networking/requests/credential_request.dart';
 import 'package:hello_earth/networking/requests/role_request.dart';
@@ -11,6 +13,8 @@ import 'package:hello_earth/networking/requests/user_request.dart';
 import 'package:hello_earth/repositories/credential/credential_repository.dart';
 import 'package:hello_earth/repositories/user/user_repository.dart';
 import 'package:hello_earth/utils/text_field_validators_util.dart';
+
+import '../../../../errors/app_ui_error.dart';
 
 part 'sign_up_parent_event.dart';
 
@@ -44,8 +48,13 @@ class SignUpParentBloc extends Bloc<SignUpParentEvent, SignUpParentState> {
     SignUpParentRequested event,
     Emitter<SignUpParentState> emit,
   ) async {
+    emit(
+      SignUpInProgress(),
+    );
     if (!_isFormValid()) {
-      return;
+      emit(
+        SignUpFailure(),
+      );
     }
     try {
       CredentialRequest credentialRequest = CredentialRequest(
@@ -73,7 +82,20 @@ class SignUpParentBloc extends Bloc<SignUpParentEvent, SignUpParentState> {
         SignUpParentSuccess(),
       );
     } catch (error) {
-      print(error);
+      final FirebaseError? firebaseError = ApiErrorFactory.provideFirebaseAuthError(error);
+      if (firebaseError != null) {
+        TextFieldData.forceFirebaseErrors(
+          [
+            emailTextFieldData,
+            loginTextFieldData,
+            passwordTextFieldData,
+          ],
+          apiError: firebaseError,
+        );
+      }
+      emit(
+        SignUpFailure(),
+      );
     }
   }
 

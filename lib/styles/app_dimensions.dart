@@ -4,6 +4,7 @@ class AppDimensions {
 
   static final _Height height = _Height();
   static final _Width width = _Width();
+  static final _Padding padding = _Padding();
   static final _Radius radius = _Radius();
 
 
@@ -17,8 +18,15 @@ class _Height {
 class _Width {
   final double button = 250;
 }
+
 class _Radius  {
   final double input = 15.0;
   final double toggleButton = 20.0;
   final double button = 20.0;
+}
+
+class _Padding {
+  final double container = 20.0;
+  final double buttonHorizontal = 50.0;
+  final double buttonBottom = 20.0;
 }

@@ -49,6 +49,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     SignInSendEmailRequested event,
     Emitter<SignInState> emit,
   ) async {
+
     CredentialRequest credentialRequest = CredentialRequest(
       email: emailTextFieldData.text,
       password: passwordTextFieldData.text,
@@ -62,6 +63,8 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     emit(
       SignInEmailSent(),
     );
+
+
   }
 
   Future<void> _onSignInWithEmailRequested(

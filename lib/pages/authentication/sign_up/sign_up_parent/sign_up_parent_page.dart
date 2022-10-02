@@ -3,11 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_earth/generated/l10n.dart';
 import 'package:hello_earth/modals/sign_up_succeed_dialog.dart';
 import 'package:hello_earth/pages/authentication/sign_up/sign_up_parent/sign_up_parent_bloc.dart';
-import 'package:hello_earth/pages/authentication/sign_up/sign_up_parent/widgets/sign_up_body.dart';
+import 'package:hello_earth/pages/authentication/sign_up/widgets/sign_up_body.dart';
 import 'package:hello_earth/pages/bloc_page_state.dart';
 import 'package:hello_earth/styles/app_colors/app_colors.dart';
 import 'package:hello_earth/styles/app_dimensions.dart';
 import 'package:hello_earth/widgets/adaptive_button.dart';
+import 'package:hello_earth/widgets/loading_button.dart';
 
 class SignUpParentPage extends StatefulWidget {
   const SignUpParentPage({
@@ -20,6 +21,7 @@ class SignUpParentPage extends StatefulWidget {
 
 class _SignUpParentPageState
     extends BlocPageState<SignUpParentPage, SignUpParentBloc> {
+  final GlobalKey _signUpButtonKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -73,41 +75,45 @@ class _SignUpParentPageState
       ),
     );
   }
+
   Widget _buildSignUpParentBody() {
-    return  SignUpBody(
-        loginTextFieldData: bloc.loginTextFieldData,
-        emailTextFieldData: bloc.emailTextFieldData,
-        passwordTextFieldData: bloc.passwordTextFieldData,
-        onChanged: (_) => bloc.add(
-          SignUpParentRequested(),
-        ),
-      );
+    return SignUpBody(
+      loginTextFieldData: bloc.loginTextFieldData,
+      emailTextFieldData: bloc.emailTextFieldData,
+      passwordTextFieldData: bloc.passwordTextFieldData,
+      profileTitle: 'Profil: rodzic',
+      onChanged: (_) => bloc.add(
+        SignUpParentRequested(),
+      ),
+    );
   }
 
   Widget _buildSignUpParentButton() {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 20.0),
-        child: AdaptiveButton(
-          child: Container(
+        padding:
+            EdgeInsets.all(AppDimensions.padding.buttonHorizontal).copyWith(
+          bottom: AppDimensions.padding.buttonBottom,
+          top: 0.0,
+        ),
+        child: LoadingButton(
+          isLoading: bloc.state is SignUpInProgress,
+          globalKey: _signUpButtonKey,
+          child: AdaptiveButton(
             decoration: BoxDecoration(
               color: AppColors.primary,
               borderRadius: BorderRadius.circular(AppDimensions.radius.button),
             ),
-            child: Center(
-              child: Text(
-                S.of(context).signUp,
-                style: TextStyle(
-                  color: AppColors.buttonText,
-                ),
+            child: Text(
+              S.of(context).signUp,
+              style: TextStyle(
+                color: AppColors.buttonText,
               ),
             ),
-            width: AppDimensions.width.button,
-            height: AppDimensions.height.button,
-          ),
-          onPressed: () => bloc.add(
-            SignUpParentRequested(),
+            onPressed: () => bloc.add(
+              SignUpParentRequested(),
+            ),
           ),
         ),
       ),

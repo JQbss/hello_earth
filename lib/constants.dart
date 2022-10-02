@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 class Constants {
   static final _DatabaseConfig databaseConfig = _DatabaseConfig();
   static final _FirebaseErrorCodes firebaseErrorCodes = _FirebaseErrorCodes();
@@ -11,5 +13,8 @@ class _DatabaseConfig {
 }
 
 class _FirebaseErrorCodes {
+  final String emailAlreadyInUse = 'email-already-in-use';
   final String invalidEmail = 'invalid-email';
+  final String wrongPassword = 'wrong-password';
+  final String userNotFound = 'user-not-found';
 }

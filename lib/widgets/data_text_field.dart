@@ -113,7 +113,7 @@ class _DataTextFieldState extends State<DataTextField> {
       fillColor: AppColors.textFieldBackground,
       errorMaxLines: 3,
       hintText: widget.hintText,
-      suffixIcon: _isObscureText ? _buildObscureSuffixIcon() : null,
+      suffixIcon: widget.obscureText ? _buildObscureSuffixIcon() : null,
       labelText: widget.labelText,
       enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: AppColors.textFieldBackground),

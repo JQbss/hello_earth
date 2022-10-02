@@ -9,6 +9,7 @@ class SignUpBody extends StatelessWidget {
   final TextFieldData loginTextFieldData;
   final TextFieldData emailTextFieldData;
   final TextFieldData passwordTextFieldData;
+  final String profileTitle;
   final void Function(String)? onChanged;
 
   const SignUpBody({
@@ -16,6 +17,7 @@ class SignUpBody extends StatelessWidget {
     required this.loginTextFieldData,
     required this.emailTextFieldData,
     required this.passwordTextFieldData,
+    required this.profileTitle,
     required this.onChanged,
   });
 
@@ -27,7 +29,7 @@ class SignUpBody extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: Container(
             child: Text(
-              'Profil: rodzic',
+              profileTitle,
               style: TextStyle(
                 color: AppColors.primary,
                 letterSpacing: 1.5,
@@ -59,7 +61,8 @@ class SignUpBody extends StatelessWidget {
       labelText: S.of(context).textFieldLoginLabel,
       hintText: S.of(context).textFieldLoginHint,
       onChanged: onChanged,
-      onSubmitted: () => FocusScope.of(context).requestFocus(loginTextFieldData.focusNode),
+      onSubmitted: () =>
+          FocusScope.of(context).requestFocus(loginTextFieldData.focusNode),
     );
   }
 
@@ -69,7 +72,8 @@ class SignUpBody extends StatelessWidget {
       labelText: S.of(context).textFieldEmailLabel,
       hintText: S.of(context).textFieldEmailHint,
       onChanged: onChanged,
-      onSubmitted: () => FocusScope.of(context).requestFocus(emailTextFieldData.focusNode),
+      onSubmitted: () =>
+          FocusScope.of(context).requestFocus(emailTextFieldData.focusNode),
     );
   }
 
@@ -79,7 +83,8 @@ class SignUpBody extends StatelessWidget {
       labelText: S.of(context).textFieldPasswordLabel,
       hintText: S.of(context).textFieldPasswordHint,
       obscureText: true,
-      onSubmitted: () => FocusScope.of(context).requestFocus(passwordTextFieldData.focusNode),
+      onSubmitted: () =>
+          FocusScope.of(context).requestFocus(passwordTextFieldData.focusNode),
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:hello_earth/pages/navigators/global_navigator.dart';
 import 'package:hello_earth/repositories/credential/network_credential_repository.dart';
 import 'package:hello_earth/repositories/family/natwork_family_repository.dart';
+import 'package:hello_earth/repositories/main_missions/network_main_missions_repository.dart';
 import 'package:hello_earth/repositories/user/network_user_repository.dart';
 import 'package:hello_earth/storages/secure_storage.dart';
 
@@ -51,6 +52,11 @@ class Injector {
       )
       ..registerFactory(
         () => NetworkFamilyRepository(
+          reference: reference,
+        ),
+      )
+      ..registerFactory(
+        () => NetworkMainMissionsRepository(
           reference: reference,
         ),
       )

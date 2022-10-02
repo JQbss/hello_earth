@@ -1,11 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'step.dart';
+part of 'step_networking.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Step _$StepFromJson(Map<String, dynamic> json) => Step(
+StepNetworking _$StepNetworkingFromJson(Map<String, dynamic> json) =>
+    StepNetworking(
       name: json['name'] as String?,
     );

@@ -9,8 +9,6 @@ import 'package:hello_earth/styles/app_colors/app_colors.dart';
 import 'package:hello_earth/styles/app_dimensions.dart';
 import 'package:hello_earth/widgets/adaptive_button.dart';
 
-import '../../../../commons/text_field_data.dart';
-
 class SignUpParentPage extends StatefulWidget {
   const SignUpParentPage({
     super.key,

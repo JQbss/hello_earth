@@ -1,7 +1,7 @@
 import 'package:hello_earth/commons/from_json_factory.dart';
 import 'package:hello_earth/networking/models/contraindication.dart';
 import 'package:hello_earth/networking/models/ingredient.dart';
-import 'package:hello_earth/networking/models/step.dart';
+import 'package:hello_earth/networking/models/step_networking.dart';
 import 'package:hello_earth/networking/models/task_type.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -17,7 +17,7 @@ class Mission {
   final List<Ingredient?>? ingredients;
   final String? longDescription;
   final String? shortDescription;
-  final List<Step?>? steps;
+  final List<StepNetworking?>? steps;
   final TaskType? taskType;
   final String? title;
   final String? uid;

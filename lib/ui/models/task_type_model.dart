@@ -1,0 +1,4 @@
+enum TaskTypeModel {
+  cooking,
+  undefined,
+}

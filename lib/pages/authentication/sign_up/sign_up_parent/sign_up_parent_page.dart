@@ -3,14 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_earth/generated/l10n.dart';
 import 'package:hello_earth/modals/sign_up_succeed_dialog.dart';
 import 'package:hello_earth/pages/authentication/sign_up/sign_up_parent/sign_up_parent_bloc.dart';
-import 'package:hello_earth/pages/authentication/sign_up/sign_up_parent/widgets/sign_up_body.dart';
+import 'package:hello_earth/pages/authentication/sign_up/widgets/sign_up_body.dart';
 import 'package:hello_earth/pages/bloc_page_state.dart';
 import 'package:hello_earth/styles/app_colors/app_colors.dart';
 import 'package:hello_earth/styles/app_dimensions.dart';
 import 'package:hello_earth/widgets/adaptive_button.dart';
 import 'package:hello_earth/widgets/loading_button.dart';
-
-import '../../../../commons/text_field_data.dart';
 
 class SignUpParentPage extends StatefulWidget {
   const SignUpParentPage({
@@ -83,6 +81,7 @@ class _SignUpParentPageState
       loginTextFieldData: bloc.loginTextFieldData,
       emailTextFieldData: bloc.emailTextFieldData,
       passwordTextFieldData: bloc.passwordTextFieldData,
+      profileTitle: 'Profil: rodzic',
       onChanged: (_) => bloc.add(
         SignUpParentRequested(),
       ),
@@ -93,7 +92,8 @@ class _SignUpParentPageState
     return Align(
       alignment: Alignment.bottomCenter,
       child: Padding(
-        padding: EdgeInsets.all(AppDimensions.padding.buttonHorizontal).copyWith(
+        padding:
+            EdgeInsets.all(AppDimensions.padding.buttonHorizontal).copyWith(
           bottom: AppDimensions.padding.buttonBottom,
           top: 0.0,
         ),

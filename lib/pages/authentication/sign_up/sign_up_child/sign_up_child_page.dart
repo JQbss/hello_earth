@@ -3,10 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_earth/blocs/session/session_bloc.dart';
 import 'package:hello_earth/generated/l10n.dart';
 import 'package:hello_earth/pages/authentication/sign_up/sign_up_child/sign_up_child_bloc.dart';
+import 'package:hello_earth/pages/authentication/sign_up/widgets/sign_up_body.dart';
 import 'package:hello_earth/pages/bloc_page_state.dart';
 import 'package:hello_earth/utils/navigation_utils.dart';
 import 'package:hello_earth/widgets/adaptive_button.dart';
-import 'package:hello_earth/widgets/data_text_field.dart';
+import 'package:hello_earth/widgets/loading_button.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import '../../../../styles/app_colors/app_colors.dart';
@@ -24,6 +25,7 @@ class SignUpChildPage extends StatefulWidget {
 class _SignUpChildPageState
     extends BlocPageState<SignUpChildPage, SignUpChildBloc> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+  final GlobalKey _signUpButtonKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -53,37 +55,38 @@ class _SignUpChildPageState
     } else if (bloc.state is! QrCodeScanCompleted) {
       return _buildDashboardBody();
     }
-    return Column(
-      children: [
-        DataTextField(
-          bloc.nameTextFieldData,
-          labelText: S
-              .of(context)
-              .textFieldLoginLabel,
-          hintText: S
-              .of(context)
-              .textFieldLoginHint,
+    return SingleChildScrollView(
+      child: Container(
+        height: MediaQuery.of(context).size.height,
+        child: Column(
+          children: [
+            Expanded(
+              child: SizedBox.shrink(),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20.0,
+                ),
+                child: Column(
+                  children: [
+                    SignUpBody(
+                      loginTextFieldData: bloc.loginTextFieldData,
+                      emailTextFieldData: bloc.emailTextFieldData,
+                      passwordTextFieldData: bloc.passwordTextFieldData,
+                      profileTitle: 'Profil: gracz',
+                      onChanged: (_) => bloc.add(
+                        SignUpChildRequested(),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            _buildSignUpChildButton(),
+          ],
         ),
-        DataTextField(
-          bloc.emailTextFieldData,
-          labelText: S
-              .of(context)
-              .textFieldEmailLabel,
-          hintText: S
-              .of(context)
-              .textFieldEmailHint,
-        ),
-        DataTextField(
-          bloc.passwordTextFieldData,
-          labelText: S
-              .of(context)
-              .textFieldPasswordLabel,
-          hintText: S
-              .of(context)
-              .textFieldPasswordHint,
-        ),
-        _buildSignUpChild(),
-      ],
+      ),
     );
   }
 
@@ -127,7 +130,7 @@ class _SignUpChildPageState
                 decoration: BoxDecoration(
                   color: AppColors.textFieldBackground,
                   borderRadius:
-                  BorderRadius.circular(AppDimensions.radius.input),
+                      BorderRadius.circular(AppDimensions.radius.input),
                 ),
               ),
             ),
@@ -145,8 +148,7 @@ class _SignUpChildPageState
         child: Container(
           decoration: BoxDecoration(
             color: AppColors.primary,
-            borderRadius:
-            BorderRadius.circular(AppDimensions.radius.button),
+            borderRadius: BorderRadius.circular(AppDimensions.radius.button),
           ),
           child: Center(
             child: Text(
@@ -159,10 +161,9 @@ class _SignUpChildPageState
           width: AppDimensions.width.button,
           height: AppDimensions.height.button,
         ),
-        onPressed: () =>
-            bloc.add(
-              SignUpChildOnBoardCloseRequested(),
-            ),
+        onPressed: () => bloc.add(
+          SignUpChildOnBoardCloseRequested(),
+        ),
       ),
     );
   }
@@ -171,15 +172,12 @@ class _SignUpChildPageState
     return AdaptiveButton(
       child: Container(
         child: Text(
-          S
-              .of(context)
-              .signUp,
+          S.of(context).signUp,
         ),
       ),
-      onPressed: () =>
-          bloc.add(
-            SignUpChildRequested(),
-          ),
+      onPressed: () => bloc.add(
+        SignUpChildRequested(),
+      ),
     );
   }
 
@@ -187,6 +185,38 @@ class _SignUpChildPageState
     return QRView(
       key: qrKey,
       onQRViewCreated: bloc.onQRViewCreated,
+    );
+  }
+
+  Widget _buildSignUpChildButton() {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Padding(
+        padding:
+            EdgeInsets.all(AppDimensions.padding.buttonHorizontal).copyWith(
+          bottom: AppDimensions.padding.buttonBottom,
+          top: 0.0,
+        ),
+        child: LoadingButton(
+          isLoading: bloc.state is SignUpInProgress,
+          globalKey: _signUpButtonKey,
+          child: AdaptiveButton(
+            decoration: BoxDecoration(
+              color: AppColors.primary,
+              borderRadius: BorderRadius.circular(AppDimensions.radius.button),
+            ),
+            child: Text(
+              S.of(context).signUp,
+              style: TextStyle(
+                color: AppColors.buttonText,
+              ),
+            ),
+            onPressed: () => bloc.add(
+              SignUpChildRequested(),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

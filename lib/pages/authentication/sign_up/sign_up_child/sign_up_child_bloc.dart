@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hello_earth/commons/text_field_data.dart';
+import 'package:hello_earth/errors/app_ui_error.dart';
 import 'package:hello_earth/errors/error_keys.dart';
 import 'package:hello_earth/networking/requests/credential_request.dart';
 import 'package:hello_earth/networking/requests/player_request.dart';
@@ -26,9 +27,9 @@ class SignUpChildBloc extends Bloc<SignUpChildEvent, SignUpChildState> {
     errorKey: ErrorKeys.email,
   );
   final FamilyRepository familyRepository;
-  final TextFieldData nameTextFieldData = TextFieldData(
+  final TextFieldData loginTextFieldData = TextFieldData(
     (text) => TextFieldValidatorsUtil.validateLogin(text.trim()),
-    errorKey: ErrorKeys.email,
+    errorKey: ErrorKeys.login,
   );
   final TextFieldData passwordTextFieldData = TextFieldData(
     (text) => TextFieldValidatorsUtil.validatePassword(text.trim()),
@@ -72,7 +73,7 @@ class SignUpChildBloc extends Bloc<SignUpChildEvent, SignUpChildState> {
         email: emailTextFieldData.text.toLowerCase(),
         familyId: familyId,
         role: RoleRequest.child,
-        userName: nameTextFieldData.text,
+        userName: loginTextFieldData.text,
       );
       await userRepository.addUser(
         user: userRequest,

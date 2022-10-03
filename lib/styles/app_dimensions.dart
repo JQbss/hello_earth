@@ -29,4 +29,5 @@ class _Padding {
   final double container = 20.0;
   final double buttonHorizontal = 50.0;
   final double buttonBottom = 20.0;
+  final double text = 10.0;
 }

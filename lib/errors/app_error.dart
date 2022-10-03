@@ -26,7 +26,7 @@ class FirebaseError extends AppError {
     } else if (errorKey == ErrorKeys.email &&
         code == Constants.firebaseErrorCodes.userNotFound) {
       return 'Użytkownik o podanym adresie e-mail nie istnieje';
-    } else {
+    } else if (errorKey == ErrorKeys.email) {
       return code; //'Coś poszło nie tak :/';
     }
   }

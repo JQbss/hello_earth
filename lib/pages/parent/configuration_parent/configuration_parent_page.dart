@@ -92,7 +92,7 @@ class _ConfigurationParentPageState
         children: [
           Center(
             child: Text(
-              'Witamy na pokładzie',
+              'Witamy',
               style: TextStyle(
                 color: AppColors.primary,
                 fontSize: 20,
@@ -104,7 +104,7 @@ class _ConfigurationParentPageState
             height: 15,
           ),
           Text(
-            '\tZaczynasz właśnie przygodę z Cooking planet!\n\n\tŻeby zarejestrować się musisz zeskanować kod QR u rodzica, jeżeli twój rodzic/opiekun jeszcze nie założył konto to sam czas to zrobić!\n\n\tPo zeskanowaniu kodu QR pojawi się formularz który należy wypełnić i powitamy Ci w naszym gronie',
+            '\tZaczynasz właśnie przygodę z Cooking planet!\n\n\tW celu zalożenia konta gracz musi zeskanować poniższy kod QR\n\n\tPo zeskanowaniu należy wypełnić formularz w celu dopasowania zadań do potrzeb gracza',
             style: TextStyle(
               fontSize: 16,
             ),
@@ -155,8 +155,6 @@ class _ConfigurationParentPageState
   }
 
   Widget _buildQuestionnaireBody() {
-    final UserModel? userModel =
-        BlocProvider.of<UserDataBloc>(context).state.profile;
     final List<ContraindicationModel> listOfContraindications =
         ContraindicationModel.values.map((e) => e).toList();
     return Column(
@@ -165,38 +163,78 @@ class _ConfigurationParentPageState
           child: ListView.builder(
             itemCount: listOfContraindications.length,
             itemBuilder: (_, index) {
-              return CheckboxListTile(
-                title: Text(
-                    listOfContraindications[index].getDescription(context)),
-                value: selectedContraindications
-                    .contains(listOfContraindications[index]),
-                onChanged: (_) {
-                  setState(() {
-                    if (selectedContraindications
-                        .contains(listOfContraindications[index])) {
-                      selectedContraindications
-                          .remove(listOfContraindications[index]);
-                    } else {
-                      selectedContraindications
-                          .add(listOfContraindications[index]);
-                    }
-                  });
-                },
+              return Padding(
+                padding:
+                    EdgeInsets.all(AppDimensions.padding.container).copyWith(
+                  bottom: 0.0,
+                ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.textFieldBackground,
+                    borderRadius: BorderRadius.circular(AppDimensions.radius.button)
+                        .copyWith(bottomRight: Radius.circular(0)),
+                  ),
+                  child: CheckboxListTile(
+                    activeColor: AppColors.primary,
+                    checkColor: AppColors.buttonText,
+                    title: Padding(
+                      padding: EdgeInsets.all(AppDimensions.padding.text),
+                      child: Text(
+                        listOfContraindications[index].getDescription(context),
+                      ),
+                    ),
+                    value: selectedContraindications
+                        .contains(listOfContraindications[index]),
+                    onChanged: (_) {
+                      setState(() {
+                        if (selectedContraindications
+                            .contains(listOfContraindications[index])) {
+                          selectedContraindications
+                              .remove(listOfContraindications[index]);
+                        } else {
+                          selectedContraindications
+                              .add(listOfContraindications[index]);
+                        }
+                      });
+                    },
+                  ),
+                ),
               );
             },
           ),
         ),
-        AdaptiveButton(
-          child: Text('Zapisz'),
-          onPressed: () => bloc.add(
-            SaveQuestionnaireRequested(
-              familyUid: userModel?.familyId ?? '',
-              listOfContraindications:
-                  selectedContraindications.mapToContraindications(),
-            ),
+        _buildQuestionnaireButton(),
+      ],
+    );
+  }
+
+  Widget _buildQuestionnaireButton() {
+    final UserModel? userModel =
+        BlocProvider.of<UserDataBloc>(context).state.profile;
+    return Padding(
+      padding: EdgeInsets.all(AppDimensions.padding.buttonHorizontal).copyWith(
+        bottom: AppDimensions.padding.buttonBottom,
+        top: 0.0,
+      ),
+      child: AdaptiveButton(
+        decoration: BoxDecoration(
+          color: AppColors.primary,
+          borderRadius: BorderRadius.circular(AppDimensions.radius.button),
+        ),
+        child: Text(
+          'Zapisz',
+          style: TextStyle(
+            color: AppColors.buttonText,
           ),
         ),
-      ],
+        onPressed: () => bloc.add(
+          SaveQuestionnaireRequested(
+            familyUid: userModel?.familyId ?? '',
+            listOfContraindications:
+                selectedContraindications.mapToContraindications(),
+          ),
+        ),
+      ),
     );
   }
 }

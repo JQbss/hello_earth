@@ -1,3 +1,4 @@
+import 'package:hello_earth/extensions/list_extensions.dart';
 import 'package:hello_earth/networking/models/contraindication.dart';
 import 'package:hello_earth/networking/requests/contraindication_request.dart';
 import 'package:hello_earth/ui/models/contraindication_model.dart';
@@ -8,11 +9,15 @@ extension ContraindicationMappers on Contraindication {
   }
 }
 
-extension ContraindicationListMapper on List<Contraindication> {
+extension ContraindicationListMapper on List<Contraindication?>? {
   List<ContraindicationModel> mapToContraindicationModels() {
-    return map(
-      (contraindication) => contraindication.mapToContraindicationModel(),
-    ).toList();
+    return this
+            ?.map(
+              (contraindication) => contraindication?.mapToContraindicationModel(),
+            )
+            .toList()
+            .filterNotNull() ??
+        [];
   }
 }
 

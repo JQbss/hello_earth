@@ -10,8 +10,17 @@ Mission _$MissionFromJson(Map<String, dynamic> json) => Mission(
       contraindications: (json['contraindications'] as List<dynamic>?)
           ?.map((e) => $enumDecodeNullable(_$ContraindicationEnumMap, e))
           .toList(),
+      ingredients: (json['ingredients'] as List<dynamic>?)
+          ?.map((e) =>
+              e == null ? null : Ingredient.fromJson(e as Map<String, dynamic>))
+          .toList(),
       longDescription: json['longDescription'] as String?,
       shortDescription: json['shortDescription'] as String?,
+      steps: (json['steps'] as List<dynamic>?)
+          ?.map((e) => e == null
+              ? null
+              : StepNetworking.fromJson(e as Map<String, dynamic>))
+          .toList(),
       taskType: $enumDecodeNullable(_$TaskTypeEnumMap, json['taskType']),
       title: json['title'] as String?,
       uid: json['uid'] as String?,

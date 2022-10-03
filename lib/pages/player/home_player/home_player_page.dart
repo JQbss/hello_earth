@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_earth/blocs/configuration/configuration_bloc.dart';
+import 'package:hello_earth/pages/bloc_page_state.dart';
 import 'package:hello_earth/pages/player/home_player/home_player_bloc.dart';
 import 'package:hello_earth/utils/navigation_utils.dart';
 
@@ -14,7 +15,15 @@ class HomePlayerPage extends StatefulWidget {
   State<HomePlayerPage> createState() => _HomePlayerPageState();
 }
 
-class _HomePlayerPageState extends State<HomePlayerPage> {
+class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc> {
+  @override
+  void initState() {
+    super.initState();
+    bloc.add(
+      HomePlayerRequested(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ConfigurationBloc, ConfigurationState>(

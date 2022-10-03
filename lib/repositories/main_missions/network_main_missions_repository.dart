@@ -16,6 +16,7 @@ class NetworkMainMissionsRepository implements MainMissionsRepository {
   @override
   Future<BaseResponse<MainMissions>> getMainMissions() async {
     final DataSnapshot dataSnapshot = await reference.child(Endpoints.missions.mainMissions).get();
-    return BaseResponse<MainMissions>.fromJson(jsonDecode(jsonEncode(dataSnapshot.value ?? {})) as Map<String, dynamic>);
+    return BaseResponse<MainMissions>.fromJson(
+        jsonDecode(jsonEncode(dataSnapshot.value ?? {})) as Map<String, dynamic>);
   }
 }

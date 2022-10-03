@@ -10,7 +10,7 @@ part 'level.g.dart';
 )
 class Level {
   static const FromJsonFactory<Level> fromJsonFactory = _$LevelFromJson;
-  final List<Mission?>? missions;
+  final Map<String, Mission?>? missions;
 
   const Level({
     this.missions,

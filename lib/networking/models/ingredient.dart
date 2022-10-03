@@ -5,6 +5,7 @@ part 'ingredient.g.dart';
 
 @JsonSerializable(
   createToJson: false,
+  explicitToJson: true,
 )
 class Ingredient {
   static const FromJsonFactory<Ingredient> fromJsonFactory = _$IngredientFromJson;

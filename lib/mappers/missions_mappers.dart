@@ -1,4 +1,3 @@
-import 'package:hello_earth/extensions/extensions.dart';
 import 'package:hello_earth/mappers/mappers.dart';
 import 'package:hello_earth/networking/models/mission.dart';
 import 'package:hello_earth/ui/models/mission_model.dart';
@@ -18,14 +17,14 @@ extension MissionMapper on Mission {
   }
 }
 
-extension LevelListMapper on List<Mission?>? {
-  List<MissionModel> mapToMissionsModels() {
-    return this
-            ?.map(
-              (mission) => mission?.mapToMissionModel(),
-            )
-            .toList()
-            .filterNotNull() ??
-        [];
+extension LevelListMapper on Map<String, Mission?>? {
+  Map<String, MissionModel> mapToMissionsModels() {
+    return this?.map(
+          (key, mission) => MapEntry(
+            key,
+            mission?.mapToMissionModel() ?? MissionModel(),
+          ),
+        ) ??
+        {};
   }
 }

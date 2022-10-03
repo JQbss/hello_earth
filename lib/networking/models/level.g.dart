@@ -7,8 +7,8 @@ part of 'level.dart';
 // **************************************************************************
 
 Level _$LevelFromJson(Map<String, dynamic> json) => Level(
-      missions: (json['missions'] as List<dynamic>?)
-          ?.map((e) =>
-              e == null ? null : Mission.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      missions: (json['missions'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(
+            k, e == null ? null : Mission.fromJson(e as Map<String, dynamic>)),
+      ),
     );

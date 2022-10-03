@@ -5,6 +5,7 @@ part 'step_networking.g.dart';
 
 @JsonSerializable(
   createToJson: false,
+  explicitToJson: true,
 )
 class StepNetworking {
   static const FromJsonFactory<StepNetworking> fromJsonFactory = _$StepNetworkingFromJson;

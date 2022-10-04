@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_earth/blocs/configuration/configuration_bloc.dart';
+import 'package:hello_earth/constants.dart';
 import 'package:hello_earth/pages/bloc_page_state.dart';
 import 'package:hello_earth/pages/player/home_player/home_player_bloc.dart';
+import 'package:hello_earth/ui/models/level_model.dart';
+import 'package:hello_earth/ui/models/mission_model.dart';
 import 'package:hello_earth/utils/navigation_utils.dart';
 
 class HomePlayerPage extends StatefulWidget {
@@ -51,9 +54,100 @@ class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc>
   }
 
   Widget _buildBody() {
+    final List<LevelModel?> levels = bloc.state.mainMissions?.levels ?? [];
+    int levelNumber = 0;
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: levels.map(
+          (level) {
+            levelNumber++;
+            return _buildLevelSection(
+              levelNumber: levelNumber,
+              levelModel: level,
+            );
+          },
+        ).toList(),
+      ),
+    );
+  }
+
+  Widget _buildLevelSection({
+    required int levelNumber,
+    required LevelModel? levelModel,
+  }) {
+    final Map<String, MissionModel?> mapka = {
+      'k1':levelModel?.missions?['qwertzzzzz'],
+      'k2':levelModel?.missions?['qwertzzzzz'],
+      'k3':levelModel?.missions?['qwertzzzzz'],
+      'k4':levelModel?.missions?['qwertzzzzz'],
+      'k5':levelModel?.missions?['qwertzzzzz'],
+      'k6':levelModel?.missions?['qwertzzzzz'],
+      'k7':levelModel?.missions?['qwertzzzzz'],
+      'k8':levelModel?.missions?['qwertzzzzz'],
+      'k9':levelModel?.missions?['qwertzzzzz'],
+    };
+    return Column(
+      children: [
+        _buildTitleLevelSection(
+          levelNumber: levelNumber,
+        ),
+        _buildMissions(
+          missions: mapka,
+        )
+      ],
+    );
+  }
+
+  Widget _buildTitleLevelSection({
+    required int levelNumber,
+  }) {
+    return Container(
+      child: Text(levelNumber.toString()),
+    );
+  }
+
+  Widget _buildMissions({
+    required Map<String, MissionModel?>? missions,
+  }) {
+    final List<Row> missionsInRow = [];
+    final List<Widget> missionsIcons = [];
+    int currentRow = 0;
+    int currentMission = 0;
+    missions?.forEach(
+      (key, mission) {
+        currentMission++;
+        missionsIcons.add(
+          _buildMissionIcon(
+            mission: mission,
+          ),
+        );
+        if (missionsIcons.length < Constants.missions.numberInRow[currentRow % Constants.missions.numberInRow.length] &&
+            currentMission != missions.length) return;
+        missionsInRow.add(
+          Row(
+            children: [
+              ...missionsIcons,
+            ],
+          ),
+        );
+        missionsIcons.removeRange(0, missionsIcons.length);
+        currentRow++;
+      },
+    );
+    return Column(
+      children: [
+        ...missionsInRow,
+      ],
+    );
+  }
+
+  Widget _buildMissionIcon({
+    required MissionModel? mission,
+  }) {
     return Container(
       child: Text(
-        'Gracz',
+        mission?.title ?? '',
       ),
     );
   }

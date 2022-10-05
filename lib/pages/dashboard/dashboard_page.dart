@@ -9,8 +9,8 @@ import 'package:hello_earth/pages/bloc_page_state.dart';
 import 'package:hello_earth/pages/dashboard/commons/dashboard_tab.dart';
 import 'package:hello_earth/pages/dashboard/dashboard_bloc.dart';
 import 'package:hello_earth/routing/dashboard_tabs/parent/home_parent_routing.dart';
-import 'package:hello_earth/routing/dashboard_tabs/player/home_player_routing.dart';
 import 'package:hello_earth/routing/dashboard_tabs/settings_routing.dart';
+import 'package:hello_earth/styles/app_colors/app_colors.dart';
 import 'package:hello_earth/utils/navigation_utils.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -25,6 +25,8 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPageState extends BlocPageState<DashboardPage, DashboardBloc> {
   static const List<DashboardTab> _tabs = [
     DashboardTab.home,
+    DashboardTab.awardsOrQuestionnaire,
+    DashboardTab.shoppingCart,
     DashboardTab.settings,
   ];
 
@@ -65,7 +67,7 @@ class _DashboardPageState extends BlocPageState<DashboardPage, DashboardBloc> {
           return Scaffold(
             body: _buildBody(state),
             bottomNavigationBar: _buildBottomNavigationBar(
-              activeTab: DashboardTab.home,
+              activeTab: state.tab
             ),
           );
         },
@@ -118,6 +120,16 @@ class _DashboardPageState extends BlocPageState<DashboardPage, DashboardBloc> {
         ),
         _buildPage(
           state,
+          tab: DashboardTab.awardsOrQuestionnaire,
+          onGenerateRoute: SettingsRouting.getMainRoute,
+        ),
+        _buildPage(
+          state,
+          tab: DashboardTab.shoppingCart,
+          onGenerateRoute: SettingsRouting.getMainRoute,
+        ),
+        _buildPage(
+          state,
           tab: DashboardTab.settings,
           onGenerateRoute: SettingsRouting.getMainRoute,
         ),
@@ -131,7 +143,17 @@ class _DashboardPageState extends BlocPageState<DashboardPage, DashboardBloc> {
         _buildPage(
           state,
           tab: DashboardTab.home,
-          onGenerateRoute: HomePlayerRouting.getMainRoute,
+          onGenerateRoute: HomeParentRouting.getMainRoute,
+        ),
+        _buildPage(
+          state,
+          tab: DashboardTab.awardsOrQuestionnaire,
+          onGenerateRoute: SettingsRouting.getMainRoute,
+        ),
+        _buildPage(
+          state,
+          tab: DashboardTab.shoppingCart,
+          onGenerateRoute: SettingsRouting.getMainRoute,
         ),
         _buildPage(
           state,
@@ -170,9 +192,11 @@ class _DashboardPageState extends BlocPageState<DashboardPage, DashboardBloc> {
         ),
         onTap: (index) => _changeTab(_tabs[index]),
         currentIndex: _tabs.indexOf(activeTab),
-        type: BottomNavigationBarType.fixed,
+        type: BottomNavigationBarType.shifting,
         backgroundColor: Colors.white,
-        selectedItemColor: Colors.lightBlue,
+        selectedItemColor: AppColors.primary,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
         unselectedItemColor: Colors.grey,
       ),
     );
@@ -183,10 +207,9 @@ class _DashboardPageState extends BlocPageState<DashboardPage, DashboardBloc> {
   }) {
     return _tabs.map(
       (tab) {
-        final bool isTabActive = activeTab == tab;
         return BottomNavigationBarItem(
           label: tab.getLabel(context),
-          icon: Icon(Icons.coffee_sharp),
+          icon: Icon(tab.getIcon(context)),
         );
       },
     ).toList();

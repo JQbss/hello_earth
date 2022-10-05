@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_earth/blocs/configuration/configuration_bloc.dart';
+import 'package:hello_earth/blocs/user_data/user_data_bloc.dart';
 import 'package:hello_earth/constants.dart';
+import 'package:hello_earth/modals/mission_description_dialog.dart';
 import 'package:hello_earth/pages/bloc_page_state.dart';
 import 'package:hello_earth/pages/player/home_player/home_player_bloc.dart';
 import 'package:hello_earth/ui/models/level_model.dart';
 import 'package:hello_earth/ui/models/mission_model.dart';
 import 'package:hello_earth/utils/navigation_utils.dart';
+import 'package:hello_earth/widgets/adaptive_button.dart';
 
 class HomePlayerPage extends StatefulWidget {
   const HomePlayerPage({
@@ -38,9 +41,7 @@ class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc>
         } else if (state is ConfigurationCompleted) {
           return BlocBuilder<HomePlayerBloc, HomePlayerState>(
             builder: (_, __) {
-              return Scaffold(
-                body: _buildBody(),
-              );
+              return _buildBody();
             },
           );
         } else {
@@ -77,15 +78,15 @@ class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc>
     required LevelModel? levelModel,
   }) {
     final Map<String, MissionModel?> mapka = {
-      'k1':levelModel?.missions?['qwertzzzzz'],
-      'k2':levelModel?.missions?['qwertzzzzz'],
-      'k3':levelModel?.missions?['qwertzzzzz'],
-      'k4':levelModel?.missions?['qwertzzzzz'],
-      'k5':levelModel?.missions?['qwertzzzzz'],
-      'k6':levelModel?.missions?['qwertzzzzz'],
-      'k7':levelModel?.missions?['qwertzzzzz'],
-      'k8':levelModel?.missions?['qwertzzzzz'],
-      'k9':levelModel?.missions?['qwertzzzzz'],
+      'k1': levelModel?.missions?['qwertzzzzz'],
+      'k2': levelModel?.missions?['qwertzzzzz'],
+      'k3': levelModel?.missions?['qwertzzzzz'],
+      'k4': levelModel?.missions?['qwertzzzzz'],
+      'k5': levelModel?.missions?['qwertzzzzz'],
+      'k6': levelModel?.missions?['qwertzzzzz'],
+      'k7': levelModel?.missions?['qwertzzzzz'],
+      'k8': levelModel?.missions?['qwertzzzzz'],
+      'k9': levelModel?.missions?['qwertzzzzz'],
     };
     return Column(
       children: [
@@ -93,7 +94,7 @@ class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc>
           levelNumber: levelNumber,
         ),
         _buildMissions(
-          missions: mapka,
+          missions: levelModel?.missions,
         )
       ],
     );
@@ -119,6 +120,7 @@ class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc>
         currentMission++;
         missionsIcons.add(
           _buildMissionIcon(
+            missionUid: key,
             mission: mission,
           ),
         );
@@ -143,12 +145,42 @@ class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc>
   }
 
   Widget _buildMissionIcon({
+    required String missionUid,
     required MissionModel? mission,
   }) {
     return Container(
-      child: Text(
-        mission?.title ?? '',
+      child: AdaptiveButton(
+        child: Text(
+          mission?.title ?? '',
+        ),
+        onPressed: () => {
+          MissionDescriptionDialog.show(
+            context,
+            missionModel: mission,
+            onStartMissionPressed: () => {
+              _onStartMissionPressed(
+                missionUid: missionUid,
+              ),
+            },
+          )
+        },
       ),
     );
+  }
+
+  void _onStartMissionPressed({
+    required String missionUid,
+  }) {
+    UserDataBloc userBloc = BlocProvider.of<UserDataBloc>(context);
+    bloc.add(
+      HomePlayerMissionStartRequested(
+        familyUid: userBloc.state.profile?.familyId ?? '',
+        missionUid: missionUid,
+      ),
+    );
+    Navigator.of(
+      context,
+      rootNavigator: true,
+    ).pop();
   }
 }

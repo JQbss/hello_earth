@@ -9,6 +9,7 @@ import 'package:hello_earth/pages/bloc_page_state.dart';
 import 'package:hello_earth/pages/dashboard/commons/dashboard_tab.dart';
 import 'package:hello_earth/pages/dashboard/dashboard_bloc.dart';
 import 'package:hello_earth/routing/dashboard_tabs/parent/home_parent_routing.dart';
+import 'package:hello_earth/routing/dashboard_tabs/player/home_player_routing.dart';
 import 'package:hello_earth/routing/dashboard_tabs/settings_routing.dart';
 import 'package:hello_earth/styles/app_colors/app_colors.dart';
 import 'package:hello_earth/utils/navigation_utils.dart';
@@ -54,6 +55,7 @@ class _DashboardPageState extends BlocPageState<DashboardPage, DashboardBloc> {
     return MultiBlocListener(
       listeners: [
         _sessionListener(),
+        _userDataListener(),
       ],
       child: BlocConsumer<DashboardBloc, DashboardState>(
         bloc: bloc,
@@ -66,9 +68,7 @@ class _DashboardPageState extends BlocPageState<DashboardPage, DashboardBloc> {
           }
           return Scaffold(
             body: _buildBody(state),
-            bottomNavigationBar: _buildBottomNavigationBar(
-              activeTab: state.tab
-            ),
+            bottomNavigationBar: _buildBottomNavigationBar(activeTab: state.tab),
           );
         },
         listener: (_, state) {
@@ -100,14 +100,28 @@ class _DashboardPageState extends BlocPageState<DashboardPage, DashboardBloc> {
     );
   }
 
+  BlocListener<UserDataBloc, UserDataState> _userDataListener() {
+    return BlocListener<UserDataBloc, UserDataState>(
+      listener: (context, state) {
+        if (state is UserDataGetUserSuccess) {
+          bloc.add(
+            ChangeSessionRequested(),
+          );
+        }
+      },
+    );
+  }
+
   Widget _buildBody(DashboardState state) {
-    Widget child;
     final SessionBloc sessionBloc = BlocProvider.of<SessionBloc>(context);
-    if (sessionBloc.state is SessionInitial) {
+    final bool isProfileLoaded = BlocProvider.of<UserDataBloc>(context).state.profile != null;
+    if (sessionBloc.isParent() && isProfileLoaded) {
+      return _buildParentPages(state);
+    } else if (sessionBloc.isChild() && isProfileLoaded) {
+      return _buildPlayerPages(state);
+    } else {
       return CircularProgressIndicator();
     }
-    child = sessionBloc.isParent() ? _buildParentPages(state) : _buildPlayerPages(state);
-    return child;
   }
 
   Widget _buildParentPages(DashboardState state) {
@@ -143,7 +157,7 @@ class _DashboardPageState extends BlocPageState<DashboardPage, DashboardBloc> {
         _buildPage(
           state,
           tab: DashboardTab.home,
-          onGenerateRoute: HomeParentRouting.getMainRoute,
+          onGenerateRoute: HomePlayerRouting.getMainRoute,
         ),
         _buildPage(
           state,

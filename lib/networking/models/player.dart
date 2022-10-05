@@ -10,11 +10,13 @@ part 'player.g.dart';
 )
 class Player {
   static const FromJsonFactory<Player> fromJsonFactory = _$PlayerFromJson;
+  final String? currentMission;
   final bool? isQuestionnaireCompleted;
   final Questionnaire? questionnaire;
   final String? uid;
 
   Player({
+    required this.currentMission,
     required this.isQuestionnaireCompleted,
     required this.questionnaire,
     required this.uid,

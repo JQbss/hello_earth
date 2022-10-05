@@ -7,6 +7,7 @@ part of 'player.dart';
 // **************************************************************************
 
 Player _$PlayerFromJson(Map<String, dynamic> json) => Player(
+      currentMission: json['currentMission'] as String?,
       isQuestionnaireCompleted: json['isQuestionnaireCompleted'] as bool?,
       questionnaire: json['questionnaire'] == null
           ? null

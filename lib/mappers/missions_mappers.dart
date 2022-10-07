@@ -6,6 +6,8 @@ extension MissionMapper on Mission {
   MissionModel mapToMissionModel() {
     return MissionModel(
       contraindications: contraindications?.mapToContraindicationModels(),
+      icon: icon,
+      image: image,
       ingredients: ingredients?.mapToIngredientsModel(),
       longDescription: longDescription,
       shortDescription: shortDescription,

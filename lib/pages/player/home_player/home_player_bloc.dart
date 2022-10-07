@@ -3,9 +3,11 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hello_earth/mappers/mappers.dart';
+import 'package:hello_earth/networking/requests/current_mission_request.dart';
 import 'package:hello_earth/repositories/family/family_repository.dart';
 import 'package:hello_earth/repositories/main_missions/main_missions_repository.dart';
 import 'package:hello_earth/repositories/mission/mission_repository.dart';
+import 'package:hello_earth/ui/models/current_mission_model.dart';
 import 'package:hello_earth/ui/models/main_missions_model.dart';
 import 'package:hello_earth/ui/models/player_model.dart';
 import 'package:hello_earth/ui/models/user_model.dart';
@@ -60,13 +62,21 @@ class HomePlayerBloc extends Bloc<HomePlayerEvent, HomePlayerState> {
     Emitter<HomePlayerState> emit,
   ) async {
     try {
+      final CurrentMissionRequest currentMissionRequest = CurrentMissionRequest(
+        currentStep: 0,
+        missionUid: event.missionUid,
+      );
       missionRepository.startMission(
         familyUid: event.familyUid,
+        missionRequest: currentMissionRequest,
+      );
+      final CurrentMissionModel currentMissionModel = CurrentMissionModel(
+        currentStep: 0,
         missionUid: event.missionUid,
       );
       emit(
         HomePlayerMissionStarted(
-          currentMission: event.missionUid,
+          currentMission: currentMissionModel,
           mainMissions: state.mainMissions,
         ),
       );

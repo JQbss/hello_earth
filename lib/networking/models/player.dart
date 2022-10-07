@@ -1,4 +1,5 @@
 import 'package:hello_earth/commons/from_json_factory.dart';
+import 'package:hello_earth/networking/models/current_mission.dart';
 import 'package:hello_earth/networking/models/questionnaire.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -10,7 +11,7 @@ part 'player.g.dart';
 )
 class Player {
   static const FromJsonFactory<Player> fromJsonFactory = _$PlayerFromJson;
-  final String? currentMission;
+  final CurrentMission? currentMission;
   final bool? isQuestionnaireCompleted;
   final Questionnaire? questionnaire;
   final String? uid;

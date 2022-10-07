@@ -7,7 +7,10 @@ part of 'player.dart';
 // **************************************************************************
 
 Player _$PlayerFromJson(Map<String, dynamic> json) => Player(
-      currentMission: json['currentMission'] as String?,
+      currentMission: json['currentMission'] == null
+          ? null
+          : CurrentMission.fromJson(
+              json['currentMission'] as Map<String, dynamic>),
       isQuestionnaireCompleted: json['isQuestionnaireCompleted'] as bool?,
       questionnaire: json['questionnaire'] == null
           ? null

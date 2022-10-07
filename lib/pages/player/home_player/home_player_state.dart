@@ -1,7 +1,7 @@
 part of 'home_player_bloc.dart';
 
 abstract class HomePlayerState extends Equatable {
-  final String? currentMission;
+  final CurrentMissionModel? currentMission;
   final MainMissionsModel? mainMissions;
 
   const HomePlayerState({

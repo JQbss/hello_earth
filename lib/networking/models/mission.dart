@@ -14,6 +14,8 @@ part 'mission.g.dart';
 class Mission {
   static const FromJsonFactory<Mission> fromJsonFactory = _$MissionFromJson;
   final List<Contraindication?>? contraindications;
+  final String? icon;
+  final String? image;
   final List<Ingredient?>? ingredients;
   final String? longDescription;
   final String? shortDescription;
@@ -24,6 +26,8 @@ class Mission {
 
   const Mission({
     this.contraindications,
+    this.icon,
+    this.image,
     this.ingredients,
     this.longDescription,
     this.shortDescription,

@@ -5,6 +5,8 @@ import 'package:hello_earth/ui/models/task_type_model.dart';
 
 class MissionModel {
   final List<ContraindicationModel?>? contraindications;
+  final String? icon;
+  final String? image;
   final List<IngredientModel?>? ingredients;
   final String? longDescription;
   final String? shortDescription;
@@ -15,6 +17,8 @@ class MissionModel {
 
   const MissionModel({
     this.contraindications,
+    this.icon,
+    this.image,
     this.ingredients,
     this.longDescription,
     this.shortDescription,

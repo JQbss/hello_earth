@@ -1,7 +1,8 @@
+import 'package:hello_earth/ui/models/current_mission_model.dart';
 import 'package:hello_earth/ui/models/questionnaire_model.dart';
 
 class PlayerModel {
-  final String? currentMission;
+  final CurrentMissionModel? currentMission;
   final bool? isQuestionnaireCompleted;
   final QuestionnaireModel? questionnaire;
   final String? uid;

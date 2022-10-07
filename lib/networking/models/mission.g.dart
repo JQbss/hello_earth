@@ -10,6 +10,8 @@ Mission _$MissionFromJson(Map<String, dynamic> json) => Mission(
       contraindications: (json['contraindications'] as List<dynamic>?)
           ?.map((e) => $enumDecodeNullable(_$ContraindicationEnumMap, e))
           .toList(),
+      icon: json['icon'] as String?,
+      image: json['image'] as String?,
       ingredients: (json['ingredients'] as List<dynamic>?)
           ?.map((e) =>
               e == null ? null : Ingredient.fromJson(e as Map<String, dynamic>))

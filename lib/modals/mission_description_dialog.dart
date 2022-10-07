@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hello_earth/ui/models/mission_model.dart';
+import 'package:hello_earth/ui/models/task_type_model.dart';
 import 'package:hello_earth/widgets/adaptive_button.dart';
 
 class MissionDescriptionDialog {
@@ -8,6 +9,7 @@ class MissionDescriptionDialog {
   static Future<void> show(
     BuildContext context, {
     required MissionModel? missionModel,
+    required VoidCallback onCookingMissionPressed,
     required VoidCallback onStartMissionPressed,
   }) {
     return showDialog(
@@ -18,10 +20,17 @@ class MissionDescriptionDialog {
           missionModel: missionModel,
         ),
         actions: [
-          _buildButton(
-            context,
-            onStartMissionPressed: onStartMissionPressed,
-          ),
+          missionModel?.taskType == TaskTypeModel.cooking
+              ? _buildButton(
+                  context,
+                  buttonTitle: 'Sprawdź potrzebne składniki',
+                  onStartMissionPressed: onCookingMissionPressed,
+                )
+              : _buildButton(
+                  context,
+                  buttonTitle: 'Rozpocznij zadanie',
+                  onStartMissionPressed: onStartMissionPressed,
+                ),
         ],
       ),
     );
@@ -82,9 +91,10 @@ class MissionDescriptionDialog {
   static Widget _buildButton(
     BuildContext context, {
     required VoidCallback onStartMissionPressed,
+    required String buttonTitle,
   }) {
     return AdaptiveButton(
-      child: Text('Rozpocznij zadanie'),
+      child: Text(buttonTitle),
       onPressed: onStartMissionPressed,
     );
   }

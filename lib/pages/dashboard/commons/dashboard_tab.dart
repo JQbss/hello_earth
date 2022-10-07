@@ -4,6 +4,7 @@ import 'package:hello_earth/blocs/session/session_bloc.dart';
 import 'package:hello_earth/routing/dashboard_tabs/parent/home_parent_routing.dart';
 import 'package:hello_earth/routing/dashboard_tabs/player/home_player_routing.dart';
 import 'package:hello_earth/routing/dashboard_tabs/settings_routing.dart';
+import 'package:hello_earth/routing/dashboard_tabs/shopping_lists_routing.dart';
 
 enum DashboardTab {
   home,
@@ -23,7 +24,7 @@ enum DashboardTab {
       case DashboardTab.settings:
         return SettingsRouting.settings;
       case DashboardTab.shoppingCart:
-        return SettingsRouting.settings;
+        return ShoppingListsRouting.shoppingLists;
     }
   }
 

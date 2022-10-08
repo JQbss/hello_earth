@@ -67,6 +67,7 @@ class _DashboardPageState extends BlocPageState<DashboardPage, DashboardBloc> {
             );
           }
           return Scaffold(
+            backgroundColor: AppColors.appBackground,
             body: _buildBody(state),
             bottomNavigationBar: _buildBottomNavigationBar(activeTab: state.tab),
           );

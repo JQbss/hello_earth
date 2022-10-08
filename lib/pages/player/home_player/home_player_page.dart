@@ -1,12 +1,17 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_earth/blocs/configuration/configuration_bloc.dart';
 import 'package:hello_earth/blocs/user_data/user_data_bloc.dart';
 import 'package:hello_earth/constants.dart';
+import 'package:hello_earth/generated/assets.gen.dart';
 import 'package:hello_earth/modals/mission_description_dialog.dart';
 import 'package:hello_earth/pages/bloc_page_state.dart';
 import 'package:hello_earth/pages/player/home_player/home_player_bloc.dart';
+import 'package:hello_earth/styles/app_colors/app_colors.dart';
+import 'package:hello_earth/styles/app_dimensions.dart';
 import 'package:hello_earth/ui/models/level_model.dart';
 import 'package:hello_earth/ui/models/mission_model.dart';
 import 'package:hello_earth/utils/navigation_utils.dart';
@@ -21,7 +26,8 @@ class HomePlayerPage extends StatefulWidget {
   State<HomePlayerPage> createState() => _HomePlayerPageState();
 }
 
-class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc> {
+class _HomePlayerPageState
+    extends BlocPageState<HomePlayerPage, HomePlayerBloc> {
   @override
   void initState() {
     super.initState();
@@ -57,18 +63,22 @@ class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc>
   Widget _buildBody() {
     final List<LevelModel?> levels = bloc.state.mainMissions?.levels ?? [];
     int levelNumber = 0;
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: levels.map(
-          (level) {
-            levelNumber++;
-            return _buildLevelSection(
-              levelNumber: levelNumber,
-              levelModel: level,
-            );
-          },
-        ).toList(),
+    return SingleChildScrollView(
+      child: Padding(
+        padding: EdgeInsets.only(
+          top: AppDimensions.padding.columnTop,
+        ),
+        child: Column(
+          children: levels.map(
+            (level) {
+              levelNumber++;
+              return _buildLevelSection(
+                levelNumber: levelNumber,
+                levelModel: level,
+              );
+            },
+          ).toList(),
+        ),
       ),
     );
   }
@@ -87,6 +97,10 @@ class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc>
       'k7': levelModel?.missions?['qwertzzzzz'],
       'k8': levelModel?.missions?['qwertzzzzz'],
       'k9': levelModel?.missions?['qwertzzzzz'],
+      'k10': levelModel?.missions?['qwertzzzzz'],
+      'k11': levelModel?.missions?['qwertzzzzz'],
+      'k12': levelModel?.missions?['qwertzzzzz'],
+      'k13': levelModel?.missions?['qwertzzzzz'],
     };
     return Column(
       children: [
@@ -94,8 +108,8 @@ class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc>
           levelNumber: levelNumber,
         ),
         _buildMissions(
-          missions: levelModel?.missions,
-        )
+          missions: mapka,
+        ),
       ],
     );
   }
@@ -103,8 +117,38 @@ class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc>
   Widget _buildTitleLevelSection({
     required int levelNumber,
   }) {
-    return Container(
-      child: Text(levelNumber.toString()),
+    return Padding(
+      padding: EdgeInsets.only(
+        bottom: AppDimensions.padding.missionBottom,
+      ),
+      child: Stack(
+        children: [
+          Assets.svgIcons.level.svg(
+            width: AppDimensions.width.levelIcon,
+          ),
+          Positioned(
+            bottom: AppDimensions.width.levelIcon / 5,
+            left: AppDimensions.width.levelIcon / 2 - 8.0,
+            child: Container(
+              width: 20,
+              height: 20,
+              decoration: BoxDecoration(
+                border: Border.all(width: 1, color: AppColors.primary),
+                color: AppColors.textFieldBackground,
+                shape: BoxShape.circle,
+              ),
+              child: Center(
+                child: Text(
+                  levelNumber.toString(),
+                  style: TextStyle(
+                    color: AppColors.primary,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -124,10 +168,13 @@ class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc>
             mission: mission,
           ),
         );
-        if (missionsIcons.length < Constants.missions.numberInRow[currentRow % Constants.missions.numberInRow.length] &&
+        if (missionsIcons.length <
+                Constants.missions.numberInRow[
+                    currentRow % Constants.missions.numberInRow.length] &&
             currentMission != missions.length) return;
         missionsInRow.add(
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ...missionsIcons,
             ],
@@ -148,22 +195,38 @@ class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc>
     required String missionUid,
     required MissionModel? mission,
   }) {
-    return Container(
-      child: AdaptiveButton(
-        child: Text(
-          mission?.title ?? '',
+    return Padding(
+      padding: EdgeInsets.only(bottom: AppDimensions.padding.missionBottom),
+      child: Container(
+        height: AppDimensions.height.mission,
+        decoration: BoxDecoration(
+          color: AppColors.primary,
+          shape: BoxShape.circle,
         ),
-        onPressed: () => {
-          MissionDescriptionDialog.show(
-            context,
-            missionModel: mission,
-            onStartMissionPressed: () => {
-              _onStartMissionPressed(
-                missionUid: missionUid,
-              ),
-            },
-          )
-        },
+        child: AdaptiveButton(
+          height: AppDimensions.height.mission - 10.0,
+          child: Container(
+            height: AppDimensions.height.mission - 10.0,
+            decoration: BoxDecoration(
+              color: AppColors.textFieldBackground,
+              shape: BoxShape.circle,
+            ),
+            child: Image.memory(
+              base64Decode(mission?.icon ?? ''),
+            ),
+          ),
+          onPressed: () => {
+            MissionDescriptionDialog.show(
+              context,
+              missionModel: mission,
+              onStartMissionPressed: () => {
+                _onStartMissionPressed(
+                  missionUid: missionUid,
+                ),
+              },
+            )
+          },
+        ),
       ),
     );
   }

@@ -39,6 +39,7 @@ dev_dependencies:
 flutter:
   assets:
     - assets/svg_icons/
+    - assets/png_icons/
   uses-material-design: true
 
 flutter_gen:

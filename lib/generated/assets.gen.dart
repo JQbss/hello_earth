@@ -11,6 +11,16 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
 
+class $AssetsPngIconsGen {
+  const $AssetsPngIconsGen();
+
+  /// File path: assets/png_icons/eggs.png
+  AssetGenImage get eggs => const AssetGenImage('assets/png_icons/eggs.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [eggs];
+}
+
 class $AssetsSvgIconsGen {
   const $AssetsSvgIconsGen();
 
@@ -24,6 +34,7 @@ class $AssetsSvgIconsGen {
 class Assets {
   Assets._();
 
+  static const $AssetsPngIconsGen pngIcons = $AssetsPngIconsGen();
   static const $AssetsSvgIconsGen svgIcons = $AssetsSvgIconsGen();
 }
 

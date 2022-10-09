@@ -12,11 +12,13 @@ class AppDimensions {
 }
 
 class _Height {
-  final double button = 50;
+  final double button = 50.0;
+  final double mission = 95.0;
 }
 
 class _Width {
-  final double button = 250;
+  final double button = 250.0;
+  final double levelIcon = 120.0;
 }
 
 class _Radius  {
@@ -26,8 +28,10 @@ class _Radius  {
 }
 
 class _Padding {
-  final double container = 20.0;
   final double buttonHorizontal = 50.0;
   final double buttonBottom = 20.0;
+  final double container = 20.0;
+  final double columnTop = 50.0;
+  final double missionBottom = 25.0;
   final double text = 10.0;
 }

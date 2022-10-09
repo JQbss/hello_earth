@@ -68,6 +68,7 @@ class _DashboardPageState extends BlocPageState<DashboardPage, DashboardBloc> {
             );
           }
           return Scaffold(
+            backgroundColor: AppColors.appBackground,
             body: _buildBody(state),
             bottomNavigationBar: _buildBottomNavigationBar(activeTab: state.tab),
           );
@@ -208,7 +209,6 @@ class _DashboardPageState extends BlocPageState<DashboardPage, DashboardBloc> {
         onTap: (index) => _changeTab(_tabs[index]),
         currentIndex: _tabs.indexOf(activeTab),
         type: BottomNavigationBarType.shifting,
-        backgroundColor: Colors.white,
         selectedItemColor: AppColors.primary,
         showSelectedLabels: false,
         showUnselectedLabels: false,
@@ -224,7 +224,8 @@ class _DashboardPageState extends BlocPageState<DashboardPage, DashboardBloc> {
       (tab) {
         return BottomNavigationBarItem(
           label: tab.getLabel(context),
-          icon: Icon(tab.getIcon(context)),
+          icon: Icon(tab.getIcon(context),size: 30,),
+          backgroundColor: AppColors.appBackground,
         );
       },
     ).toList();

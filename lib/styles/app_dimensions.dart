@@ -32,6 +32,6 @@ class _Padding {
   final double buttonBottom = 20.0;
   final double container = 20.0;
   final double columnTop = 50.0;
-  final double missionBottom = 15.0;
+  final double missionBottom = 25.0;
   final double text = 10.0;
 }

@@ -17,8 +17,11 @@ class $AssetsPngIconsGen {
   /// File path: assets/png_icons/eggs.png
   AssetGenImage get eggs => const AssetGenImage('assets/png_icons/eggs.png');
 
+  /// File path: assets/png_icons/logo.png
+  AssetGenImage get logo => const AssetGenImage('assets/png_icons/logo.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [eggs];
+  List<AssetGenImage> get values => [eggs, logo];
 }
 
 class $AssetsSvgIconsGen {

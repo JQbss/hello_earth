@@ -9,12 +9,14 @@ part 'ingredient.g.dart';
 )
 class Ingredient {
   static const FromJsonFactory<Ingredient> fromJsonFactory = _$IngredientFromJson;
+  final bool? isBought;
   final String? name;
   final int? quantity;
 
   const Ingredient({
-    required this.name,
-    required this.quantity,
+    this.isBought,
+    this.name,
+    this.quantity,
   });
 
   factory Ingredient.fromJson(Map<String, dynamic> json) => _$IngredientFromJson(json);

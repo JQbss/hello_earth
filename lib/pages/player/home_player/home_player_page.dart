@@ -10,6 +10,7 @@ import 'package:hello_earth/generated/assets.gen.dart';
 import 'package:hello_earth/modals/mission_description_dialog.dart';
 import 'package:hello_earth/pages/bloc_page_state.dart';
 import 'package:hello_earth/pages/player/home_player/home_player_bloc.dart';
+import 'package:hello_earth/pages/shopping_list/shopping_list_details/shopping_list_details_arguments.dart';
 import 'package:hello_earth/styles/app_colors/app_colors.dart';
 import 'package:hello_earth/styles/app_dimensions.dart';
 import 'package:hello_earth/routing/dashboard_tabs/shopping_lists_routing.dart';
@@ -212,7 +213,13 @@ class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc>
               base64Decode(mission?.icon ?? ''),
             ),
           ),
-          onPressed: () => {
+          onPressed: () {
+            final ShoppingListDetailsArguments arguments = ShoppingListDetailsArguments(
+              ingredients: mission?.ingredients,
+              isParentVisible: false,
+              missionName: mission?.title,
+              uid: missionUid,
+            );
             MissionDescriptionDialog.show(
               context,
               missionModel: mission,
@@ -221,13 +228,14 @@ class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc>
                 rootNavigator: true,
               ).pushNamed(
                 ShoppingListsRouting.shoppingListDetails,
+                arguments: arguments,
               ),
               onStartMissionPressed: () => {
                 _onStartMissionPressed(
                   missionUid: missionUid,
                 ),
               },
-            )
+            );
           },
         ),
       ),

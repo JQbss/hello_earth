@@ -133,15 +133,14 @@ class _HomePlayerPageState
               width: 20,
               height: 20,
               decoration: BoxDecoration(
-                border: Border.all(width: 1, color: AppColors.primary),
-                color: AppColors.textFieldBackground,
+                color: AppColors.levelLogo,
                 shape: BoxShape.circle,
               ),
               child: Center(
                 child: Text(
                   levelNumber.toString(),
                   style: TextStyle(
-                    color: AppColors.primary,
+                    color: AppColors.levelLogoText,
                   ),
                 ),
               ),

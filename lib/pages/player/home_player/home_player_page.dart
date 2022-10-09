@@ -27,8 +27,7 @@ class HomePlayerPage extends StatefulWidget {
   State<HomePlayerPage> createState() => _HomePlayerPageState();
 }
 
-class _HomePlayerPageState
-    extends BlocPageState<HomePlayerPage, HomePlayerBloc> {
+class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc> {
   @override
   void initState() {
     super.initState();
@@ -168,9 +167,7 @@ class _HomePlayerPageState
             mission: mission,
           ),
         );
-        if (missionsIcons.length <
-                Constants.missions.numberInRow[
-                    currentRow % Constants.missions.numberInRow.length] &&
+        if (missionsIcons.length < Constants.missions.numberInRow[currentRow % Constants.missions.numberInRow.length] &&
             currentMission != missions.length) return;
         missionsInRow.add(
           Row(
@@ -219,6 +216,12 @@ class _HomePlayerPageState
             MissionDescriptionDialog.show(
               context,
               missionModel: mission,
+              onCookingMissionPressed: () => Navigator.of(
+                context,
+                rootNavigator: true,
+              ).pushNamed(
+                ShoppingListsRouting.shoppingListDetails,
+              ),
               onStartMissionPressed: () => {
                 _onStartMissionPressed(
                   missionUid: missionUid,
@@ -227,28 +230,6 @@ class _HomePlayerPageState
             )
           },
         ),
-    return Container(
-      child: AdaptiveButton(
-        child: Text(
-          mission?.title ?? '',
-        ),
-        onPressed: () => {
-          MissionDescriptionDialog.show(
-            context,
-            missionModel: mission,
-            onCookingMissionPressed: ()=>Navigator.of(
-              context,
-              rootNavigator: true,
-            ).pushNamed(
-              ShoppingListsRouting.shoppingListDetails,
-            ),
-            onStartMissionPressed: () => {
-              _onStartMissionPressed(
-                missionUid: missionUid,
-              ),
-            },
-          )
-        },
       ),
     );
   }

@@ -35,19 +35,6 @@ class MissionDescriptionDialog {
                   buttonTitle: 'Rozpocznij zadanie',
                   onStartMissionPressed: onStartMissionPressed,
                 ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _buildButton(
-                context,
-                onStartMissionPressed: onStartMissionPressed,
-              ),
-              _buildButton(
-                context,
-                onStartMissionPressed: onStartMissionPressed,
-              ),
-            ],
-          ),
         ],
       ),
     );
@@ -58,6 +45,7 @@ class MissionDescriptionDialog {
     required MissionModel? missionModel,
   }) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         _buildHeader(
           context,
@@ -153,23 +141,20 @@ class MissionDescriptionDialog {
     required VoidCallback onStartMissionPressed,
     required String buttonTitle,
   }) {
-    return AdaptiveButton(
-      child: Text(buttonTitle),
-      onPressed: onStartMissionPressed,
-    return Container(
-      width: MediaQuery.of(context).size.width / 2 -
-          2 * AppDimensions.defaultPadding,
-      decoration: BoxDecoration(
-        color: AppColors.primary,
-        borderRadius: BorderRadius.circular(AppDimensions.radius.button),
-      ),
-      child: AdaptiveButton(
-        child: Text(
-          'Rozpocznij zadanie',
-          style: TextStyle(color: AppColors.buttonText),
-          textAlign: TextAlign.center,
+    return Center(
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.primary,
+          borderRadius: BorderRadius.circular(AppDimensions.radius.button),
         ),
-        onPressed: onStartMissionPressed,
+        child: AdaptiveButton(
+          child: Text(
+            buttonTitle,
+            style: TextStyle(color: AppColors.buttonText),
+            textAlign: TextAlign.center,
+          ),
+          onPressed: onStartMissionPressed,
+        ),
       ),
     );
   }

@@ -20,8 +20,8 @@ class AppColors {
   static Color get error => colors.error;
 
   static Color get levelLogo => colors.levelLogo;
-  static Color get levelLogoText => colors.levelLogoText;
 
+  static Color get levelLogoText => colors.levelLogoText;
 
   static Color get primary => colors.primary;
 

@@ -63,8 +63,6 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     emit(
       SignInEmailSent(),
     );
-
-
   }
 
   Future<void> _onSignInWithEmailRequested(

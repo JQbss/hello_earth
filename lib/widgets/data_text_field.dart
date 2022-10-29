@@ -65,24 +65,24 @@ class _DataTextFieldState extends State<DataTextField> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<TextFieldError?>(
-        valueListenable: widget.data.validationErrorValueNotifier,
-        builder: (context, value, _) {
-          final String? errorMessage =
-              shouldValidate && value != null ? value.message(context) : null;
-          return TextFormField(
-            autovalidateMode: shouldValidate
-                ? AutovalidateMode.always
-                : AutovalidateMode.disabled,
-            controller: _textEditingController,
-            cursorColor: AppColors.primary,
-            focusNode: _focusNode,
-            validator: shouldValidate ? (_) => errorMessage : null,
-            onChanged: widget.onChanged,
-            onFieldSubmitted: (_) => widget.onSubmitted?.call(),
-            decoration: _textFormFieldDecoration(),
-            obscureText: _isObscureText,
-          );
-        });
+      valueListenable: widget.data.validationErrorValueNotifier,
+      builder: (context, value, _) {
+        final String? errorMessage =
+            shouldValidate && value != null ? value.message(context) : null;
+        return TextFormField(
+          autovalidateMode: shouldValidate
+              ? AutovalidateMode.always
+              : AutovalidateMode.disabled,
+          controller: _textEditingController,
+          cursorColor: AppColors.primary,
+          focusNode: _focusNode,
+          validator: shouldValidate ? (_) => errorMessage : null,
+          onChanged: widget.onChanged,
+          onFieldSubmitted: (_) => widget.onSubmitted?.call(),
+          decoration: _textFormFieldDecoration(),
+          obscureText: _isObscureText,
+        );
+      });
   }
 
   Widget _buildObscureSuffixIcon() {

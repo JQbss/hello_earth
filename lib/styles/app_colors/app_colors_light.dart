@@ -4,7 +4,7 @@ import 'package:hello_earth/styles/app_colors/app_colors_theme.dart';
 class AppColorsLight extends AppColorsTheme {
   AppColorsLight()
       : super(
-          appBackground: const Color(0xFFDCE6AB),
+          appBackground: const Color(0xFFD6E2B3),
           buttonText: Colors.white,
           disabled: Color(0xFFEDEDED),
           error: Color(0xFFB00020),

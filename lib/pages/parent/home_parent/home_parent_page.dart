@@ -3,7 +3,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_earth/blocs/configuration/configuration_bloc.dart';
 import 'package:hello_earth/pages/bloc_page_state.dart';
-import 'package:hello_earth/pages/parent/homeParent/home_parent_bloc.dart';
+import 'package:hello_earth/pages/parent/home_parent/home_parent_bloc.dart';
 import 'package:hello_earth/utils/navigation_utils.dart';
 
 class HomeParentPage extends StatefulWidget {

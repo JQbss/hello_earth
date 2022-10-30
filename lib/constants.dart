@@ -19,5 +19,5 @@ class _FirebaseErrorCodes {
 }
 
 class _Missions {
-  final List<int> numberInRow = [2, 1, 3];
+  final List<int> numberInRow = [2, 1, 3, 1];
 }

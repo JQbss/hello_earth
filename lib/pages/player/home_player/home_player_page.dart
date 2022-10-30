@@ -10,8 +10,10 @@ import 'package:hello_earth/generated/assets.gen.dart';
 import 'package:hello_earth/modals/mission_description_dialog.dart';
 import 'package:hello_earth/pages/bloc_page_state.dart';
 import 'package:hello_earth/pages/player/home_player/home_player_bloc.dart';
+import 'package:hello_earth/pages/shopping_list/shopping_list_details/shopping_list_details_arguments.dart';
 import 'package:hello_earth/styles/app_colors/app_colors.dart';
 import 'package:hello_earth/styles/app_dimensions.dart';
+import 'package:hello_earth/routing/dashboard_tabs/shopping_lists_routing.dart';
 import 'package:hello_earth/ui/models/level_model.dart';
 import 'package:hello_earth/ui/models/mission_model.dart';
 import 'package:hello_earth/utils/navigation_utils.dart';
@@ -26,8 +28,7 @@ class HomePlayerPage extends StatefulWidget {
   State<HomePlayerPage> createState() => _HomePlayerPageState();
 }
 
-class _HomePlayerPageState
-    extends BlocPageState<HomePlayerPage, HomePlayerBloc> {
+class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc> {
   @override
   void initState() {
     super.initState();
@@ -167,9 +168,7 @@ class _HomePlayerPageState
             mission: mission,
           ),
         );
-        if (missionsIcons.length <
-                Constants.missions.numberInRow[
-                    currentRow % Constants.missions.numberInRow.length] &&
+        if (missionsIcons.length < Constants.missions.numberInRow[currentRow % Constants.missions.numberInRow.length] &&
             currentMission != missions.length) return;
         missionsInRow.add(
           Row(
@@ -214,16 +213,29 @@ class _HomePlayerPageState
               base64Decode(mission?.icon ?? ''),
             ),
           ),
-          onPressed: () => {
+          onPressed: () {
+            final ShoppingListDetailsArguments arguments = ShoppingListDetailsArguments(
+              ingredients: mission?.ingredients,
+              isParentVisible: false,
+              missionName: mission?.title,
+              uid: missionUid,
+            );
             MissionDescriptionDialog.show(
               context,
               missionModel: mission,
+              onCookingMissionPressed: () => Navigator.of(
+                context,
+                rootNavigator: true,
+              ).pushNamed(
+                ShoppingListsRouting.shoppingListDetails,
+                arguments: arguments,
+              ),
               onStartMissionPressed: () => {
                 _onStartMissionPressed(
                   missionUid: missionUid,
                 ),
               },
-            )
+            );
           },
         ),
       ),

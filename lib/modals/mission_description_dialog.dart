@@ -3,6 +3,7 @@ import 'package:hello_earth/generated/assets.gen.dart';
 import 'package:hello_earth/styles/app_colors/app_colors.dart';
 import 'package:hello_earth/styles/app_dimensions.dart';
 import 'package:hello_earth/ui/models/mission_model.dart';
+import 'package:hello_earth/ui/models/task_type_model.dart';
 import 'package:hello_earth/widgets/adaptive_button.dart';
 
 class MissionDescriptionDialog {
@@ -11,6 +12,7 @@ class MissionDescriptionDialog {
   static Future<void> show(
     BuildContext context, {
     required MissionModel? missionModel,
+    required VoidCallback onCookingMissionPressed,
     required VoidCallback onStartMissionPressed,
   }) {
     return showDialog(
@@ -22,19 +24,17 @@ class MissionDescriptionDialog {
           missionModel: missionModel,
         ),
         actions: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _buildButton(
-                context,
-                onStartMissionPressed: onStartMissionPressed,
-              ),
-              _buildButton(
-                context,
-                onStartMissionPressed: onStartMissionPressed,
-              ),
-            ],
-          ),
+          missionModel?.taskType == TaskTypeModel.cooking
+              ? _buildButton(
+                  context,
+                  buttonTitle: 'Sprawdź potrzebne składniki',
+                  onStartMissionPressed: onCookingMissionPressed,
+                )
+              : _buildButton(
+                  context,
+                  buttonTitle: 'Rozpocznij zadanie',
+                  onStartMissionPressed: onStartMissionPressed,
+                ),
         ],
       ),
     );
@@ -139,21 +139,22 @@ class MissionDescriptionDialog {
   static Widget _buildButton(
     BuildContext context, {
     required VoidCallback onStartMissionPressed,
+    required String buttonTitle,
   }) {
-    return Container(
-      width: MediaQuery.of(context).size.width / 2 -
-          2 * AppDimensions.defaultPadding,
-      decoration: BoxDecoration(
-        color: AppColors.primary,
-        borderRadius: BorderRadius.circular(AppDimensions.radius.button),
-      ),
-      child: AdaptiveButton(
-        child: Text(
-          'Rozpocznij zadanie',
-          style: TextStyle(color: AppColors.buttonText),
-          textAlign: TextAlign.center,
+    return Center(
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.primary,
+          borderRadius: BorderRadius.circular(AppDimensions.radius.button),
         ),
-        onPressed: onStartMissionPressed,
+        child: AdaptiveButton(
+          child: Text(
+            buttonTitle,
+            style: TextStyle(color: AppColors.buttonText),
+            textAlign: TextAlign.center,
+          ),
+          onPressed: onStartMissionPressed,
+        ),
       ),
     );
   }

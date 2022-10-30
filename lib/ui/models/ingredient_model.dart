@@ -1,9 +1,11 @@
 class IngredientModel {
+  final bool? isBought;
   final String? name;
   final int? quantity;
 
   const IngredientModel({
-    required this.name,
-    required this.quantity,
+    this.isBought,
+    this.name,
+    this.quantity,
   });
 }

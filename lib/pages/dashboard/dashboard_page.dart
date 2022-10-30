@@ -11,6 +11,7 @@ import 'package:hello_earth/pages/dashboard/dashboard_bloc.dart';
 import 'package:hello_earth/routing/dashboard_tabs/parent/home_parent_routing.dart';
 import 'package:hello_earth/routing/dashboard_tabs/player/home_player_routing.dart';
 import 'package:hello_earth/routing/dashboard_tabs/settings_routing.dart';
+import 'package:hello_earth/routing/dashboard_tabs/shopping_lists_routing.dart';
 import 'package:hello_earth/styles/app_colors/app_colors.dart';
 import 'package:hello_earth/utils/navigation_utils.dart';
 
@@ -141,7 +142,7 @@ class _DashboardPageState extends BlocPageState<DashboardPage, DashboardBloc> {
         _buildPage(
           state,
           tab: DashboardTab.shoppingCart,
-          onGenerateRoute: SettingsRouting.getMainRoute,
+          onGenerateRoute: ShoppingListsRouting.getMainRoute,
         ),
         _buildPage(
           state,
@@ -168,7 +169,7 @@ class _DashboardPageState extends BlocPageState<DashboardPage, DashboardBloc> {
         _buildPage(
           state,
           tab: DashboardTab.shoppingCart,
-          onGenerateRoute: SettingsRouting.getMainRoute,
+          onGenerateRoute: ShoppingListsRouting.getMainRoute,
         ),
         _buildPage(
           state,

@@ -32,6 +32,14 @@ class MessageLookup extends MessageLookupByLibrary {
             "Czy istnieją przeciwskazania do wychodzenia na zewnątrz np. do sklepu?"),
         "contraindicationSesame": MessageLookupByLibrary.simpleMessage(
             "Czy istnieją przeciwskazania do spożywania sezamu?"),
+        "errorEmailAlreadyInUse":
+            MessageLookupByLibrary.simpleMessage("Email został wykorzystany"),
+        "errorInvalidEmail": MessageLookupByLibrary.simpleMessage(
+            "Nieprawidłowy format adresu e-mail"),
+        "errorUserNotFound": MessageLookupByLibrary.simpleMessage(
+            "Użytkownik o podanym adresie e-mail nie istnieje"),
+        "errorWrongPassword":
+            MessageLookupByLibrary.simpleMessage("Nieprawidłowe hasło"),
         "logIn": MessageLookupByLibrary.simpleMessage("Logowanie"),
         "parentRegistration":
             MessageLookupByLibrary.simpleMessage("Rejestracja rodzica"),

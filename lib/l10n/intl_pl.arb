@@ -16,5 +16,9 @@
   "signInEmailErrorCancel": "Anuluj",
   "signInEmailErrorSend": "Wyślij",
   "signInEmailSentTitle": "Na podany adres e-mail, został wysłany nowy link aktywacyjny",
-  "signInEmailDialogClose": "Zamknij"
+  "signInEmailDialogClose": "Zamknij",
+  "errorInvalidEmail": "Nieprawidłowy format adresu e-mail",
+  "errorEmailAlreadyInUse": "Email został wykorzystany",
+  "errorWrongPassword": "Nieprawidłowe hasło",
+  "errorUserNotFound": "Użytkownik o podanym adresie e-mail nie istnieje"
 }

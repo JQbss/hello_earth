@@ -3,6 +3,7 @@ import 'package:hello_earth/pages/dashboard/dashboard_page.dart';
 import 'package:hello_earth/routing/authentication_routing.dart';
 import 'package:hello_earth/routing/configuration_routing.dart';
 import 'package:hello_earth/routing/dashboard_tabs/parent/home_parent_routing.dart';
+import 'package:hello_earth/routing/dashboard_tabs/player/home_player_routing.dart';
 import 'package:hello_earth/routing/dashboard_tabs/shopping_lists_routing.dart';
 
 class Routing {
@@ -17,9 +18,11 @@ class Routing {
       return AuthenticationRouting.getMainRoute(settings);
     } else if (HomeParentRouting.canHandleRoute(routeName)) {
       return HomeParentRouting.getMainRoute(settings);
+    } else if (HomePlayerRouting.canHandleRoute(routeName)) {
+      return HomePlayerRouting.getMainRoute(settings);
     } else if (ConfigurationRouting.canHandleRoute(routeName)) {
       return ConfigurationRouting.getMainRoute(settings);
-    } else if (ShoppingListsRouting.canHandleRoute(routeName)){
+    } else if (ShoppingListsRouting.canHandleRoute(routeName)) {
       return ShoppingListsRouting.getMainRoute(settings);
     }
 

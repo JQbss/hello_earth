@@ -55,36 +55,38 @@ class _SignUpChildPageState
     } else if (bloc.state is! QrCodeScanCompleted) {
       return _buildDashboardBody();
     }
-    return SingleChildScrollView(
-      child: Container(
-        height: MediaQuery.of(context).size.height,
-        child: Column(
-          children: [
-            Expanded(
-              child: SizedBox.shrink(),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20.0,
-                ),
-                child: Column(
-                  children: [
-                    SignUpBody(
-                      loginTextFieldData: bloc.loginTextFieldData,
-                      emailTextFieldData: bloc.emailTextFieldData,
-                      passwordTextFieldData: bloc.passwordTextFieldData,
-                      profileTitle: 'Profil: gracz',
-                      onChanged: (_) => bloc.add(
-                        SignUpChildRequested(),
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            children: [
+              Expanded(
+                child: SizedBox.shrink(),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0,
+                  ),
+                  child: Column(
+                    children: [
+                      SignUpBody(
+                        loginTextFieldData: bloc.loginTextFieldData,
+                        emailTextFieldData: bloc.emailTextFieldData,
+                        passwordTextFieldData: bloc.passwordTextFieldData,
+                        profileTitle: 'Profil: gracz',
+                        onChanged: (_) => bloc.add(
+                          SignUpChildRequested(),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-            _buildSignUpChildButton(),
-          ],
+              _buildSignUpChildButton(),
+            ],
+          ),
         ),
       ),
     );

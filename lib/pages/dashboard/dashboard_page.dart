@@ -8,6 +8,7 @@ import 'package:hello_earth/blocs/user_data/user_data_bloc.dart';
 import 'package:hello_earth/pages/bloc_page_state.dart';
 import 'package:hello_earth/pages/dashboard/commons/dashboard_tab.dart';
 import 'package:hello_earth/pages/dashboard/dashboard_bloc.dart';
+import 'package:hello_earth/routing/dashboard_tabs/achievements_routing.dart';
 import 'package:hello_earth/routing/dashboard_tabs/parent/home_parent_routing.dart';
 import 'package:hello_earth/routing/dashboard_tabs/player/home_player_routing.dart';
 import 'package:hello_earth/routing/dashboard_tabs/settings_routing.dart';
@@ -61,23 +62,35 @@ class _DashboardPageState extends BlocPageState<DashboardPage, DashboardBloc> {
       child: BlocConsumer<DashboardBloc, DashboardState>(
         bloc: bloc,
         builder: (_, state) {
-          final SessionState sessionState = BlocProvider.of<SessionBloc>(context).state;
+          final SessionState sessionState =
+              BlocProvider.of<SessionBloc>(context).state;
           if (sessionState is SessionInitial) {
             return Scaffold(
               body: CircularProgressIndicator(),
             );
           }
-          return Scaffold(
-            backgroundColor: AppColors.appBackground,
-            body: _buildBody(state),
-            bottomNavigationBar: _buildBottomNavigationBar(activeTab: state.tab),
+          return SafeArea(
+            child: AnimatedSwitcher(
+              duration: Duration(
+                milliseconds: 250,
+              ),
+              child: Scaffold(
+                backgroundColor: AppColors.appBackground,
+                body: _buildBody(state),
+                bottomNavigationBar: _buildBottomNavigationBar(
+                  activeTab: state.tab,
+                ),
+              ),
+            ),
           );
         },
         listener: (_, state) {
           if (state is PopTabToRoot) {
-            final NavigatorState? navigatorState = _tabsNavigatorsKeys[state.tab]?.currentState;
+            final NavigatorState? navigatorState =
+                _tabsNavigatorsKeys[state.tab]?.currentState;
             if (navigatorState?.canPop() ?? false) {
-              navigatorState?.popUntil((route) => route.settings.name == state.tab.initialRoute);
+              navigatorState?.popUntil(
+                  (route) => route.settings.name == state.tab.initialRoute);
             }
           }
         },
@@ -116,7 +129,8 @@ class _DashboardPageState extends BlocPageState<DashboardPage, DashboardBloc> {
 
   Widget _buildBody(DashboardState state) {
     final SessionBloc sessionBloc = BlocProvider.of<SessionBloc>(context);
-    final bool isProfileLoaded = BlocProvider.of<UserDataBloc>(context).state.profile != null;
+    final bool isProfileLoaded =
+        BlocProvider.of<UserDataBloc>(context).state.profile != null;
     if (sessionBloc.isParent() && isProfileLoaded) {
       return _buildParentPages(state);
     } else if (sessionBloc.isChild() && isProfileLoaded) {
@@ -164,7 +178,7 @@ class _DashboardPageState extends BlocPageState<DashboardPage, DashboardBloc> {
         _buildPage(
           state,
           tab: DashboardTab.awardsOrQuestionnaire,
-          onGenerateRoute: SettingsRouting.getMainRoute,
+          onGenerateRoute: AchievementsRouting.getMainRoute,
         ),
         _buildPage(
           state,
@@ -224,7 +238,10 @@ class _DashboardPageState extends BlocPageState<DashboardPage, DashboardBloc> {
       (tab) {
         return BottomNavigationBarItem(
           label: tab.getLabel(context),
-          icon: Icon(tab.getIcon(context),size: 30,),
+          icon: Icon(
+            tab.getIcon(context),
+            size: 30,
+          ),
           backgroundColor: AppColors.appBackground,
         );
       },

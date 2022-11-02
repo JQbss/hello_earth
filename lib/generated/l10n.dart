@@ -299,6 +299,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Nieprawidłowy format adresu e-mail`
+  String get errorInvalidEmail {
+    return Intl.message(
+      'Nieprawidłowy format adresu e-mail',
+      name: 'errorInvalidEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email został wykorzystany`
+  String get errorEmailAlreadyInUse {
+    return Intl.message(
+      'Email został wykorzystany',
+      name: 'errorEmailAlreadyInUse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nieprawidłowe hasło`
+  String get errorWrongPassword {
+    return Intl.message(
+      'Nieprawidłowe hasło',
+      name: 'errorWrongPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Użytkownik o podanym adresie e-mail nie istnieje`
+  String get errorUserNotFound {
+    return Intl.message(
+      'Użytkownik o podanym adresie e-mail nie istnieje',
+      name: 'errorUserNotFound',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

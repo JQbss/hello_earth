@@ -16,6 +16,8 @@ class HomePlayerRouting {
 
   const HomePlayerRouting._();
 
+  static bool canHandleRoute(String? routeName) => Routing.canHandleRoute(routeName, _prefix);
+
   static Route? getMainRoute(RouteSettings settings) {
     final String? routeName = settings.name;
     final Widget child;

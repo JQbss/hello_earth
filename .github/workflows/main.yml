@@ -6,25 +6,6 @@ on:
     types: [labeled, opened, synchronize, reopened]
 
 jobs:
-  tests:
-    name: Test and analyze flutter code
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout flutter_ci_example
-        uses: actions/checkout@v2
-        with:
-          path: my_directory
-      - uses: subosito/flutter-action@v1
-        with:
-          flutter-version: '3.3.4'
-          channel: 'stable'
-
-      - name: Run format, analyze, test
-        working-directory: ./my_directory
-        run: |
-          flutter format --set-exit-if-changed .
-          flutter analyze --fatal-warnings
-          flutter test --coverage
   build:
     name: Build app
     needs: [tests]

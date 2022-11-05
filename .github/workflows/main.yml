@@ -56,8 +56,8 @@ jobs:
           echo "Building Android..."
           pwd
           flutter pub get
-          flutter build apk --no-pub -t lib/main_dev --flavor dev
-          flutter build appbundle --no-pub -t lib/main_dev --flavor dev
+          flutter build apk --no-pub -t lib/main_dev.dart --flavor dev
+          flutter build appbundle --no-pub -t lib/main_dev.dart --flavor dev
       - name: Build iOS app
         if: ${{ matrix.os == 'macos-11' }}
         run: |

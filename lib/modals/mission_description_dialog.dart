@@ -24,17 +24,18 @@ class MissionDescriptionDialog {
           missionModel: missionModel,
         ),
         actions: [
-          missionModel?.taskType == TaskTypeModel.cooking
-              ? _buildButton(
-                  context,
-                  buttonTitle: 'Sprawdź potrzebne składniki',
-                  onStartMissionPressed: onCookingMissionPressed,
-                )
-              : _buildButton(
-                  context,
-                  buttonTitle: 'Rozpocznij zadanie',
-                  onStartMissionPressed: onStartMissionPressed,
-                ),
+          if (missionModel?.taskType == TaskTypeModel.cooking)
+            _buildButton(
+              context,
+              buttonTitle: 'Sprawdź potrzebne składniki',
+              onStartMissionPressed: onCookingMissionPressed,
+            )
+          else
+            _buildButton(
+              context,
+              buttonTitle: 'Rozpocznij zadanie',
+              onStartMissionPressed: onStartMissionPressed,
+            ),
         ],
       ),
     );
@@ -69,7 +70,7 @@ class MissionDescriptionDialog {
     );
   }
 
-  static Widget _buildIcon(context) {
+  static Widget _buildIcon(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: 200,
@@ -83,11 +84,11 @@ class MissionDescriptionDialog {
   }
 
   static Widget _buildTitle(MissionModel? missionModel) {
-    if (missionModel?.title == null) return SizedBox.shrink();
+    if (missionModel?.title == null) return const SizedBox.shrink();
     return Positioned(
       bottom: 15.0,
       left: 20.0,
-      child: Container(
+      child: DecoratedBox(
         decoration: BoxDecoration(
           color: AppColors.textFieldBackground,
           borderRadius: BorderRadius.circular(AppDimensions.radius.input),
@@ -124,7 +125,7 @@ class MissionDescriptionDialog {
   }
 
   static Widget _buildDescription(MissionModel? missionModel) {
-    if (missionModel?.longDescription == null) return SizedBox.shrink();
+    if (missionModel?.longDescription == null) return const SizedBox.shrink();
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.symmetric(
@@ -142,18 +143,18 @@ class MissionDescriptionDialog {
     required String buttonTitle,
   }) {
     return Center(
-      child: Container(
+      child: DecoratedBox(
         decoration: BoxDecoration(
           color: AppColors.primary,
           borderRadius: BorderRadius.circular(AppDimensions.radius.button),
         ),
         child: AdaptiveButton(
+          onPressed: onStartMissionPressed,
           child: Text(
             buttonTitle,
             style: TextStyle(color: AppColors.buttonText),
             textAlign: TextAlign.center,
           ),
-          onPressed: onStartMissionPressed,
         ),
       ),
     );

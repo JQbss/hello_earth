@@ -170,19 +170,6 @@ class _SignUpChildPageState
     );
   }
 
-  Widget _buildSignUpChild() {
-    return AdaptiveButton(
-      child: Container(
-        child: Text(
-          S.of(context).signUp,
-        ),
-      ),
-      onPressed: () => bloc.add(
-        SignUpChildRequested(),
-      ),
-    );
-  }
-
   Widget _buildQrScanner() {
     return QRView(
       key: qrKey,

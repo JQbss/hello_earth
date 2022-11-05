@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_earth/mappers/contraindication_mappers.dart';
 import 'package:hello_earth/mappers/player_mappers.dart';
 import 'package:hello_earth/networking/models/base_response.dart';
@@ -24,11 +24,15 @@ class ConfigurationBloc extends Bloc<ConfigurationEvent, ConfigurationState> {
 
   ConfigurationBloc({
     required this.familyRepository,
-  }) : super(ConfigurationInitial()) {
-    on<CheckUserRegisterCompletedRequested>(_onCheckUserRegisterCompletedRequested);
+  }) : super(const ConfigurationInitial()) {
+    on<CheckUserRegisterCompletedRequested>(
+      _onCheckUserRegisterCompletedRequested,
+    );
     on<ConfigurationCheckParentRequested>(_onConfigurationCheckParentRequested);
     on<ConfigurationCheckPlayerRequested>(_onConfigurationCheckPlayerRequested);
-    on<ConfigurationCreateFamilyRequested>(_onConfigurationCreateFamilyRequested);
+    on<ConfigurationCreateFamilyRequested>(
+      _onConfigurationCreateFamilyRequested,
+    );
     on<SaveQuestionnaireRequested>(_onSaveQuestionnaireRequested);
   }
 
@@ -41,7 +45,7 @@ class ConfigurationBloc extends Bloc<ConfigurationEvent, ConfigurationState> {
     );
     if (!isFamilyExists) {
       emit(
-        ConfigurationFamilyCreateNeeded(),
+        const ConfigurationFamilyCreateNeeded(),
       );
       return;
     }
@@ -50,7 +54,7 @@ class ConfigurationBloc extends Bloc<ConfigurationEvent, ConfigurationState> {
     );
     if (!isPlayerExists) {
       emit(
-        ConfigurationPlayerCreateNeeded(),
+        const ConfigurationPlayerCreateNeeded(),
       );
       return;
     }
@@ -61,12 +65,12 @@ class ConfigurationBloc extends Bloc<ConfigurationEvent, ConfigurationState> {
     final bool? isQuestionnaireCompleted = playerModel.isQuestionnaireCompleted;
     if (isQuestionnaireCompleted == null || !isQuestionnaireCompleted) {
       emit(
-        QuestionnaireCompleteNeeded(),
+        const QuestionnaireCompleteNeeded(),
       );
       return;
     }
     emit(
-      ConfigurationCompleted(),
+      const ConfigurationCompleted(),
     );
   }
 
@@ -81,12 +85,12 @@ class ConfigurationBloc extends Bloc<ConfigurationEvent, ConfigurationState> {
     final bool? isQuestionnaireCompleted = playerModel.isQuestionnaireCompleted;
     if (isQuestionnaireCompleted == null || !isQuestionnaireCompleted) {
       emit(
-        QuestionnaireCompleteNeeded(),
+        const QuestionnaireCompleteNeeded(),
       );
       return;
     }
     emit(
-      ConfigurationCompleted(),
+      const ConfigurationCompleted(),
     );
   }
 
@@ -110,28 +114,28 @@ class ConfigurationBloc extends Bloc<ConfigurationEvent, ConfigurationState> {
         uid: parentUid,
       );
       emit(
-        ConfigurationPlayerCreateNeeded(),
+        const ConfigurationPlayerCreateNeeded(),
       );
-    } catch (error) {
-      print(error);
-    }
+    } catch (_) {}
   }
 
   Future<void> _onCheckUserRegisterCompletedRequested(
     CheckUserRegisterCompletedRequested event,
     Emitter<ConfigurationState> emit,
   ) async {
-    emit(ConfigurationInitial());
+    emit(
+      const ConfigurationInitial(),
+    );
     final bool isPlayerExists = await familyRepository.isUserExists(
       uid: event.parentUid ?? '',
     );
     if (!isPlayerExists) {
       emit(
-        ConfigurationPlayerCreateNeeded(),
+        const ConfigurationPlayerCreateNeeded(),
       );
     } else {
       emit(
-        QuestionnaireCompleteNeeded(),
+        const QuestionnaireCompleteNeeded(),
       );
     }
   }
@@ -144,9 +148,11 @@ class ConfigurationBloc extends Bloc<ConfigurationEvent, ConfigurationState> {
       final String? familyUid = event.familyUid;
       if (familyUid == null) return;
       final QuestionnaireRequest questionnaire = QuestionnaireRequest(
-        contraindications: event.listOfContraindications.mapToContraindicationRequests(),
+        contraindications:
+            event.listOfContraindications.mapToContraindicationRequests(),
       );
-      final FinishQuestionnaireRequest questionnaireRequest = FinishQuestionnaireRequest(
+      final FinishQuestionnaireRequest questionnaireRequest =
+          FinishQuestionnaireRequest(
         isQuestionnaireCompleted: true,
         questionnaire: questionnaire,
       );
@@ -155,10 +161,8 @@ class ConfigurationBloc extends Bloc<ConfigurationEvent, ConfigurationState> {
         questionnaireRequest: questionnaireRequest,
       );
       emit(
-        ConfigurationCompleted(),
+        const ConfigurationCompleted(),
       );
-    } catch (error) {
-      print(error);
-    }
+    } catch (_) {}
   }
 }

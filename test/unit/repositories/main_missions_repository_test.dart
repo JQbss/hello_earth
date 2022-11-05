@@ -11,7 +11,7 @@ class MainMissionsRepositoryTest extends Mock implements NetworkMainMissionsRepo
 
 @GenerateMocks([MainMissionsRepositoryTest])
 Future<void> main() async {
-  late MainMissionsRepositoryTest mainMissionsRepository;
+  late final MainMissionsRepositoryTest mainMissionsRepository;
   setUpAll(() {
     mainMissionsRepository = MockMainMissionsRepositoryTest();
   });

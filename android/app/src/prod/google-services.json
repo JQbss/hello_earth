@@ -30,6 +30,13 @@
             {
               "client_id": "983481189837-mq96tf3cbvkbh29kf0mbvi5iech8iujp.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "983481189837-b4iprhk2ao3a41dkelieha6q696st1u4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "pl.umk.helloEarth"
+              }
             }
           ]
         }

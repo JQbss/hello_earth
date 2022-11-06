@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>983481189837-b4iprhk2ao3a41dkelieha6q696st1u4.apps.googleusercontent.com</string>
+	<string>257672881682-2084feh7v1i4c9igb39bkr15tonp2avf.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.983481189837-b4iprhk2ao3a41dkelieha6q696st1u4</string>
+	<string>com.googleusercontent.apps.257672881682-2084feh7v1i4c9igb39bkr15tonp2avf</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDYip5RP-SERJYK7q-LaJrQdCfW7WzPcfw</string>
+	<string>AIzaSyCP7IbyNaDZ18E_vBRUyhjFlUNpAl91CtY</string>
 	<key>GCM_SENDER_ID</key>
-	<string>983481189837</string>
+	<string>257672881682</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>pl.umk.helloEarth</string>
+	<string>pl.umk.helloEarth.dev</string>
 	<key>PROJECT_ID</key>
-	<string>helloearth-7e025</string>
+	<string>helloearth-dev</string>
 	<key>STORAGE_BUCKET</key>
-	<string>helloearth-7e025.appspot.com</string>
+	<string>helloearth-dev.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:983481189837:ios:2492565ca412e2555cb084</string>
+	<string>1:257672881682:ios:5755c1ea645089a6f51acb</string>
+	<key>DATABASE_URL</key>
+	<string>https://helloearth-dev-default-rtdb.europe-west1.firebasedatabase.app</string>
 </dict>
 </plist>

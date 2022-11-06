@@ -28,7 +28,7 @@ jobs:
   build:
     name: Build app
     needs: [tests]
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         os: [ubuntu-latest, macos-11]

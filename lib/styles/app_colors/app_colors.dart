@@ -15,6 +15,8 @@ class AppColors {
 
   static Color get buttonText => colors.buttonText;
 
+  static Color get black => colors.black;
+
   static Color get bezierCurveSecondary => colors.bezierCurveSecondary;
 
   static Color get currentMission => colors.currentMission;

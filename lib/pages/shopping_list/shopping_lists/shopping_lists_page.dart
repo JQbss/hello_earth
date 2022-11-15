@@ -6,6 +6,8 @@ import 'package:hello_earth/pages/bloc_page_state.dart';
 import 'package:hello_earth/pages/shopping_list/shopping_list_details/shopping_list_details_arguments.dart';
 import 'package:hello_earth/pages/shopping_list/shopping_lists/shopping_lists_bloc.dart';
 import 'package:hello_earth/routing/dashboard_tabs/shopping_lists_routing.dart';
+import 'package:hello_earth/styles/app_colors/app_colors.dart';
+import 'package:hello_earth/ui/models/ingredient_model.dart';
 import 'package:hello_earth/ui/models/role_model.dart';
 import 'package:hello_earth/ui/models/shopping_list_model.dart';
 import 'package:hello_earth/ui/models/shopping_lists_model.dart';
@@ -19,7 +21,8 @@ class ShoppingListsPage extends StatefulWidget {
   State<ShoppingListsPage> createState() => _ShoppingListsPageState();
 }
 
-class _ShoppingListsPageState extends BlocPageState<ShoppingListsPage, ShoppingListsBloc> {
+class _ShoppingListsPageState
+    extends BlocPageState<ShoppingListsPage, ShoppingListsBloc> {
   @override
   void initState() {
     super.initState();
@@ -46,20 +49,30 @@ class _ShoppingListsPageState extends BlocPageState<ShoppingListsPage, ShoppingL
   }
 
   Widget _buildBody() {
+    bloc.add(ShoppingListFetchData());
     final ShoppingListsModel? shoppingListsModels = bloc.state.shoppingLists;
     if (shoppingListsModels == null) return const SizedBox.shrink();
-    final List<ShoppingListModel> shoppingLists =
-        (shoppingListsModels.shoppingLists?.entries.map((shoppingList) => shoppingList.value).toList() ?? [])
-            .filterNotNull();
-    final List<String> shoppingListsKeys =
-        (shoppingListsModels.shoppingLists?.entries.map((shoppingList) => shoppingList.key).toList() ?? [])
-            .filterNotNull();
+    final List<ShoppingListModel> shoppingLists = (shoppingListsModels
+                .shoppingLists?.entries
+                .map((shoppingList) => shoppingList.value)
+                .toList() ??
+            [])
+        .filterNotNull();
+    final List<String> shoppingListsKeys = (shoppingListsModels
+                .shoppingLists?.entries
+                .map((shoppingList) => shoppingList.key)
+                .toList() ??
+            [])
+        .filterNotNull();
     if (shoppingLists.isEmpty) return const SizedBox.shrink();
     return SingleChildScrollView(
       child: Column(
         children: [
-          BezierCurveTitle(
-            title: S.of(context).shoppingListTitle,
+          Padding(
+            padding: const EdgeInsets.only(bottom: 20.0),
+            child: BezierCurveTitle(
+              title: S.of(context).shoppingListTitle,
+            ),
           ),
           ListView.builder(
             shrinkWrap: true,
@@ -78,28 +91,77 @@ class _ShoppingListsPageState extends BlocPageState<ShoppingListsPage, ShoppingL
     required ShoppingListModel? shoppingList,
     required String uid,
   }) {
-    if (bloc.profile?.role == RoleModel.parent && !(shoppingList?.isParentVisible ?? false)) {
+    if (bloc.profile?.role == RoleModel.parent &&
+        !(shoppingList?.isParentVisible ?? false)) {
       return const SizedBox.shrink();
     }
-    return AdaptiveButton(
-      child: Text(
-        shoppingList?.missionName ?? '',
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(
+          top: BorderSide(width: 1.0, color: AppColors.black),
+          bottom: BorderSide(width: 1.0, color: AppColors.black),
+        ),
       ),
-      onPressed: () {
-        final ShoppingListDetailsArguments arguments = ShoppingListDetailsArguments(
-          ingredients: shoppingList?.ingredients,
-          isParentVisible: shoppingList?.isParentVisible,
-          missionName: shoppingList?.missionName,
-          uid: uid,
-        );
-        Navigator.of(
-          context,
-          rootNavigator: true,
-        ).pushNamed(
-          ShoppingListsRouting.shoppingListDetails,
-          arguments: arguments,
-        );
-      },
+      child: AdaptiveButton(
+        child: Row(
+          children: [
+            if (_checkIfAllItemsAreBought(shoppingList?.ingredients))
+              Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: Icon(
+                  color: AppColors.primary,
+                  Icons.check_circle_outline,
+                ),
+              )
+            else
+              SizedBox.shrink()  ,
+            Text(
+              style: TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.w500,
+              ),
+              shoppingList?.missionName ?? '',
+            ),
+            Spacer(),
+            Text(
+              style: TextStyle(
+                color: AppColors.primary,
+                fontSize: 16.0,
+                fontWeight: FontWeight.w400,
+              ),
+              '(${shoppingList?.ingredients?.length.toString() ?? '-'})',
+            ),
+          ],
+        ),
+        onPressed: () {
+          final ShoppingListDetailsArguments arguments =
+              ShoppingListDetailsArguments(
+            ingredients: shoppingList?.ingredients,
+            isParentVisible: shoppingList?.isParentVisible,
+            missionName: shoppingList?.missionName,
+            uid: uid,
+          );
+          Navigator.of(
+            context,
+            rootNavigator: true,
+          ).pushNamed(
+            ShoppingListsRouting.shoppingListDetails,
+            arguments: arguments,
+          );
+        },
+      ),
     );
+  }
+
+  bool _checkIfAllItemsAreBought(List<IngredientModel?>? ingredient) {
+    if (ingredient != null && ingredient.isNotEmpty) {
+      final List<IngredientModel?> unBoughtProducts = ingredient
+          .where(
+            (element) => !(element?.isBought ?? false),
+          )
+          .toList();
+      return unBoughtProducts.isEmpty;
+    }
+    return false;
   }
 }

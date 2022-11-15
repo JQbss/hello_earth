@@ -34,12 +34,20 @@ class ShoppingListDetailsMoreBottomSheet {
       checkColor: AppColors.buttonText,
       title: Padding(
         padding: EdgeInsets.all(AppDimensions.padding.text),
-        child: Text(
-          'Czy udostępnić listę zakupową opiekunowi?',
-        ),
+        child: _checkboxListTile(),
       ),
       value: shoppingList?.isParentVisible ?? false,
       onChanged: onShareButton,
+    );
+  }
+
+  Widget _checkboxListTile() {
+    if (shoppingList?.isParentVisible ?? false)
+      return Text(
+        'Lista zakupowa jest udostępniona opiekunowi',
+      );
+    return Text(
+      'Czy udostępnić listę zakupową opiekunowi?',
     );
   }
 }

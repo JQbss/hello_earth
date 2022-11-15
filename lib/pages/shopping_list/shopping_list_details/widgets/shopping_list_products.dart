@@ -55,20 +55,11 @@ class _ShoppingListProductsState extends State<ShoppingListProducts> {
               ),
               itemCount: unBoughtProducts.length,
             ),
-            Container(
+            if (boughtProducts.isNotEmpty) Container(
               color: AppColors.disabled,
               child: Column(
                 children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    //child: Container(
-                    child: Text(
-                      style: TextStyle(
-                          fontSize: 20.0, fontWeight: FontWeight.w500),
-                      'Kupoine',
-                    ),
-                    //),
-                  ),
+                  _isBoughtProductsInList(),
                   ...boughtProducts.asMap().entries.map(
                         (entry) => _buildProductCell(
                           entry.value,
@@ -76,12 +67,27 @@ class _ShoppingListProductsState extends State<ShoppingListProducts> {
                       ),
                 ],
               ),
-            ),
+            ) else const SizedBox.shrink(),
           ],
         ),
       ),
     );
   }
+  Widget _isBoughtProductsInList() {
+    return Align(
+      alignment: Alignment.centerLeft,
+      //child: Container(
+      child: Text(
+        style: TextStyle(
+          fontSize: 20.0,
+          fontWeight: FontWeight.w500,
+        ),
+        'Kupione',
+      ),
+      //),
+    );
+  }
+
 
   Widget _buildProductCell(IngredientModel ingredientModel) {
     return CheckboxListTile(

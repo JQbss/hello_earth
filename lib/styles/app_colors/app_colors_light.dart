@@ -7,6 +7,7 @@ class AppColorsLight extends AppColorsTheme {
           appBackground: const Color(0xFFD6E2B3),
           buttonText: Colors.white,
           bezierCurveSecondary: const Color(0xFFD4A8B4),
+          black:const Color(0xFF333333),
           currentMission: const Color(0xFFAEC141),
           completedMission: const Color(0xFFFFD05B),
           disabled: const Color(0xFFEDEDED),

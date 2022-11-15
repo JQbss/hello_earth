@@ -41,10 +41,8 @@ class _HomeParentPageState extends BlocPageState<HomeParentPage, HomeParentBloc>
   }
 
   Widget _buildBody() {
-    return Container(
-      child: Text(
-        'Rodzic',
-      ),
-    );
+    return  Text(
+        'Rodzic'
+      );
   }
 }

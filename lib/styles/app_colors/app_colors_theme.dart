@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 abstract class AppColorsTheme {
   final Color appBackground;
   final Color buttonText;
+  final Color bezierCurveSecondary;
   final Color error;
   final Color disabled;
   final Color levelLogo;
@@ -14,6 +15,7 @@ abstract class AppColorsTheme {
   const AppColorsTheme({
     required this.appBackground,
     required this.buttonText,
+    required this.bezierCurveSecondary,
     required this.disabled,
     required this.error,
     required this.levelLogo,

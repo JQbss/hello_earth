@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hello_earth/styles/app_dimensions.dart';
+import 'package:hello_earth/widgets/bezier_curve_title.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({
@@ -12,10 +14,8 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Settings',
-      ),
+    return SingleChildScrollView(
+      child: const BezierCurveTitle(title: 'Ustawienia'),
     );
   }
 }

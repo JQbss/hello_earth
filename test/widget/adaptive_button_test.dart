@@ -8,9 +8,9 @@ main() async {
   group('Test adaptive button', () {
     testWidgets('Test adaptive button', (widgetTester) async {
       final List<String> testList = ['test1'];
-      final String buttonText = 'Adaptive Button';
+      const String buttonText = 'Adaptive Button';
       final Widget button = AdaptiveButton(
-        child: Text(buttonText),
+        child: const Text(buttonText),
         onPressed: () => testList.add('test2'),
       );
       await widgetTester.pumpWidget(

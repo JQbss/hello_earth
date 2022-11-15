@@ -69,7 +69,7 @@ class _SignInPageState extends BlocPageState<SignInPage, SignInBloc> {
   }
 
   Widget _buildBody() {
-    return SingleChildScrollView(
+      return SingleChildScrollView(
       child: Container(
         height: MediaQuery.of(context).size.height,
         child: Column(

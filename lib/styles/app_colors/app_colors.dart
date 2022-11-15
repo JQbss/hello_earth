@@ -15,6 +15,8 @@ class AppColors {
 
   static Color get buttonText => colors.buttonText;
 
+  static Color get bezierCurveSecondary => colors.bezierCurveSecondary;
+
   static Color get disabled => colors.disabled;
 
   static Color get error => colors.error;

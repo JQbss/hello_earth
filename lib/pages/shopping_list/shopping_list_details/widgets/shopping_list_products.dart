@@ -75,7 +75,7 @@ class _ShoppingListProductsState extends State<ShoppingListProducts> {
                         ),
                       ),
                 ],
-              ) : ,
+              ),
             ),
           ],
         ),

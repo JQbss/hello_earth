@@ -8,6 +8,7 @@ class AppColorsLight extends AppColorsTheme {
           buttonText: Colors.white,
           bezierCurveSecondary: const Color(0xFFD4A8B4),
           disabled: const Color(0xFFEDEDED),
+          disabledMission: const Color(0xFFD3D2D2),
           error: const Color(0xFFB00020),
           levelLogo: const Color(0xFF5A482F),
           levelLogoText: const Color(0xFFD9D3CC),

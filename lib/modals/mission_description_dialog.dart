@@ -18,6 +18,11 @@ class MissionDescriptionDialog {
     return showDialog(
       context: context,
       builder: (_) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(AppDimensions.radius.modalWindow),
+          ),
+        ),
         contentPadding: EdgeInsets.zero,
         content: _buildContent(
           context,
@@ -75,6 +80,10 @@ class MissionDescriptionDialog {
       width: MediaQuery.of(context).size.width,
       height: 200,
       decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(AppDimensions.radius.modalWindow),
+          topRight: Radius.circular(AppDimensions.radius.modalWindow),
+        ),
         image: DecorationImage(
           fit: BoxFit.cover,
           image: AssetImage(Assets.pngIcons.eggs.path),

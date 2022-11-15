@@ -6,6 +6,7 @@ abstract class AppColorsTheme {
   final Color bezierCurveSecondary;
   final Color error;
   final Color disabled;
+  final Color disabledMission;
   final Color levelLogo;
   final Color levelLogoText;
   final Color primary;
@@ -17,6 +18,7 @@ abstract class AppColorsTheme {
     required this.buttonText,
     required this.bezierCurveSecondary,
     required this.disabled,
+    required this.disabledMission,
     required this.error,
     required this.levelLogo,
     required this.levelLogoText,

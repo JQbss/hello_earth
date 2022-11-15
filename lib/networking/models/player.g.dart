@@ -7,6 +7,7 @@ part of 'player.dart';
 // **************************************************************************
 
 Player _$PlayerFromJson(Map<String, dynamic> json) => Player(
+      currentLevel: json['currentLevel'] as int?,
       currentMission: json['currentMission'] == null
           ? null
           : CurrentMission.fromJson(

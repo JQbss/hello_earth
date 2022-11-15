@@ -25,6 +25,7 @@ class _Radius  {
   final double input = 15.0;
   final double toggleButton = 20.0;
   final double button = 20.0;
+  final double modalWindow = 25.0;
 }
 
 class _Padding {

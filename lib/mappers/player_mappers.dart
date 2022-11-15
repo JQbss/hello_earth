@@ -6,6 +6,7 @@ import 'package:hello_earth/ui/models/player_model.dart';
 extension PlayerMapper on Player {
   PlayerModel mapToPlayerModel() {
     return PlayerModel(
+      currentLevel: currentLevel,
       currentMission: currentMission?.mapToCurrentMissionModel(),
       isQuestionnaireCompleted: isQuestionnaireCompleted,
       uid: uid,

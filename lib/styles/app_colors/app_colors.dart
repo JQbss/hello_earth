@@ -19,6 +19,8 @@ class AppColors {
 
   static Color get disabled => colors.disabled;
 
+  static Color get disabledMission => colors.disabledMission;
+
   static Color get error => colors.error;
 
   static Color get levelLogo => colors.levelLogo;

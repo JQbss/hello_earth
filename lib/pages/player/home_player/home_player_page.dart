@@ -29,6 +29,8 @@ class HomePlayerPage extends StatefulWidget {
 }
 
 class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc> {
+
+  bool enabledLevel = true;
   @override
   void initState() {
     super.initState();
@@ -72,6 +74,7 @@ class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc>
         child: Column(
           children: levels.map(
             (level) {
+              enabledLevel = levelNumber == bloc.state.currentLevel;
               levelNumber++;
               return _buildLevelSection(
                 levelNumber: levelNumber,
@@ -109,7 +112,7 @@ class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc>
           levelNumber: levelNumber,
         ),
         _buildMissions(
-          missions: mapka,
+          missions: levelModel?.missions,
         ),
       ],
     );
@@ -198,7 +201,7 @@ class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc>
       child: Container(
         height: AppDimensions.height.mission,
         decoration: BoxDecoration(
-          color: AppColors.primary,
+          color: enabledLevel ? AppColors.primary : AppColors.disabledMission,
           shape: BoxShape.circle,
         ),
         child: AdaptiveButton(

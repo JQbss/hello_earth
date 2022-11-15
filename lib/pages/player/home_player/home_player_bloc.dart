@@ -46,6 +46,7 @@ class HomePlayerBloc extends Bloc<HomePlayerEvent, HomePlayerState> {
           (await mainMissionsRepository.getMainMissions()).data.mapToMainMissionsModel();
       emit(
         HomePlayerFetchSuccess(
+          currentLevel: playerModel?.currentLevel,
           currentMission: playerModel?.currentMission,
           mainMissions: mainMissions,
         ),
@@ -76,6 +77,7 @@ class HomePlayerBloc extends Bloc<HomePlayerEvent, HomePlayerState> {
       );
       emit(
         HomePlayerMissionStarted(
+          currentLevel: state.currentLevel,
           currentMission: currentMissionModel,
           mainMissions: state.mainMissions,
         ),

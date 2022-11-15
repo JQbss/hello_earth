@@ -30,7 +30,7 @@ class BezierCurveTitle extends StatelessWidget {
         ),
         Positioned(
           left: 20,
-          top: 20,
+          top: 10,
           child: TweenAnimationBuilder(
             tween: Tween<double>(begin: 0, end: 1),
             duration: const Duration(milliseconds: 700),
@@ -44,7 +44,6 @@ class BezierCurveTitle extends StatelessWidget {
               );
             },
             child: SizedBox(
-              width: 150,
               child: Text(
                 title,
                 style: TextStyle(

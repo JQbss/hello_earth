@@ -7,10 +7,10 @@ class Clipper extends CustomClipper<Path>{
     path.lineTo(0, size.height);
 
     final firstStart = Offset(size.width /5 , size.height);
-    final firstEnd = Offset(size.width / 2.25, size.height - 40.0);
+    final firstEnd = Offset(size.width / 2.25, size.height - 30.0);
     path.quadraticBezierTo(firstStart.dx, firstStart.dy, firstEnd.dx, firstEnd.dy);
 
-    final secondStart = Offset(size.width - (size.width / 3.24), size.height - 80);
+    final secondStart = Offset(size.width - (size.width / 3.24), size.height - 60);
     final secondEnd = Offset(size.width, size.height - 10);
     path.quadraticBezierTo(secondStart.dx, secondStart.dy, secondEnd.dx, secondEnd.dy);
 

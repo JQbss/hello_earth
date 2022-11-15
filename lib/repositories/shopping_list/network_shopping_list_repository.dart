@@ -4,6 +4,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:hello_earth/networking/endpoints.dart';
 import 'package:hello_earth/networking/models/base_response.dart';
 import 'package:hello_earth/networking/models/shopping_list.dart';
+import 'package:hello_earth/networking/models/shopping_lists.dart';
 import 'package:hello_earth/networking/requests/shopping_list_request.dart';
 import 'package:hello_earth/repositories/shopping_list/shopping_list_repository.dart';
 
@@ -45,5 +46,14 @@ class NetworkShoppingListRepository implements ShoppingListRepository {
         .child('${Endpoints.families.families}/$familyUid/${Endpoints.shoppingLists.shoppingLists}/$missionUid')
         .get();
     return BaseResponse<ShoppingList>.fromJson(jsonDecode(jsonEncode(dataSnapshot.value)) as Map<String, dynamic>);
+  }
+
+  @override
+  Future<BaseResponse<ShoppingLists>> getAllShoppingLists({required String familyUid}) async {
+    final DataSnapshot dataSnapshot = await reference
+        .child('${Endpoints.families.families}/$familyUid/${Endpoints.shoppingLists.shoppingLists}')
+        .get();
+    final Map<String, dynamic> values = jsonDecode(jsonEncode(dataSnapshot.value)) as Map<String, dynamic>;
+    return BaseResponse<ShoppingLists>.fromJson(jsonDecode(jsonEncode(dataSnapshot.value)) as Map<String, dynamic>);
   }
 }

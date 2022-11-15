@@ -10,3 +10,17 @@ abstract class ShoppingListDetailsEvent extends Equatable {
 class FetchShoppingList extends ShoppingListDetailsEvent {
   const FetchShoppingList();
 }
+
+class ShoppingListChanged extends ShoppingListDetailsEvent {
+  final ShoppingListModel? shoppingList;
+
+  const ShoppingListChanged({
+    required this.shoppingList,
+  });
+
+  @override
+  List<dynamic> get props => [
+        ...super.props,
+        shoppingList,
+      ];
+}

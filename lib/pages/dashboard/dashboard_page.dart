@@ -71,7 +71,7 @@ class _DashboardPageState extends BlocPageState<DashboardPage, DashboardBloc> {
           }
           return SafeArea(
             child: AnimatedSwitcher(
-              duration: Duration(
+              duration: const Duration(
                 milliseconds: 250,
               ),
               child: Scaffold(

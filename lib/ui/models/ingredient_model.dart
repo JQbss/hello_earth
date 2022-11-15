@@ -1,9 +1,9 @@
 class IngredientModel {
-  final bool? isBought;
+  bool? isBought;
   final String? name;
   final int? quantity;
 
-  const IngredientModel({
+  IngredientModel({
     this.isBought,
     this.name,
     this.quantity,

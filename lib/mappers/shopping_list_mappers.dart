@@ -38,4 +38,22 @@ extension ShoppingListRequestMapper on ShoppingListDetailsArguments {
       isParentVisible: isParentVisible,
     );
   }
+
+  ShoppingListModel mapToShoppingListFromArguments() {
+    return ShoppingListModel(
+      ingredients: ingredients,
+      missionName: missionName,
+      isParentVisible: isParentVisible,
+    );
+  }
+}
+
+extension ShoppingListModelMappers on ShoppingListModel {
+  ShoppingListRequest mapToShoppingListRequest() {
+    return ShoppingListRequest(
+      ingredients: ingredients?.mapToListIngredientRequest(),
+      isParentVisible: isParentVisible,
+      missionName: missionName,
+    );
+  }
 }

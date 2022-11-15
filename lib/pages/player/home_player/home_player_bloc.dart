@@ -38,22 +38,22 @@ class HomePlayerBloc extends Bloc<HomePlayerEvent, HomePlayerState> {
   ) async {
     try {
       emit(
-        HomePlayerFetchLoading(),
+        const HomePlayerFetchLoading(),
       );
-      final PlayerModel? playerModel =
+      final PlayerModel playerModel =
           (await familyRepository.getPlayer(familyId: profile?.familyId ?? '')).data.mapToPlayerModel();
       final MainMissionsModel? mainMissions =
           (await mainMissionsRepository.getMainMissions()).data.mapToMainMissionsModel();
       emit(
         HomePlayerFetchSuccess(
-          currentLevel: playerModel?.currentLevel,
-          currentMission: playerModel?.currentMission,
+          currentLevel: playerModel.currentLevel,
+          currentMission: playerModel.currentMission,
           mainMissions: mainMissions,
         ),
       );
     } catch (error) {
       emit(
-        HomePlayerFetchFailed(),
+        const HomePlayerFetchFailed(),
       );
     }
   }

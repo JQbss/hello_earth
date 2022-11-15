@@ -1,11 +1,11 @@
 import 'package:hello_earth/ui/models/ingredient_model.dart';
 
 class ShoppingListModel {
-  final List<IngredientModel?>? ingredients;
-  final bool? isParentVisible;
+  List<IngredientModel?>? ingredients;
+  bool? isParentVisible;
   final String? missionName;
 
-  const ShoppingListModel({
+  ShoppingListModel({
     this.ingredients,
     this.isParentVisible,
     this.missionName,

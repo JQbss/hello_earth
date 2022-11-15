@@ -8,6 +8,7 @@ import 'package:hello_earth/pages/shopping_list/shopping_list_details/shopping_l
 import 'package:hello_earth/pages/shopping_list/shopping_list_details/shopping_list_details_page.dart';
 import 'package:hello_earth/pages/shopping_list/shopping_lists/shopping_lists_bloc.dart';
 import 'package:hello_earth/pages/shopping_list/shopping_lists/shopping_lists_page.dart';
+import 'package:hello_earth/repositories/family/natwork_family_repository.dart';
 import 'package:hello_earth/repositories/shopping_list/network_shopping_list_repository.dart';
 import 'package:hello_earth/routing/routing.dart';
 
@@ -43,6 +44,7 @@ class ShoppingListsRouting {
             return BlocProvider<ShoppingListDetailsBloc>(
               create: (context) => ShoppingListDetailsBloc(
                 arguments: settings.arguments as ShoppingListDetailsArguments?,
+                familyRepository: Injector().get<NetworkFamilyRepository>(),
                 profile: BlocProvider.of<UserDataBloc>(context).state.profile,
                 shoppingListRepository: Injector().get<NetworkShoppingListRepository>(),
               ),

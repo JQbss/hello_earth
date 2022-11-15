@@ -5,6 +5,7 @@ import 'package:hello_earth/networking/endpoints.dart';
 import 'package:hello_earth/networking/models/base_response.dart';
 import 'package:hello_earth/networking/models/shopping_list.dart';
 import 'package:hello_earth/networking/models/shopping_lists.dart';
+import 'package:hello_earth/networking/requests/completed_mission_shopping_lists_request.dart';
 import 'package:hello_earth/networking/requests/shopping_list_request.dart';
 import 'package:hello_earth/repositories/shopping_list/shopping_list_repository.dart';
 
@@ -58,5 +59,16 @@ class NetworkShoppingListRepository implements ShoppingListRepository {
         .map((key, value) => MapEntry(key, BaseResponse<ShoppingList>.fromJson(value as Map<String, dynamic>).data));
     final ShoppingLists allShoppingList = ShoppingLists(shoppingLists: shoppingLists);
     return allShoppingList;
+  }
+
+  @override
+  Future<void> updateCompletedShoppingLists({
+    required String familyId,
+    required CompletedMissionShoppingListsRequest completedMissionShoppingLists,
+  }) async {
+    await reference
+        .child(
+            '${Endpoints.families.families}/${familyId}/${Endpoints.families.player}')
+        .update(completedMissionShoppingLists.toJson());
   }
 }

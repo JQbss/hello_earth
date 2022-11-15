@@ -1,8 +1,11 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hello_earth/mappers/mappers.dart';
+import 'package:hello_earth/networking/models/base_response.dart';
+import 'package:hello_earth/networking/models/player.dart';
 import 'package:hello_earth/networking/requests/current_mission_request.dart';
 import 'package:hello_earth/repositories/family/family_repository.dart';
 import 'package:hello_earth/repositories/main_missions/main_missions_repository.dart';
@@ -21,6 +24,7 @@ class HomePlayerBloc extends Bloc<HomePlayerEvent, HomePlayerState> {
   final MainMissionsRepository mainMissionsRepository;
   final MissionRepository missionRepository;
   final UserModel? profile;
+  late StreamSubscription _streamSubscription;
 
   HomePlayerBloc({
     required this.familyRepository,
@@ -30,6 +34,30 @@ class HomePlayerBloc extends Bloc<HomePlayerEvent, HomePlayerState> {
   }) : super(HomePlayerInitial()) {
     on<HomePlayerRequested>(_onHomePlayerRequested);
     on<HomePlayerMissionStartRequested>(_onHomePlayerMissionStartRequested);
+    on<HomePlayerChangeRequest>(_onHomePlayerChangeRequest);
+    _initStreamSubscriptions();
+  }
+
+  void _initStreamSubscriptions() {
+    final String? familyId = profile?.familyId;
+    if (familyId == null) return;
+    _streamSubscription = familyRepository.getPlayerSubscription(familyId: familyId).listen((event) {
+      final BaseResponse<Player> responsePlayer = BaseResponse<Player>.fromJson(
+        jsonDecode(jsonEncode(event.snapshot.value)) as Map<String, dynamic>,
+      );
+      final PlayerModel playerModel = responsePlayer.data.mapToPlayerModel();
+      add(
+        HomePlayerChangeRequest(
+          playerModel: playerModel,
+        ),
+      );
+    });
+  }
+
+  @override
+  Future<void> close() {
+    _streamSubscription.cancel();
+    return super.close();
   }
 
   Future<void> _onHomePlayerRequested(
@@ -80,6 +108,22 @@ class HomePlayerBloc extends Bloc<HomePlayerEvent, HomePlayerState> {
           mainMissions: state.mainMissions,
         ),
       );
-    } catch (error) {}
+    } catch (error) {
+      emit(
+        const HomePlayerFetchFailed(),
+      );
+    }
+  }
+
+  Future<void> _onHomePlayerChangeRequest(
+    HomePlayerChangeRequest event,
+    Emitter<HomePlayerState> emit,
+  ) async {
+    emit(
+      HomePlayerFetchSuccess(
+        playerModel: event.playerModel,
+        mainMissions: state.mainMissions,
+      ),
+    );
   }
 }

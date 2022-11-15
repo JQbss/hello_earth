@@ -12,6 +12,7 @@ class MissionDescriptionDialog {
   static Future<void> show(
     BuildContext context, {
     required MissionModel? missionModel,
+    required List<String> missionShoppingListsCompleted,
     required VoidCallback onCookingMissionPressed,
     required VoidCallback onStartMissionPressed,
   }) {
@@ -29,7 +30,7 @@ class MissionDescriptionDialog {
           missionModel: missionModel,
         ),
         actions: [
-          if (missionModel?.taskType == TaskTypeModel.cooking)
+          if (missionModel?.taskType == TaskTypeModel.cooking && !missionShoppingListsCompleted.contains(missionModel?.uid))
             _buildButton(
               context,
               buttonTitle: 'Sprawdź potrzebne składniki',

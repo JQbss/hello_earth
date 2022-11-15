@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:firebase_database/firebase_database.dart';
 import 'package:hello_earth/networking/models/base_response.dart';
 import 'package:hello_earth/networking/models/player.dart';
 import 'package:hello_earth/networking/requests/family_request.dart';
@@ -16,6 +19,10 @@ abstract class FamilyRepository {
   });
 
   Future<BaseResponse<Player>> getPlayer({
+    required String familyId,
+  });
+
+  Stream<DatabaseEvent> getPlayerSubscription({
     required String familyId,
   });
 

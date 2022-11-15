@@ -27,3 +27,17 @@ class HomePlayerMissionStartRequested extends HomePlayerEvent {
 class HomePlayerRequested extends HomePlayerEvent {
   const HomePlayerRequested();
 }
+
+class HomePlayerChangeRequest extends HomePlayerEvent {
+  final PlayerModel playerModel;
+
+  const HomePlayerChangeRequest({
+    required this.playerModel,
+  });
+
+  @override
+  List<dynamic> get props => [
+        ...super.props,
+        playerModel,
+      ];
+}

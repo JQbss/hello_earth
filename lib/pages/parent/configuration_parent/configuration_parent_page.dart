@@ -18,12 +18,10 @@ class ConfigurationParentPage extends StatefulWidget {
   });
 
   @override
-  State<ConfigurationParentPage> createState() =>
-      _ConfigurationParentPageState();
+  State<ConfigurationParentPage> createState() => _ConfigurationParentPageState();
 }
 
-class _ConfigurationParentPageState
-    extends BlocPageState<ConfigurationParentPage, ConfigurationBloc> {
+class _ConfigurationParentPageState extends BlocPageState<ConfigurationParentPage, ConfigurationBloc> {
   final List<ContraindicationModel> selectedContraindications = [];
 
   @override
@@ -47,8 +45,7 @@ class _ConfigurationParentPageState
 
   Widget _buildBody() {
     if (bloc.state is ConfigurationFamilyCreateNeeded) {
-      final UserModel? userModel =
-          BlocProvider.of<UserDataBloc>(context).state.profile;
+      final UserModel? userModel = BlocProvider.of<UserDataBloc>(context).state.profile;
       bloc.add(
         ConfigurationCreateFamilyRequested(
           parent: userModel,
@@ -115,8 +112,7 @@ class _ConfigurationParentPageState
   }
 
   Widget _buildQRCodeBody() {
-    final UserModel? userModel =
-        BlocProvider.of<UserDataBloc>(context).state.profile;
+    final UserModel? userModel = BlocProvider.of<UserDataBloc>(context).state.profile;
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(AppDimensions.radius.input),
@@ -148,15 +144,21 @@ class _ConfigurationParentPageState
               color: AppColors.buttonText,
             ),
           ),
-          onPressed: () => {},
+          onPressed: () {
+            final UserModel? userModel = BlocProvider.of<UserDataBloc>(context).state.profile;
+            bloc.add(
+              ConfigurationCheckParentRequested(
+                parentUid: userModel?.uid ?? '',
+              ),
+            );
+          },
         ),
       ),
     );
   }
 
   Widget _buildQuestionnaireBody() {
-    final List<ContraindicationModel> listOfContraindications =
-        ContraindicationModel.values.map((e) => e).toList();
+    final List<ContraindicationModel> listOfContraindications = ContraindicationModel.values.map((e) => e).toList();
     return Column(
       children: [
         Expanded(
@@ -164,15 +166,14 @@ class _ConfigurationParentPageState
             itemCount: listOfContraindications.length,
             itemBuilder: (_, index) {
               return Padding(
-                padding:
-                    EdgeInsets.all(AppDimensions.padding.container).copyWith(
+                padding: EdgeInsets.all(AppDimensions.padding.container).copyWith(
                   bottom: 0.0,
                 ),
                 child: Container(
                   decoration: BoxDecoration(
                     color: AppColors.textFieldBackground,
-                    borderRadius: BorderRadius.circular(AppDimensions.radius.button)
-                        .copyWith(bottomRight: Radius.circular(0)),
+                    borderRadius:
+                        BorderRadius.circular(AppDimensions.radius.button).copyWith(bottomRight: Radius.circular(0)),
                   ),
                   child: CheckboxListTile(
                     activeColor: AppColors.primary,
@@ -183,17 +184,13 @@ class _ConfigurationParentPageState
                         listOfContraindications[index].getDescription(context),
                       ),
                     ),
-                    value: selectedContraindications
-                        .contains(listOfContraindications[index]),
+                    value: selectedContraindications.contains(listOfContraindications[index]),
                     onChanged: (_) {
                       setState(() {
-                        if (selectedContraindications
-                            .contains(listOfContraindications[index])) {
-                          selectedContraindications
-                              .remove(listOfContraindications[index]);
+                        if (selectedContraindications.contains(listOfContraindications[index])) {
+                          selectedContraindications.remove(listOfContraindications[index]);
                         } else {
-                          selectedContraindications
-                              .add(listOfContraindications[index]);
+                          selectedContraindications.add(listOfContraindications[index]);
                         }
                       });
                     },
@@ -209,8 +206,7 @@ class _ConfigurationParentPageState
   }
 
   Widget _buildQuestionnaireButton() {
-    final UserModel? userModel =
-        BlocProvider.of<UserDataBloc>(context).state.profile;
+    final UserModel? userModel = BlocProvider.of<UserDataBloc>(context).state.profile;
     return Padding(
       padding: EdgeInsets.all(AppDimensions.padding.buttonHorizontal).copyWith(
         bottom: AppDimensions.padding.buttonBottom,
@@ -230,8 +226,7 @@ class _ConfigurationParentPageState
         onPressed: () => bloc.add(
           SaveQuestionnaireRequested(
             familyUid: userModel?.familyId ?? '',
-            listOfContraindications:
-                selectedContraindications.mapToContraindications(),
+            listOfContraindications: selectedContraindications.mapToContraindications(),
           ),
         ),
       ),

@@ -11,9 +11,9 @@ import 'package:hello_earth/modals/mission_description_dialog.dart';
 import 'package:hello_earth/pages/bloc_page_state.dart';
 import 'package:hello_earth/pages/player/home_player/home_player_bloc.dart';
 import 'package:hello_earth/pages/shopping_list/shopping_list_details/shopping_list_details_arguments.dart';
+import 'package:hello_earth/routing/dashboard_tabs/shopping_lists_routing.dart';
 import 'package:hello_earth/styles/app_colors/app_colors.dart';
 import 'package:hello_earth/styles/app_dimensions.dart';
-import 'package:hello_earth/routing/dashboard_tabs/shopping_lists_routing.dart';
 import 'package:hello_earth/ui/models/level_model.dart';
 import 'package:hello_earth/ui/models/mission_model.dart';
 import 'package:hello_earth/utils/navigation_utils.dart';
@@ -229,6 +229,7 @@ class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc>
                 MissionDescriptionDialog.show(
                   context,
                   missionModel: mission,
+                  missionShoppingListsCompleted: bloc.state.playerModel?.completedMissionShoppingLists ?? [],
                   onCookingMissionPressed: () => Navigator.of(
                     context,
                     rootNavigator: true,

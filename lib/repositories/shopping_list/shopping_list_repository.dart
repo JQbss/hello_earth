@@ -1,6 +1,7 @@
 import 'package:hello_earth/networking/models/base_response.dart';
 import 'package:hello_earth/networking/models/shopping_list.dart';
 import 'package:hello_earth/networking/models/shopping_lists.dart';
+import 'package:hello_earth/networking/requests/completed_mission_shopping_lists_request.dart';
 import 'package:hello_earth/networking/requests/shopping_list_request.dart';
 
 abstract class ShoppingListRepository {
@@ -22,5 +23,10 @@ abstract class ShoppingListRepository {
 
   Future<ShoppingLists> getAllShoppingLists({
     required String familyUid,
+  });
+
+  Future<void> updateCompletedShoppingLists({
+    required String familyId,
+    required CompletedMissionShoppingListsRequest completedMissionShoppingLists,
   });
 }

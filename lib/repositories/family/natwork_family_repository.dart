@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:firebase_database/firebase_database.dart';
@@ -41,6 +42,13 @@ class NetworkFamilyRepository implements FamilyRepository {
     final DataSnapshot dataSnapshot =
         await reference.child('${Endpoints.families.families}/${familyId}/${Endpoints.families.player}').get();
     return BaseResponse<Player>.fromJson(jsonDecode(jsonEncode(dataSnapshot.value)) as Map<String, dynamic>);
+  }
+
+  @override
+  Stream<DatabaseEvent> getPlayerSubscription({
+    required String familyId,
+  }) {
+    return reference.child('${Endpoints.families.families}/${familyId}/${Endpoints.families.player}').onValue;
   }
 
   @override

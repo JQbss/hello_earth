@@ -11,6 +11,7 @@ class _Families {
   final String families = 'families';
   final String parent = 'parent';
   final String player = 'player';
+  final String completedMissionShoppingList = 'completedMissionShoppingList';
 }
 
 class _Missions {

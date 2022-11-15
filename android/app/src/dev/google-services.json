@@ -8,6 +8,42 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:257672881682:android:81181caf185a3f37f51acb",
+        "android_client_info": {
+          "package_name": "pl.umk.hello_earth.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "257672881682-217ssf9lqggqdbguob0gnn9eqf0ct4k4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxcsoIgnFandNxyKhujBR14IC79t18JBE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "257672881682-217ssf9lqggqdbguob0gnn9eqf0ct4k4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "257672881682-eo9lmmtkt9p8u8jjv05gu2c4f7b0dnf9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "pl.umk.helloEarth.dev"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:257672881682:android:f8d6960f96ff6416f51acb",
         "android_client_info": {
           "package_name": "pl.umk.hello_earth.dev"
@@ -30,6 +66,13 @@
             {
               "client_id": "257672881682-217ssf9lqggqdbguob0gnn9eqf0ct4k4.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "257672881682-eo9lmmtkt9p8u8jjv05gu2c4f7b0dnf9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "pl.umk.helloEarth.dev"
+              }
             }
           ]
         }

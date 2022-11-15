@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hello_earth/pages/dashboard/dashboard_page.dart';
 import 'package:hello_earth/routing/authentication_routing.dart';
 import 'package:hello_earth/routing/configuration_routing.dart';
-import 'package:hello_earth/routing/dashboard_tabs/achievements_routing.dart';
+import 'package:hello_earth/routing/dashboard_tabs/achievement_routing.dart';
 import 'package:hello_earth/routing/dashboard_tabs/parent/home_parent_routing.dart';
 import 'package:hello_earth/routing/dashboard_tabs/player/home_player_routing.dart';
 import 'package:hello_earth/routing/dashboard_tabs/shopping_lists_routing.dart';
@@ -25,8 +25,8 @@ class Routing {
       return ConfigurationRouting.getMainRoute(settings);
     } else if (ShoppingListsRouting.canHandleRoute(routeName)) {
       return ShoppingListsRouting.getMainRoute(settings);
-    } else if (AchievementsRouting.canHandleRoute(routeName)) {
-      return AchievementsRouting.getMainRoute(settings);
+    } else if (AchievementRouting.canHandleRoute(routeName)) {
+      return AchievementRouting.getMainRoute(settings);
     }
 
     final Widget child;

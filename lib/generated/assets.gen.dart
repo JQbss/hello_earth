@@ -30,8 +30,11 @@ class $AssetsSvgIconsGen {
   /// File path: assets/svg_icons/level.svg
   SvgGenImage get level => const SvgGenImage('assets/svg_icons/level.svg');
 
+  /// File path: assets/svg_icons/padlock.svg
+  SvgGenImage get padlock => const SvgGenImage('assets/svg_icons/padlock.svg');
+
   /// List of all assets
-  List<SvgGenImage> get values => [level];
+  List<SvgGenImage> get values => [level, padlock];
 }
 
 class Assets {
@@ -153,4 +156,6 @@ class SvgGenImage {
   }
 
   String get path => _assetName;
+
+  String get keyName => _assetName;
 }

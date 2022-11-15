@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_earth/blocs/theme/theme_bloc.dart';
-import 'package:hello_earth/pages/%20achievements/achievements_bloc.dart';
-import 'package:hello_earth/pages/%20achievements/achievements_page.dart';
+import 'package:hello_earth/pages/achievement/achievement_bloc.dart';
+import 'package:hello_earth/pages/achievement/achievement_page.dart';
 import 'package:hello_earth/routing/routing.dart';
 
-class AchievementsRouting {
-  static const String _prefix = 'achievements';
+class AchievementRouting {
+  static const String _prefix = 'achievement';
   static const String achievements = '$_prefix/main';
 
-  const AchievementsRouting._();
+  const AchievementRouting._();
 
   static bool canHandleRoute(String? route) =>
       Routing.canHandleRoute(route, _prefix);
@@ -21,9 +21,9 @@ class AchievementsRouting {
       case achievements:
         child = BlocBuilder<ThemeBloc, ThemeState>(
           builder: (_, __) {
-            return BlocProvider<AchievementsBloc>(
-              create: (context) => AchievementsBloc(),
-              child: AchievementsPage(),
+            return BlocProvider<AchievementBloc>(
+              create: (context) => AchievementBloc(),
+              child: AchievementPage(),
             );
           },
         );

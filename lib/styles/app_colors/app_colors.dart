@@ -17,6 +17,8 @@ class AppColors {
 
   static Color get bezierCurveSecondary => colors.bezierCurveSecondary;
 
+  static Color get currentMission => colors.currentMission;
+
   static Color get disabled => colors.disabled;
 
   static Color get disabledMission => colors.disabledMission;

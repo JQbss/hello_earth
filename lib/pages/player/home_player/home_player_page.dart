@@ -28,9 +28,10 @@ class HomePlayerPage extends StatefulWidget {
   State<HomePlayerPage> createState() => _HomePlayerPageState();
 }
 
-class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc> {
-
+class _HomePlayerPageState
+    extends BlocPageState<HomePlayerPage, HomePlayerBloc> {
   bool enabledLevel = true;
+
   @override
   void initState() {
     super.initState();
@@ -74,7 +75,7 @@ class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc>
         child: Column(
           children: levels.map(
             (level) {
-              enabledLevel = levelNumber == bloc.state.currentLevel;
+              enabledLevel = levelNumber == (bloc.state.currentLevel ?? 0);
               levelNumber++;
               return _buildLevelSection(
                 levelNumber: levelNumber,
@@ -171,7 +172,9 @@ class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc>
             mission: mission,
           ),
         );
-        if (missionsIcons.length < Constants.missions.numberInRow[currentRow % Constants.missions.numberInRow.length] &&
+        if (missionsIcons.length <
+                Constants.missions.numberInRow[
+                    currentRow % Constants.missions.numberInRow.length] &&
             currentMission != missions.length) return;
         missionsInRow.add(
           Row(
@@ -198,51 +201,75 @@ class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc>
   }) {
     return Padding(
       padding: EdgeInsets.only(bottom: AppDimensions.padding.missionBottom),
-      child: Container(
-        height: AppDimensions.height.mission,
-        decoration: BoxDecoration(
-          color: enabledLevel ? AppColors.primary : AppColors.disabledMission,
-          shape: BoxShape.circle,
-        ),
-        child: AdaptiveButton(
-          height: AppDimensions.height.mission - 10.0,
-          child: Container(
-            height: AppDimensions.height.mission - 10.0,
+      child: Stack(
+        children: [
+          Container(
+            height: AppDimensions.height.mission,
             decoration: BoxDecoration(
-              color: AppColors.textFieldBackground,
+              color: setMissionColor(mission?.uid),
               shape: BoxShape.circle,
             ),
-            child: Image.memory(
-              base64Decode(mission?.icon ?? ''),
+            child: AdaptiveButton(
+              isActive: enabledLevel,
+              height: AppDimensions.height.mission - 10.0,
+              child: Container(
+                height: AppDimensions.height.mission - 10.0,
+                decoration: BoxDecoration(
+                  color: AppColors.textFieldBackground,
+                  shape: BoxShape.circle,
+                ),
+                child: Image.memory(
+                  base64Decode(mission?.icon ?? ''),
+                ),
+              ),
+              onPressed: () {
+                final ShoppingListDetailsArguments arguments =
+                    ShoppingListDetailsArguments(
+                  ingredients: mission?.ingredients,
+                  isParentVisible: false,
+                  missionName: mission?.title,
+                  uid: missionUid,
+                );
+                MissionDescriptionDialog.show(
+                  context,
+                  missionModel: mission,
+                  onCookingMissionPressed: () => Navigator.of(
+                    context,
+                    rootNavigator: true,
+                  ).pushNamed(
+                    ShoppingListsRouting.shoppingListDetails,
+                    arguments: arguments,
+                  ),
+                  onStartMissionPressed: () => {
+                    _onStartMissionPressed(
+                      missionUid: missionUid,
+                    ),
+                  },
+                );
+              },
             ),
           ),
-          onPressed: () {
-            final ShoppingListDetailsArguments arguments = ShoppingListDetailsArguments(
-              ingredients: mission?.ingredients,
-              isParentVisible: false,
-              missionName: mission?.title,
-              uid: missionUid,
-            );
-            MissionDescriptionDialog.show(
-              context,
-              missionModel: mission,
-              onCookingMissionPressed: () => Navigator.of(
-                context,
-                rootNavigator: true,
-              ).pushNamed(
-                ShoppingListsRouting.shoppingListDetails,
-                arguments: arguments,
-              ),
-              onStartMissionPressed: () => {
-                _onStartMissionPressed(
-                  missionUid: missionUid,
-                ),
-              },
-            );
-          },
-        ),
+          if (enabledLevel)
+            const SizedBox.shrink()
+          else
+            Positioned(
+              bottom: 0,
+              right: 10,
+              child: Assets.svgIcons.padlock.svg(),
+            ),
+        ],
       ),
     );
+  }
+
+  Color setMissionColor(String? missionId) {
+    if (!enabledLevel) {
+      return AppColors.disabledMission;
+    }
+    if (missionId == bloc.state.currentMission?.missionUid) {
+      return AppColors.currentMission;
+    }
+    return AppColors.primary;
   }
 
   void _onStartMissionPressed({

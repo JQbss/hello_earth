@@ -8,7 +8,7 @@ import 'package:hello_earth/blocs/user_data/user_data_bloc.dart';
 import 'package:hello_earth/pages/bloc_page_state.dart';
 import 'package:hello_earth/pages/dashboard/commons/dashboard_tab.dart';
 import 'package:hello_earth/pages/dashboard/dashboard_bloc.dart';
-import 'package:hello_earth/routing/dashboard_tabs/achievements_routing.dart';
+import 'package:hello_earth/routing/dashboard_tabs/achievement_routing.dart';
 import 'package:hello_earth/routing/dashboard_tabs/parent/home_parent_routing.dart';
 import 'package:hello_earth/routing/dashboard_tabs/player/home_player_routing.dart';
 import 'package:hello_earth/routing/dashboard_tabs/settings_routing.dart';
@@ -178,7 +178,7 @@ class _DashboardPageState extends BlocPageState<DashboardPage, DashboardBloc> {
         _buildPage(
           state,
           tab: DashboardTab.awardsOrQuestionnaire,
-          onGenerateRoute: AchievementsRouting.getMainRoute,
+          onGenerateRoute: AchievementRouting.getMainRoute,
         ),
         _buildPage(
           state,

@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:327438767017:android:796c0f4781bf5b3539aab8",
+        "mobilesdk_app_id": "1:327438767017:android:30257509ca0305da39aab8",
         "android_client_info": {
-          "package_name": "pl.umk.hello_earth.dev"
+          "package_name": "pl.umk.hello_earth"
         }
       },
       "oauth_client": [
@@ -32,7 +32,7 @@
               "client_type": 3
             },
             {
-              "client_id": "327438767017-nj1h96uvjreonrcao1crve2lmbsad3i7.apps.googleusercontent.com",
+              "client_id": "327438767017-fuk63m8i7prqer79klo50o58hm7h78h6.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "pl.umk.helloEarth.dev"

@@ -50,22 +50,22 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAxcsoIgnFandNxyKhujBR14IC79t18JBE',
-    appId: '1:257672881682:android:81181caf185a3f37f51acb',
-    messagingSenderId: '257672881682',
-    projectId: 'helloearth-dev',
-    databaseURL: 'https://helloearth-dev-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'helloearth-dev.appspot.com',
+    apiKey: 'AIzaSyBSoIFQ2ivwQ6jTocjHSMPTZ8FeAid6jhs',
+    appId: '1:327438767017:android:9a6fd4e27e5c7cc239aab8',
+    messagingSenderId: '327438767017',
+    projectId: 'helloearth-dev-cc175',
+    databaseURL: 'https://helloearth-dev-cc175-default-rtdb.europe-west1.firebasedatabase.app',
+    storageBucket: 'helloearth-dev-cc175.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCP7IbyNaDZ18E_vBRUyhjFlUNpAl91CtY',
-    appId: '1:257672881682:ios:5755c1ea645089a6f51acb',
-    messagingSenderId: '257672881682',
-    projectId: 'helloearth-dev',
-    databaseURL: 'https://helloearth-dev-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'helloearth-dev.appspot.com',
-    iosClientId: '257672881682-2084feh7v1i4c9igb39bkr15tonp2avf.apps.googleusercontent.com',
-    iosBundleId: 'pl.umk.helloEarth',
+    apiKey: 'AIzaSyCASsV20LRITzyd358Ui4c_a3ka_eb-gDA',
+    appId: '1:327438767017:ios:7a42599dfdb19e8c39aab8',
+    messagingSenderId: '327438767017',
+    projectId: 'helloearth-dev-cc175',
+    databaseURL: 'https://helloearth-dev-cc175-default-rtdb.europe-west1.firebasedatabase.app',
+    storageBucket: 'helloearth-dev-cc175.appspot.com',
+    iosClientId: '327438767017-fuk63m8i7prqer79klo50o58hm7h78h6.apps.googleusercontent.com',
+    iosBundleId: 'pl.umk.helloEarth.dev',
   );
 }

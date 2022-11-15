@@ -20,7 +20,7 @@ abstract class ShoppingListRepository {
     required String missionUid,
   });
 
-  Future<BaseResponse<ShoppingLists>> getAllShoppingLists({
+  Future<ShoppingLists> getAllShoppingLists({
     required String familyUid,
   });
 }

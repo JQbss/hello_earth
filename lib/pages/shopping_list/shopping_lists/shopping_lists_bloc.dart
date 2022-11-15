@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_earth/mappers/shopping_list_mappers.dart';
-import 'package:hello_earth/networking/models/base_response.dart';
 import 'package:hello_earth/networking/models/shopping_lists.dart';
 import 'package:hello_earth/repositories/shopping_list/shopping_list_repository.dart';
 import 'package:hello_earth/ui/models/shopping_lists_model.dart';
@@ -29,12 +28,12 @@ class ShoppingListsBloc extends Bloc<ShoppingListsEvent, ShoppingListsState> {
     Emitter<ShoppingListsState> emit,
   ) async {
     try {
-      final BaseResponse<ShoppingLists> response = await shoppingListRepository.getAllShoppingLists(
+      final ShoppingLists response = await shoppingListRepository.getAllShoppingLists(
         familyUid: profile?.familyId ?? '',
       );
       emit(
         ShoppingListsSuccess(
-          shoppingLists: response.data.mapToShoppingListsModel(),
+          shoppingLists: response.mapToShoppingListsModel(),
         ),
       );
     } catch (error) {

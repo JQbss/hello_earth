@@ -49,11 +49,14 @@ class NetworkShoppingListRepository implements ShoppingListRepository {
   }
 
   @override
-  Future<BaseResponse<ShoppingLists>> getAllShoppingLists({required String familyUid}) async {
+  Future<ShoppingLists> getAllShoppingLists({required String familyUid}) async {
     final DataSnapshot dataSnapshot = await reference
         .child('${Endpoints.families.families}/$familyUid/${Endpoints.shoppingLists.shoppingLists}')
         .get();
     final Map<String, dynamic> values = jsonDecode(jsonEncode(dataSnapshot.value)) as Map<String, dynamic>;
-    return BaseResponse<ShoppingLists>.fromJson(jsonDecode(jsonEncode(dataSnapshot.value)) as Map<String, dynamic>);
+    final Map<String, ShoppingList> shoppingLists = values
+        .map((key, value) => MapEntry(key, BaseResponse<ShoppingList>.fromJson(value as Map<String, dynamic>).data));
+    final ShoppingLists allShoppingList = ShoppingLists(shoppingLists: shoppingLists);
+    return allShoppingList;
   }
 }

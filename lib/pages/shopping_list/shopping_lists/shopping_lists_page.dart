@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_earth/extensions/extensions.dart';
+import 'package:hello_earth/generated/l10n.dart';
 import 'package:hello_earth/pages/bloc_page_state.dart';
+import 'package:hello_earth/pages/shopping_list/shopping_list_details/shopping_list_details_arguments.dart';
 import 'package:hello_earth/pages/shopping_list/shopping_lists/shopping_lists_bloc.dart';
+import 'package:hello_earth/routing/dashboard_tabs/shopping_lists_routing.dart';
+import 'package:hello_earth/ui/models/role_model.dart';
 import 'package:hello_earth/ui/models/shopping_list_model.dart';
 import 'package:hello_earth/ui/models/shopping_lists_model.dart';
 import 'package:hello_earth/widgets/adaptive_button.dart';
@@ -47,18 +51,55 @@ class _ShoppingListsPageState extends BlocPageState<ShoppingListsPage, ShoppingL
     final List<ShoppingListModel> shoppingLists =
         (shoppingListsModels.shoppingLists?.entries.map((shoppingList) => shoppingList.value).toList() ?? [])
             .filterNotNull();
-    if(shoppingLists.isEmpty) return const SizedBox.shrink();
+    final List<String> shoppingListsKeys =
+        (shoppingListsModels.shoppingLists?.entries.map((shoppingList) => shoppingList.key).toList() ?? [])
+            .filterNotNull();
+    if (shoppingLists.isEmpty) return const SizedBox.shrink();
     return SingleChildScrollView(
-      child: ListView.builder(
-        itemBuilder: (_, index) => _buildShoppListButton(
-          shoppingLists[index],
-        ),
-        itemCount: shoppingLists.length,
+      child: Column(
+        children: [
+          BezierCurveTitle(
+            title: S.of(context).shoppingListTitle,
+          ),
+          ListView.builder(
+            shrinkWrap: true,
+            itemBuilder: (_, index) => _buildShoppListButton(
+              shoppingList: shoppingLists[index],
+              uid: shoppingListsKeys[index],
+            ),
+            itemCount: shoppingLists.length,
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildShoppListButton(ShoppingListModel? shoppingListModel) {
-    return AdaptiveButton(child: Text('asd'), onPressed: () => {});
+  Widget _buildShoppListButton({
+    required ShoppingListModel? shoppingList,
+    required String uid,
+  }) {
+    if (bloc.profile?.role == RoleModel.parent && !(shoppingList?.isParentVisible ?? false)) {
+      return const SizedBox.shrink();
+    }
+    return AdaptiveButton(
+      child: Text(
+        shoppingList?.missionName ?? '',
+      ),
+      onPressed: () {
+        final ShoppingListDetailsArguments arguments = ShoppingListDetailsArguments(
+          ingredients: shoppingList?.ingredients,
+          isParentVisible: shoppingList?.isParentVisible,
+          missionName: shoppingList?.missionName,
+          uid: uid,
+        );
+        Navigator.of(
+          context,
+          rootNavigator: true,
+        ).pushNamed(
+          ShoppingListsRouting.shoppingListDetails,
+          arguments: arguments,
+        );
+      },
+    );
   }
 }

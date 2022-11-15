@@ -46,6 +46,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "playerRegistration":
             MessageLookupByLibrary.simpleMessage("Rejestracja gracza"),
         "registration": MessageLookupByLibrary.simpleMessage("Rejestracja"),
+        "shoppingListTitle":
+            MessageLookupByLibrary.simpleMessage("Lista zakupowa"),
         "signIn": MessageLookupByLibrary.simpleMessage("Zaloguj się"),
         "signInEmailDialogClose":
             MessageLookupByLibrary.simpleMessage("Zamknij"),

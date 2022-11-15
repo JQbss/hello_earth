@@ -28,8 +28,7 @@ class HomePlayerPage extends StatefulWidget {
   State<HomePlayerPage> createState() => _HomePlayerPageState();
 }
 
-class _HomePlayerPageState
-    extends BlocPageState<HomePlayerPage, HomePlayerBloc> {
+class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc> {
   bool enabledLevel = true;
 
   @override
@@ -75,8 +74,7 @@ class _HomePlayerPageState
         child: Column(
           children: levels.map(
             (level) {
-              enabledLevel =
-                  levelNumber <= (bloc.state.playerModel?.currentLevel ?? 0);
+              enabledLevel = levelNumber <= (bloc.state.playerModel?.currentLevel ?? 0);
               levelNumber++;
               return _buildLevelSection(
                 levelNumber: levelNumber,
@@ -173,9 +171,7 @@ class _HomePlayerPageState
             mission: mission,
           ),
         );
-        if (missionsIcons.length <
-                Constants.missions.numberInRow[
-                    currentRow % Constants.missions.numberInRow.length] &&
+        if (missionsIcons.length < Constants.missions.numberInRow[currentRow % Constants.missions.numberInRow.length] &&
             currentMission != missions.length) return;
         missionsInRow.add(
           Row(
@@ -224,8 +220,7 @@ class _HomePlayerPageState
                 ),
               ),
               onPressed: () {
-                final ShoppingListDetailsArguments arguments =
-                    ShoppingListDetailsArguments(
+                final ShoppingListDetailsArguments arguments = ShoppingListDetailsArguments(
                   ingredients: mission?.ingredients,
                   isParentVisible: false,
                   missionName: mission?.title,
@@ -270,8 +265,7 @@ class _HomePlayerPageState
   }
 
   bool _isMissionCompleted(String missionId) {
-    return bloc.state.playerModel?.completedMissions?.contains(missionId) ??
-        false;
+    return bloc.state.playerModel?.completedMissions?.contains(missionId) ?? false;
   }
 
   Color _setMissionColor(String? missionId) {

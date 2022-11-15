@@ -339,6 +339,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Lista zakupowa`
+  String get shoppingListTitle {
+    return Intl.message(
+      'Lista zakupowa',
+      name: 'shoppingListTitle',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -27,5 +27,6 @@
   "errorInvalidEmail": "Nieprawidłowy format adresu e-mail",
   "errorEmailAlreadyInUse": "Email został wykorzystany",
   "errorWrongPassword": "Nieprawidłowe hasło",
-  "errorUserNotFound": "Użytkownik o podanym adresie e-mail nie istnieje"
+  "errorUserNotFound": "Użytkownik o podanym adresie e-mail nie istnieje",
+  "shoppingListTitle": "Lista zakupowa"
 }

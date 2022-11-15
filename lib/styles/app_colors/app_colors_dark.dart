@@ -8,6 +8,7 @@ class AppColorsDark extends AppColorsTheme {
           buttonText: Colors.white,
           bezierCurveSecondary: const Color(0xFFD4A8B4),
           currentMission: const Color(0xFFAEC141),
+          completedMission: const Color(0xFFFFD05B),
           disabled: const Color(0xFFEDEDED),
           disabledMission: const Color(0xFFD3D2D2),
           error: const Color(0xFFB00020),

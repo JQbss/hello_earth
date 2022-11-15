@@ -27,6 +27,9 @@ class $AssetsPngIconsGen {
 class $AssetsSvgIconsGen {
   const $AssetsSvgIconsGen();
 
+  /// File path: assets/svg_icons/crown.svg
+  SvgGenImage get crown => const SvgGenImage('assets/svg_icons/crown.svg');
+
   /// File path: assets/svg_icons/level.svg
   SvgGenImage get level => const SvgGenImage('assets/svg_icons/level.svg');
 
@@ -34,7 +37,7 @@ class $AssetsSvgIconsGen {
   SvgGenImage get padlock => const SvgGenImage('assets/svg_icons/padlock.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values => [level, padlock];
+  List<SvgGenImage> get values => [crown, level, padlock];
 }
 
 class Assets {

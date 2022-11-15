@@ -75,7 +75,8 @@ class _HomePlayerPageState
         child: Column(
           children: levels.map(
             (level) {
-              enabledLevel = levelNumber == (bloc.state.currentLevel ?? 0);
+              enabledLevel =
+                  levelNumber <= (bloc.state.playerModel?.currentLevel ?? 0);
               levelNumber++;
               return _buildLevelSection(
                 levelNumber: levelNumber,
@@ -206,11 +207,11 @@ class _HomePlayerPageState
           Container(
             height: AppDimensions.height.mission,
             decoration: BoxDecoration(
-              color: setMissionColor(mission?.uid),
+              color: _setMissionColor(mission?.uid),
               shape: BoxShape.circle,
             ),
             child: AdaptiveButton(
-              isActive: enabledLevel,
+              isActive: enabledLevel && !_isMissionCompleted(missionUid),
               height: AppDimensions.height.mission - 10.0,
               child: Container(
                 height: AppDimensions.height.mission - 10.0,
@@ -249,8 +250,14 @@ class _HomePlayerPageState
               },
             ),
           ),
-          if (enabledLevel)
+          if (enabledLevel && !_isMissionCompleted(missionUid))
             const SizedBox.shrink()
+          else if (_isMissionCompleted(missionUid))
+            Positioned(
+              bottom: 0,
+              right: 10,
+              child: Assets.svgIcons.crown.svg(),
+            )
           else
             Positioned(
               bottom: 0,
@@ -262,11 +269,20 @@ class _HomePlayerPageState
     );
   }
 
-  Color setMissionColor(String? missionId) {
+  bool _isMissionCompleted(String missionId) {
+    return bloc.state.playerModel?.completedMissions?.contains(missionId) ??
+        false;
+  }
+
+  Color _setMissionColor(String? missionId) {
+    if (missionId == null || missionId.isEmpty) return AppColors.primary;
     if (!enabledLevel) {
       return AppColors.disabledMission;
     }
-    if (missionId == bloc.state.currentMission?.missionUid) {
+    if (_isMissionCompleted(missionId)) {
+      return AppColors.completedMission;
+    }
+    if (missionId == bloc.state.playerModel?.currentMission?.missionUid) {
       return AppColors.currentMission;
     }
     return AppColors.primary;

@@ -12,6 +12,13 @@ Player _$PlayerFromJson(Map<String, dynamic> json) => Player(
           ? null
           : CurrentMission.fromJson(
               json['currentMission'] as Map<String, dynamic>),
+      completedMissions: (json['completedMissions'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      completedMissionShoppingLists:
+          (json['completedMissionShoppingLists'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList(),
       isQuestionnaireCompleted: json['isQuestionnaireCompleted'] as bool?,
       questionnaire: json['questionnaire'] == null
           ? null

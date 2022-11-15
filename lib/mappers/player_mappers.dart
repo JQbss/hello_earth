@@ -8,6 +8,8 @@ extension PlayerMapper on Player {
     return PlayerModel(
       currentLevel: currentLevel,
       currentMission: currentMission?.mapToCurrentMissionModel(),
+      completedMissions: completedMissions,
+      completedMissionShoppingLists: completedMissionShoppingLists,
       isQuestionnaireCompleted: isQuestionnaireCompleted,
       uid: uid,
       questionnaire: questionnaire?.mapToQuestionnaireMode(),

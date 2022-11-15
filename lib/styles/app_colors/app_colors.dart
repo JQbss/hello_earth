@@ -19,6 +19,8 @@ class AppColors {
 
   static Color get currentMission => colors.currentMission;
 
+  static Color get completedMission => colors.completedMission;
+
   static Color get disabled => colors.disabled;
 
   static Color get disabledMission => colors.disabledMission;

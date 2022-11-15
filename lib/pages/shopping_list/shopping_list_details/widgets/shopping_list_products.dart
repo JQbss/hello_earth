@@ -59,13 +59,23 @@ class _ShoppingListProductsState extends State<ShoppingListProducts> {
               color: AppColors.disabled,
               child: Column(
                 children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    //child: Container(
+                    child: Text(
+                      style: TextStyle(
+                          fontSize: 20.0, fontWeight: FontWeight.w500),
+                      'Kupoine',
+                    ),
+                    //),
+                  ),
                   ...boughtProducts.asMap().entries.map(
                         (entry) => _buildProductCell(
                           entry.value,
                         ),
                       ),
                 ],
-              ),
+              ) : ,
             ),
           ],
         ),
@@ -80,6 +90,9 @@ class _ShoppingListProductsState extends State<ShoppingListProducts> {
       title: Padding(
         padding: EdgeInsets.all(AppDimensions.padding.text),
         child: Text(
+          style: TextStyle(
+            decoration: ingredientModel.isBought ?? false ? TextDecoration.lineThrough: TextDecoration.none,
+          ),
           ingredientModel.name ?? '',
         ),
       ),

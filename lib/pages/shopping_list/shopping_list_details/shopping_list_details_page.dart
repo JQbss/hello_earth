@@ -58,6 +58,8 @@ class _ShoppingListDetailsPageState extends BlocPageState<ShoppingListDetailsPag
 
   PreferredSizeWidget _buildAppBar() {
     return AppBar(
+      backgroundColor: AppColors.appBackground,
+      foregroundColor: AppColors.primary,
       actions: [
         _buildAppBarAction(),
       ],

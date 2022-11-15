@@ -13,6 +13,8 @@ class Player {
   static const FromJsonFactory<Player> fromJsonFactory = _$PlayerFromJson;
   final int? currentLevel;
   final CurrentMission? currentMission;
+  final List<String>? completedMissions;
+  final List<String>? completedMissionShoppingLists;
   final bool? isQuestionnaireCompleted;
   final Questionnaire? questionnaire;
   final String? uid;
@@ -20,6 +22,8 @@ class Player {
   Player({
     required this.currentLevel,
     required this.currentMission,
+    required this.completedMissions,
+    required this.completedMissionShoppingLists,
     required this.isQuestionnaireCompleted,
     required this.questionnaire,
     required this.uid,

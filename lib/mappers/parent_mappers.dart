@@ -6,6 +6,7 @@ extension ParentMappers on Parent {
     return ParentModel(
       completedQuestionnaire: completedQuestionnaire,
       uid: uid,
+      missionQuestionnaire: missionQuestionnaire,
     );
   }
 }

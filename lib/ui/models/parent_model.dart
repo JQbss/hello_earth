@@ -1,13 +1,13 @@
-import 'package:hello_earth/networking/models/mission_questionnaire.dart';
+import 'package:hello_earth/ui/models/mission_questionnaire_model.dart';
 
 class ParentModel {
   final List<String>? completedQuestionnaire;
   final String uid;
-  final Map<String, MissionQuestionnaire?>? missionQuestionnaire;
+  final Map<String, MissionQuestionnaireModel?>? missionQuestionnaires;
 
   ParentModel({
     required this.completedQuestionnaire,
     required this.uid,
-    required this.missionQuestionnaire,
+    required this.missionQuestionnaires,
   });
 }

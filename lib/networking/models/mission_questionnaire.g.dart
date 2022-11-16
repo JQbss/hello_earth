@@ -12,6 +12,6 @@ MissionQuestionnaire _$MissionQuestionnaireFromJson(
       isCompleted: json['isCompleted'] as bool?,
       missionId: json['missionId'] as String?,
       missionName: json['missionName'] as String?,
-      missionRating: (json['missionRating'] as num?)?.toDouble(),
+      missionRating: json['missionRating'] as int?,
       questionnaireDescription: json['questionnaireDescription'] as String?,
     );

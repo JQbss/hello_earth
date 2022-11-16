@@ -9,6 +9,8 @@ import 'package:hello_earth/generated/assets.gen.dart';
 import 'package:hello_earth/modals/mission_questionnaire_description_dialog.dart';
 import 'package:hello_earth/pages/bloc_page_state.dart';
 import 'package:hello_earth/pages/parent/home_parent/home_parent_bloc.dart';
+import 'package:hello_earth/pages/parent/mission_questionnaire/mission_questionnaire_arguments.dart';
+import 'package:hello_earth/routing/dashboard_tabs/parent/home_parent_routing.dart';
 
 import 'package:hello_earth/styles/app_colors/app_colors.dart';
 import 'package:hello_earth/styles/app_dimensions.dart';
@@ -27,8 +29,7 @@ class HomeParentPage extends StatefulWidget {
   State<HomeParentPage> createState() => _HomeParentPageState();
 }
 
-class _HomeParentPageState
-    extends BlocPageState<HomeParentPage, HomeParentBloc> {
+class _HomeParentPageState extends BlocPageState<HomeParentPage, HomeParentBloc> {
   @override
   void initState() {
     super.initState();
@@ -173,9 +174,7 @@ class _HomeParentPageState
             mission: mission,
           ),
         );
-        if (missionsIcons.length <
-                Constants.missions.numberInRow[
-                    currentRow % Constants.missions.numberInRow.length] &&
+        if (missionsIcons.length < Constants.missions.numberInRow[currentRow % Constants.missions.numberInRow.length] &&
             currentMission != missions.length) return;
         missionsInRow.add(
           Row(
@@ -200,6 +199,7 @@ class _HomeParentPageState
     required String missionUid,
     required MissionModel? mission,
   }) {
+    if (mission == null) return const SizedBox.shrink();
     return Padding(
       padding: EdgeInsets.only(bottom: AppDimensions.padding.missionBottom),
       child: Stack(
@@ -207,12 +207,11 @@ class _HomeParentPageState
           Container(
             height: AppDimensions.height.mission,
             decoration: BoxDecoration(
-              color: _setMissionColor(mission?.uid),
+              color: _setMissionColor(mission.uid),
               shape: BoxShape.circle,
             ),
             child: AdaptiveButton(
-              isActive: _isQuestionnaireEnabled(missionUid) &&
-                  !_isQuestionnaireCompleted(missionUid),
+              isActive: _isQuestionnaireEnabled(missionUid) && !_isQuestionnaireCompleted(missionUid),
               height: AppDimensions.height.mission - 10.0,
               child: Container(
                 height: AppDimensions.height.mission - 10.0,
@@ -221,27 +220,24 @@ class _HomeParentPageState
                   shape: BoxShape.circle,
                 ),
                 child: Image.memory(
-                  base64Decode(mission?.icon ?? ''),
+                  base64Decode(mission.icon ?? ''),
                 ),
               ),
               onPressed: () {
                 MissionQuestionnaireDescriptionDialog.show(
                   context,
                   missionModel: mission,
-                  missionShoppingListsCompleted:
-                      bloc.state.playerModel?.completedMissionShoppingLists ??
-                          [],
+                  missionShoppingListsCompleted: bloc.state.playerModel?.completedMissionShoppingLists ?? [],
                   onStartMissionPressed: () => {
                     _onStartQuestionnairePressed(
-                      missionUid: missionUid,
+                      mission: mission,
                     ),
                   },
                 );
               },
             ),
           ),
-          if (_isQuestionnaireEnabled(missionUid) &&
-              !_isQuestionnaireCompleted(missionUid))
+          if (_isQuestionnaireEnabled(missionUid) && !_isQuestionnaireCompleted(missionUid))
             const SizedBox.shrink()
           else if (_isQuestionnaireCompleted(missionUid))
             Positioned(
@@ -261,19 +257,15 @@ class _HomeParentPageState
   }
 
   bool _isQuestionnaireCompleted(String missionId) {
-    return bloc.state.parentModel?.completedQuestionnaire
-            ?.contains(missionId) ??
-        false;
+    return bloc.state.parentModel?.completedQuestionnaire?.contains(missionId) ?? false;
   }
 
   bool _isQuestionnaireEnabled(String missionId) {
-    return bloc.state.playerModel?.completedMissions?.contains(missionId) ??
-        false;
+    return bloc.state.playerModel?.completedMissions?.contains(missionId) ?? false;
   }
 
   Color _setMissionColor(String? missionId) {
-    if (missionId == null || missionId.isEmpty)
-      return AppColors.disabledMission;
+    if (missionId == null || missionId.isEmpty) return AppColors.disabledMission;
     if (_isQuestionnaireCompleted(missionId)) {
       return AppColors.completedMission;
     }
@@ -284,8 +276,18 @@ class _HomeParentPageState
   }
 
   void _onStartQuestionnairePressed({
-    required String missionUid,
+    required MissionModel mission,
   }) {
+    Navigator.of(
+      context,
+      rootNavigator: true,
+    ).pushNamed(
+      HomeParentRouting.questionnaire,
+      arguments: MissionQuestionnaireArguments(
+        parent: bloc.state.parentModel,
+        mission: mission,
+      ),
+    );
     // UserDataBloc userBloc = BlocProvider.of<UserDataBloc>(context);
     // bloc.add(
     //   HomePlayerMissionStartRequested(

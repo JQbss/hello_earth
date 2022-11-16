@@ -2,6 +2,7 @@ export 'contraindication_mappers.dart';
 export 'ingredient_mappers.dart';
 export 'level_mappers.dart';
 export 'main_missions_mappers.dart';
+export 'mission_questionnaire_mappers.dart';
 export 'parent_mappers.dart';
 export 'player_mappers.dart';
 export 'questionnaire_mappers.dart';

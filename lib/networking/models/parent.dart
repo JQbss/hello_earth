@@ -11,12 +11,12 @@ class Parent {
   static const FromJsonFactory<Parent> fromJsonFactory = _$ParentFromJson;
   final List<String>? completedQuestionnaire;
   final String uid;
-  final Map<String, MissionQuestionnaire?>? missionQuestionnaire;
+  final Map<String, MissionQuestionnaire?>? missionQuestionnaires;
 
   Parent({
     required this.completedQuestionnaire,
     required this.uid,
-    required this.missionQuestionnaire,
+    required this.missionQuestionnaires,
   });
 
   factory Parent.fromJson(Map<String, dynamic> json) => _$ParentFromJson(json);

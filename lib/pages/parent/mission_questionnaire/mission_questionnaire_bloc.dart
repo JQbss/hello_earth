@@ -6,6 +6,7 @@ import 'package:hello_earth/commons/text_field_data.dart';
 import 'package:hello_earth/commons/unique_prop_provider.dart';
 import 'package:hello_earth/errors/error_keys.dart';
 import 'package:hello_earth/mappers/mappers.dart';
+import 'package:hello_earth/networking/requests/completed_mission_questionnaires_request.dart';
 import 'package:hello_earth/networking/requests/mission_questionnaire_request.dart';
 import 'package:hello_earth/networking/requests/mission_questionnaires_request.dart';
 import 'package:hello_earth/pages/parent/mission_questionnaire/mission_questionnaire_arguments.dart';
@@ -61,6 +62,8 @@ class MissionQuestionnaireBloc extends Bloc<MissionQuestionnaireEvent, MissionQu
       MissionQuestionnaireModel? questionnaire;
       if (questionnaires?.containsKey(mission.uid) ?? false) {
         questionnaire = questionnaires?[mission.uid];
+        dropdownValue = questionnaire?.missionRating ?? 1;
+        questionnaireDescriptionTextField.controller.text = questionnaire?.questionnaireDescription ?? '';
       } else {
         final MissionQuestionnairesRequest missionQuestionnairesRequest = MissionQuestionnairesRequest(
           missionQuestionnaires: parentModel.missionQuestionnaires.mapToMissionQuestionnaireRequest(),
@@ -77,8 +80,6 @@ class MissionQuestionnaireBloc extends Bloc<MissionQuestionnaireEvent, MissionQu
           familyUid: profile?.familyId ?? '',
           missionQuestionnaires: missionQuestionnairesRequest,
         );
-
-        // Przepisać wartość opisu do pola tekstowwego
         MissionQuestionnaireSuccess(
           missionQuestionnaire: questionnaires?[mission.uid],
         );
@@ -125,6 +126,15 @@ class MissionQuestionnaireBloc extends Bloc<MissionQuestionnaireEvent, MissionQu
       await missionRepository.startQuestionnaires(
         familyUid: profile?.familyId ?? '',
         missionQuestionnaires: missionQuestionnairesRequest,
+      );
+      final CompletedMissionQuestionnairesRequest completedMissionQuestionnairesRequest =
+          CompletedMissionQuestionnairesRequest(
+        completedQuestionnaire: parentModel.completedQuestionnaire ?? [],
+      );
+      completedMissionQuestionnairesRequest.completedQuestionnaire.add(mission.uid ?? '');
+      await missionRepository.updateCompletedQuestionnaires(
+        familyUid: profile?.familyId ?? '',
+        completedMissionQuestionnairesRequest: completedMissionQuestionnairesRequest,
       );
       emit(
         MissionQuestionnaireSaveSuccess(

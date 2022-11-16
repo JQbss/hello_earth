@@ -6,6 +6,11 @@ abstract class MissionRepository {
     required CurrentMissionRequest missionRequest,
   });
 
+  Future<void> updateMission({
+    required String familyUid,
+    required CurrentMissionRequest missionRequest,
+  });
+
   Future<void> removeCurrentMission({
     required String familyUid,
   });

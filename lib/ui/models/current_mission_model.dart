@@ -1,8 +1,8 @@
 class CurrentMissionModel {
-  final int? currentStep;
+  int? currentStep;
   final String? missionUid;
 
-  const CurrentMissionModel({
+  CurrentMissionModel({
     this.currentStep,
     this.missionUid,
   });

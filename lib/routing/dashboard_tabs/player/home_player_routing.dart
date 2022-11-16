@@ -5,6 +5,9 @@ import 'package:hello_earth/blocs/user_data/user_data_bloc.dart';
 import 'package:hello_earth/injector/injector.dart';
 import 'package:hello_earth/pages/player/home_player/home_player_bloc.dart';
 import 'package:hello_earth/pages/player/home_player/home_player_page.dart';
+import 'package:hello_earth/pages/player/player_mission/player_mission_arguments.dart';
+import 'package:hello_earth/pages/player/player_mission/player_mission_bloc.dart';
+import 'package:hello_earth/pages/player/player_mission/player_mission_page.dart';
 import 'package:hello_earth/repositories/family/natwork_family_repository.dart';
 import 'package:hello_earth/repositories/main_missions/network_main_missions_repository.dart';
 import 'package:hello_earth/repositories/mission/network_mission_repository.dart';
@@ -13,6 +16,7 @@ import 'package:hello_earth/routing/routing.dart';
 class HomePlayerRouting {
   static const String _prefix = 'homePlayer';
   static const String home = _prefix;
+  static const String mission = '$home/mission';
 
   const HomePlayerRouting._();
 
@@ -33,6 +37,20 @@ class HomePlayerRouting {
                 profile: BlocProvider.of<UserDataBloc>(context).state.profile,
               ),
               child: HomePlayerPage(),
+            );
+          },
+        );
+        break;
+      case mission:
+        child = BlocBuilder<ThemeBloc, ThemeState>(
+          builder: (_, __) {
+            return BlocProvider<PlayerMissionBloc>(
+              create: (context) => PlayerMissionBloc(
+                arguments: settings.arguments as PlayerMissionArguments?,
+                missionRepository: Injector().get<NetworkMissionRepository>(),
+                profile: BlocProvider.of<UserDataBloc>(context).state.profile,
+              ),
+              child: PlayerMissionPage(),
             );
           },
         );

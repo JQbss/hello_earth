@@ -30,4 +30,15 @@ class NetworkMissionRepository implements MissionRepository {
             '${Endpoints.families.families}/${familyUid}/${Endpoints.families.player}/${Endpoints.missions.currentMission}')
         .set(missionRequest.toJson());
   }
+
+  @override
+  Future<void> updateMission({
+    required String familyUid,
+    required CurrentMissionRequest missionRequest,
+  }) async {
+    await reference
+        .child(
+            '${Endpoints.families.families}/${familyUid}/${Endpoints.families.player}/${Endpoints.missions.currentMission}')
+        .update(missionRequest.toJson());
+  }
 }

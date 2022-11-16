@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_earth/blocs/configuration/configuration_bloc.dart';
-import 'package:hello_earth/blocs/user_data/user_data_bloc.dart';
 import 'package:hello_earth/constants.dart';
 import 'package:hello_earth/generated/assets.gen.dart';
 import 'package:hello_earth/modals/mission_description_dialog.dart';
 import 'package:hello_earth/pages/bloc_page_state.dart';
 import 'package:hello_earth/pages/player/home_player/home_player_bloc.dart';
+import 'package:hello_earth/pages/player/player_mission/player_mission_arguments.dart';
 import 'package:hello_earth/pages/shopping_list/shopping_list_details/shopping_list_details_arguments.dart';
+import 'package:hello_earth/routing/dashboard_tabs/player/home_player_routing.dart';
 import 'package:hello_earth/routing/dashboard_tabs/shopping_lists_routing.dart';
 import 'package:hello_earth/styles/app_colors/app_colors.dart';
 import 'package:hello_earth/styles/app_dimensions.dart';
@@ -195,6 +196,7 @@ class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc>
     required String missionUid,
     required MissionModel? mission,
   }) {
+    if (mission == null) return const SizedBox.shrink();
     return Padding(
       padding: EdgeInsets.only(bottom: AppDimensions.padding.missionBottom),
       child: Stack(
@@ -202,7 +204,7 @@ class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc>
           Container(
             height: AppDimensions.height.mission,
             decoration: BoxDecoration(
-              color: _setMissionColor(mission?.uid),
+              color: _setMissionColor(mission.uid),
               shape: BoxShape.circle,
             ),
             child: AdaptiveButton(
@@ -215,14 +217,14 @@ class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc>
                   shape: BoxShape.circle,
                 ),
                 child: Image.memory(
-                  base64Decode(mission?.icon ?? ''),
+                  base64Decode(mission.icon ?? ''),
                 ),
               ),
               onPressed: () {
                 final ShoppingListDetailsArguments arguments = ShoppingListDetailsArguments(
-                  ingredients: mission?.ingredients,
+                  ingredients: mission.ingredients,
                   isParentVisible: false,
-                  missionName: mission?.title,
+                  missionName: mission.title,
                   uid: missionUid,
                 );
                 MissionDescriptionDialog.show(
@@ -238,7 +240,7 @@ class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc>
                   ),
                   onStartMissionPressed: () => {
                     _onStartMissionPressed(
-                      missionUid: missionUid,
+                      mission: mission,
                     ),
                   },
                 );
@@ -283,18 +285,24 @@ class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc>
   }
 
   void _onStartMissionPressed({
-    required String missionUid,
+    required MissionModel mission,
   }) {
-    UserDataBloc userBloc = BlocProvider.of<UserDataBloc>(context);
-    bloc.add(
-      HomePlayerMissionStartRequested(
-        familyUid: userBloc.state.profile?.familyId ?? '',
-        missionUid: missionUid,
-      ),
-    );
+    // UserDataBloc userBloc = BlocProvider.of<UserDataBloc>(context);
+    // bloc.add(
+    //   HomePlayerMissionStartRequested(
+    //     familyUid: userBloc.state.profile?.familyId ?? '',
+    //     missionUid: missionUid,
+    //   ),
+    // );
     Navigator.of(
       context,
       rootNavigator: true,
-    ).pop();
+    ).pushNamed(
+      HomePlayerRouting.mission,
+      arguments: PlayerMissionArguments(
+        mission: mission,
+        playerModel: bloc.state.playerModel,
+      ),
+    );
   }
 }

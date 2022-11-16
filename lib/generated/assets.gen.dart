@@ -14,6 +14,14 @@ import 'package:flutter/services.dart';
 class $AssetsPngIconsGen {
   const $AssetsPngIconsGen();
 
+  /// File path: assets/png_icons/achievement1.png
+  AssetGenImage get achievement1 =>
+      const AssetGenImage('assets/png_icons/achievement1.png');
+
+  /// File path: assets/png_icons/achievement2.png
+  AssetGenImage get achievement2 =>
+      const AssetGenImage('assets/png_icons/achievement2.png');
+
   /// File path: assets/png_icons/eggs.png
   AssetGenImage get eggs => const AssetGenImage('assets/png_icons/eggs.png');
 
@@ -21,7 +29,7 @@ class $AssetsPngIconsGen {
   AssetGenImage get logo => const AssetGenImage('assets/png_icons/logo.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [eggs, logo];
+  List<AssetGenImage> get values => [achievement1, achievement2, eggs, logo];
 }
 
 class $AssetsSvgIconsGen {

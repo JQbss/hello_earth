@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_earth/blocs/session/session_bloc.dart';
 import 'package:hello_earth/blocs/theme/theme_bloc.dart';
 import 'package:hello_earth/errors/app_ui_error.dart';
+import 'package:hello_earth/generated/assets.gen.dart';
 import 'package:hello_earth/generated/l10n.dart';
 import 'package:hello_earth/modals/sign_in_email_error_dialog.dart';
 import 'package:hello_earth/pages/authentication/sign_in/sign_in_bloc.dart';
@@ -31,14 +32,22 @@ class _SignInPageState extends BlocPageState<SignInPage, SignInBloc> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SignInBloc, SignInState>(
-        bloc: bloc,
-        listener: _onStateChange,
-        builder: (_, state) {
-          return Scaffold(
-            backgroundColor: AppColors.appBackground,
-            body: _buildBody(),
-          );
-        });
+      bloc: bloc,
+      listener: _onStateChange,
+      builder: (_, state) {
+        return SafeArea(
+          child: AnimatedSwitcher(
+            duration: const Duration(
+              milliseconds: 250,
+            ),
+            child: Scaffold(
+              backgroundColor: AppColors.appBackground,
+              body: _buildBody(),
+            ),
+          ),
+        );
+      },
+    );
   }
 
   void _onStateChange(
@@ -69,13 +78,15 @@ class _SignInPageState extends BlocPageState<SignInPage, SignInBloc> {
   }
 
   Widget _buildBody() {
-      return SingleChildScrollView(
-      child: Container(
-        height: MediaQuery.of(context).size.height,
+    return SingleChildScrollView(
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height- 40,
         child: Column(
           children: [
-            Expanded(
-              child: SizedBox.shrink(),
+            Container(
+              width: 300,
+              height: 300,
+              child: Assets.pngIcons.logo.image(),
             ),
             Expanded(
               child: Padding(

@@ -8,6 +8,7 @@ class DataTextField extends StatefulWidget {
   final String hintText;
   final String labelText;
   final bool obscureText;
+  final int? maxLines;
   final void Function(String)? onChanged;
 
   final void Function(bool)? onFocusChanged;
@@ -18,6 +19,7 @@ class DataTextField extends StatefulWidget {
     required this.hintText,
     super.key,
     required this.labelText,
+    this.maxLines,
     this.obscureText = false,
     this.onChanged,
     this.onFocusChanged,
@@ -65,24 +67,26 @@ class _DataTextFieldState extends State<DataTextField> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<TextFieldError?>(
-      valueListenable: widget.data.validationErrorValueNotifier,
-      builder: (context, value, _) {
-        final String? errorMessage =
-            shouldValidate && value != null ? value.message(context) : null;
-        return TextFormField(
-          autovalidateMode: shouldValidate
-              ? AutovalidateMode.always
-              : AutovalidateMode.disabled,
-          controller: _textEditingController,
-          cursorColor: AppColors.primary,
-          focusNode: _focusNode,
-          validator: shouldValidate ? (_) => errorMessage : null,
-          onChanged: widget.onChanged,
-          onFieldSubmitted: (_) => widget.onSubmitted?.call(),
-          decoration: _textFormFieldDecoration(),
-          obscureText: _isObscureText,
-        );
-      });
+        valueListenable: widget.data.validationErrorValueNotifier,
+        builder: (context, value, _) {
+          final String? errorMessage =
+              shouldValidate && value != null ? value.message(context) : null;
+          return TextFormField(
+            keyboardType: widget.maxLines == null ? TextInputType.multiline : TextInputType.text,
+            maxLines: widget.maxLines ?? 1,
+            autovalidateMode: shouldValidate
+                ? AutovalidateMode.always
+                : AutovalidateMode.disabled,
+            controller: _textEditingController,
+            cursorColor: AppColors.primary,
+            focusNode: _focusNode,
+            validator: shouldValidate ? (_) => errorMessage : null,
+            onChanged: widget.onChanged,
+            onFieldSubmitted: (_) => widget.onSubmitted?.call(),
+            decoration: _textFormFieldDecoration(),
+            obscureText: _isObscureText,
+          );
+        });
   }
 
   Widget _buildObscureSuffixIcon() {

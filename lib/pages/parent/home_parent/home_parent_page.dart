@@ -211,7 +211,7 @@ class _HomeParentPageState extends BlocPageState<HomeParentPage, HomeParentBloc>
               shape: BoxShape.circle,
             ),
             child: AdaptiveButton(
-              isActive: _isQuestionnaireEnabled(missionUid) && !_isQuestionnaireCompleted(missionUid),
+              isActive: _isQuestionnaireEnabled(missionUid),
               height: AppDimensions.height.mission - 10.0,
               child: Container(
                 height: AppDimensions.height.mission - 10.0,

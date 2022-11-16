@@ -19,21 +19,25 @@ class MissionQuestionnaireInitial extends MissionQuestionnaireState {
 }
 
 class MissionQuestionnaireLoading extends MissionQuestionnaireState {
-  const MissionQuestionnaireLoading()
-      : super(
-          missionQuestionnaire: null,
-        );
+  const MissionQuestionnaireLoading({
+    required super.missionQuestionnaire,
+  });
 }
 
 class MissionQuestionnaireFailed extends MissionQuestionnaireState {
-  const MissionQuestionnaireFailed()
-      : super(
-          missionQuestionnaire: null,
-        );
+  const MissionQuestionnaireFailed({
+    required super.missionQuestionnaire,
+  });
 }
 
 class MissionQuestionnaireSuccess extends MissionQuestionnaireState {
-  const MissionQuestionnaireSuccess({
+  MissionQuestionnaireSuccess({
     required super.missionQuestionnaire,
   });
+
+  @override
+  List<Object> get props => [
+        ...super.props,
+        UniquePropProvider.get(),
+      ];
 }

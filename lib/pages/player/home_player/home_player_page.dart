@@ -13,6 +13,7 @@ import 'package:hello_earth/pages/player/player_mission/player_mission_arguments
 import 'package:hello_earth/pages/shopping_list/shopping_list_details/shopping_list_details_arguments.dart';
 import 'package:hello_earth/routing/dashboard_tabs/player/home_player_routing.dart';
 import 'package:hello_earth/routing/dashboard_tabs/shopping_lists_routing.dart';
+import 'package:hello_earth/routing/routing.dart';
 import 'package:hello_earth/styles/app_colors/app_colors.dart';
 import 'package:hello_earth/styles/app_dimensions.dart';
 import 'package:hello_earth/ui/models/level_model.dart';
@@ -234,8 +235,9 @@ class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc>
                   onCookingMissionPressed: () => Navigator.of(
                     context,
                     rootNavigator: true,
-                  ).pushNamed(
+                  ).pushNamedAndRemoveUntil(
                     ShoppingListsRouting.shoppingListDetails,
+                    (route) => route.settings.name == Routing.dashboard,
                     arguments: arguments,
                   ),
                   onStartMissionPressed: () => {
@@ -287,18 +289,12 @@ class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc>
   void _onStartMissionPressed({
     required MissionModel mission,
   }) {
-    // UserDataBloc userBloc = BlocProvider.of<UserDataBloc>(context);
-    // bloc.add(
-    //   HomePlayerMissionStartRequested(
-    //     familyUid: userBloc.state.profile?.familyId ?? '',
-    //     missionUid: missionUid,
-    //   ),
-    // );
     Navigator.of(
       context,
       rootNavigator: true,
-    ).pushNamed(
+    ).pushNamedAndRemoveUntil(
       HomePlayerRouting.mission,
+      (route) => route.settings.name == Routing.dashboard,
       arguments: PlayerMissionArguments(
         mission: mission,
         playerModel: bloc.state.playerModel,

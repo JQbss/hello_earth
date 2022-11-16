@@ -3,7 +3,7 @@ import 'package:hello_earth/ui/models/questionnaire_model.dart';
 
 class PlayerModel {
   final int? currentLevel;
-  final CurrentMissionModel? currentMission;
+  CurrentMissionModel? currentMission;
   final List<String>? completedMissions;
   final List<String>? completedMissionShoppingLists;
   final bool? isQuestionnaireCompleted;

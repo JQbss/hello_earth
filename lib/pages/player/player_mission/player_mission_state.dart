@@ -29,7 +29,7 @@ class PlayerMissionFailed extends PlayerMissionState {
 
 class PlayerMissionSuccess extends PlayerMissionState {
   PlayerMissionSuccess({
-    super.mission,
+    required super.mission,
   });
 
   @override
@@ -40,8 +40,13 @@ class PlayerMissionSuccess extends PlayerMissionState {
 }
 
 class PlayerMissionLoading extends PlayerMissionState {
-  const PlayerMissionLoading()
-      : super(
-          mission: null,
-        );
+  const PlayerMissionLoading({
+    required super.mission,
+  });
+}
+
+class PlayerMissionCompleted extends PlayerMissionState {
+  const PlayerMissionCompleted({
+    required super.mission,
+  });
 }

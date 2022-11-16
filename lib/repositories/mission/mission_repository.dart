@@ -1,3 +1,4 @@
+import 'package:hello_earth/networking/requests/completed_mission_questionnaires_request.dart';
 import 'package:hello_earth/networking/requests/completed_missions_request.dart';
 import 'package:hello_earth/networking/requests/current_level_request.dart';
 import 'package:hello_earth/networking/requests/current_mission_request.dart';
@@ -36,5 +37,10 @@ abstract class MissionRepository {
   Future<void> updateQuestionnaires({
     required String familyUid,
     required MissionQuestionnairesRequest missionQuestionnaires,
+  });
+
+  Future<void> updateCompletedQuestionnaires({
+    required String familyUid,
+    required CompletedMissionQuestionnairesRequest completedMissionQuestionnairesRequest,
   });
 }

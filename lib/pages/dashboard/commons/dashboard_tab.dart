@@ -4,6 +4,7 @@ import 'package:hello_earth/blocs/session/session_bloc.dart';
 import 'package:hello_earth/routing/dashboard_tabs/achievement_routing.dart';
 import 'package:hello_earth/routing/dashboard_tabs/parent/home_parent_routing.dart';
 import 'package:hello_earth/routing/dashboard_tabs/player/home_player_routing.dart';
+import 'package:hello_earth/routing/dashboard_tabs/questionnaire_routing.dart';
 import 'package:hello_earth/routing/dashboard_tabs/settings_routing.dart';
 import 'package:hello_earth/routing/dashboard_tabs/shopping_lists_routing.dart';
 
@@ -17,7 +18,9 @@ enum DashboardTab {
     final SessionBloc sessionBloc = BlocProvider.of<SessionBloc>(context);
     switch (this) {
       case DashboardTab.awardsOrQuestionnaire:
-        return AchievementRouting.achievements;
+        return sessionBloc.isParent()
+            ? QuestionnaireRouting.questionnaire
+            : AchievementRouting.achievements;
       case DashboardTab.home:
         return sessionBloc.isParent()
             ? HomeParentRouting.home

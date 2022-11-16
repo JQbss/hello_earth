@@ -11,4 +11,12 @@ Parent _$ParentFromJson(Map<String, dynamic> json) => Parent(
           ?.map((e) => e as String)
           .toList(),
       uid: json['uid'] as String,
+      missionQuestionnaire:
+          (json['missionQuestionnaire'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(
+            k,
+            e == null
+                ? null
+                : MissionQuestionnaire.fromJson(e as Map<String, dynamic>)),
+      ),
     );

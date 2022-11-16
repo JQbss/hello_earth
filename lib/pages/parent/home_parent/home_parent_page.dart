@@ -6,16 +6,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_earth/blocs/configuration/configuration_bloc.dart';
 import 'package:hello_earth/constants.dart';
 import 'package:hello_earth/generated/assets.gen.dart';
+import 'package:hello_earth/modals/mission_questionnaire_description_dialog.dart';
 import 'package:hello_earth/pages/bloc_page_state.dart';
 import 'package:hello_earth/pages/parent/home_parent/home_parent_bloc.dart';
 
-import 'package:hello_earth/styles/app_colors/app_colors.dart';import 'package:hello_earth/styles/app_dimensions.dart';
+import 'package:hello_earth/styles/app_colors/app_colors.dart';
+import 'package:hello_earth/styles/app_dimensions.dart';
 import 'package:hello_earth/ui/models/level_model.dart';
 import 'package:hello_earth/ui/models/mission_model.dart';
 import 'package:hello_earth/utils/navigation_utils.dart';
 import 'package:hello_earth/widgets/adaptive_button.dart';
 import 'package:hello_earth/widgets/app_progress_indicator.dart';
-
 
 class HomeParentPage extends StatefulWidget {
   const HomeParentPage({
@@ -26,8 +27,8 @@ class HomeParentPage extends StatefulWidget {
   State<HomeParentPage> createState() => _HomeParentPageState();
 }
 
-class _HomeParentPageState extends BlocPageState<HomeParentPage, HomeParentBloc> {
-
+class _HomeParentPageState
+    extends BlocPageState<HomeParentPage, HomeParentBloc> {
   @override
   void initState() {
     super.initState();
@@ -40,12 +41,12 @@ class _HomeParentPageState extends BlocPageState<HomeParentPage, HomeParentBloc>
   Widget build(BuildContext context) {
     return BlocBuilder<ConfigurationBloc, ConfigurationState>(
       builder: (context, state) {
-        if(state is ConfigurationInitial) {
+        if (state is ConfigurationInitial) {
           return AppProgressIndicator();
         } else if (state is ConfigurationCompleted) {
           return BlocBuilder<HomeParentBloc, HomeParentState>(
             builder: (context, state) {
-              return  _buildBody();
+              return _buildBody();
             },
           );
         } else {
@@ -75,7 +76,7 @@ class _HomeParentPageState extends BlocPageState<HomeParentPage, HomeParentBloc>
         ),
         child: Column(
           children: levels.map(
-                (level) {
+            (level) {
               levelNumber++;
               return _buildLevelSection(
                 levelNumber: levelNumber,
@@ -164,7 +165,7 @@ class _HomeParentPageState extends BlocPageState<HomeParentPage, HomeParentBloc>
     int currentRow = 0;
     int currentMission = 0;
     missions?.forEach(
-          (key, mission) {
+      (key, mission) {
         currentMission++;
         missionsIcons.add(
           _buildMissionIcon(
@@ -172,7 +173,9 @@ class _HomeParentPageState extends BlocPageState<HomeParentPage, HomeParentBloc>
             mission: mission,
           ),
         );
-        if (missionsIcons.length < Constants.missions.numberInRow[currentRow % Constants.missions.numberInRow.length] &&
+        if (missionsIcons.length <
+                Constants.missions.numberInRow[
+                    currentRow % Constants.missions.numberInRow.length] &&
             currentMission != missions.length) return;
         missionsInRow.add(
           Row(
@@ -208,7 +211,8 @@ class _HomeParentPageState extends BlocPageState<HomeParentPage, HomeParentBloc>
               shape: BoxShape.circle,
             ),
             child: AdaptiveButton(
-              isActive: _isQuestionnaireEnabled(missionUid) && !_isQuestionnaireCompleted(missionUid),
+              isActive: _isQuestionnaireEnabled(missionUid) &&
+                  !_isQuestionnaireCompleted(missionUid),
               height: AppDimensions.height.mission - 10.0,
               child: Container(
                 height: AppDimensions.height.mission - 10.0,
@@ -220,16 +224,30 @@ class _HomeParentPageState extends BlocPageState<HomeParentPage, HomeParentBloc>
                   base64Decode(mission?.icon ?? ''),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                MissionQuestionnaireDescriptionDialog.show(
+                  context,
+                  missionModel: mission,
+                  missionShoppingListsCompleted:
+                      bloc.state.playerModel?.completedMissionShoppingLists ??
+                          [],
+                  onStartMissionPressed: () => {
+                    _onStartQuestionnairePressed(
+                      missionUid: missionUid,
+                    ),
+                  },
+                );
+              },
             ),
           ),
-          if (_isQuestionnaireEnabled(missionUid) && !_isQuestionnaireCompleted(missionUid))
+          if (_isQuestionnaireEnabled(missionUid) &&
+              !_isQuestionnaireCompleted(missionUid))
             const SizedBox.shrink()
           else if (_isQuestionnaireCompleted(missionUid))
             Positioned(
               bottom: 0,
               right: 10,
-              child:  Assets.svgIcons.crown.svg(),
+              child: Assets.svgIcons.crown.svg(),
             )
           else
             Positioned(
@@ -243,15 +261,19 @@ class _HomeParentPageState extends BlocPageState<HomeParentPage, HomeParentBloc>
   }
 
   bool _isQuestionnaireCompleted(String missionId) {
-    return bloc.state.parentModel?.completedQuestionnaire?.contains(missionId) ?? false;
+    return bloc.state.parentModel?.completedQuestionnaire
+            ?.contains(missionId) ??
+        false;
   }
 
   bool _isQuestionnaireEnabled(String missionId) {
-    return bloc.state.playerModel?.completedMissions?.contains(missionId) ?? false;
+    return bloc.state.playerModel?.completedMissions?.contains(missionId) ??
+        false;
   }
 
   Color _setMissionColor(String? missionId) {
-    if (missionId == null || missionId.isEmpty) return AppColors.disabledMission;
+    if (missionId == null || missionId.isEmpty)
+      return AppColors.disabledMission;
     if (_isQuestionnaireCompleted(missionId)) {
       return AppColors.completedMission;
     }

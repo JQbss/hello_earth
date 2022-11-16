@@ -11,6 +11,7 @@ import 'package:hello_earth/pages/player/player_mission/player_mission_page.dart
 import 'package:hello_earth/repositories/family/natwork_family_repository.dart';
 import 'package:hello_earth/repositories/main_missions/network_main_missions_repository.dart';
 import 'package:hello_earth/repositories/mission/network_mission_repository.dart';
+import 'package:hello_earth/repositories/shopping_list/network_shopping_list_repository.dart';
 import 'package:hello_earth/routing/routing.dart';
 
 class HomePlayerRouting {
@@ -49,6 +50,7 @@ class HomePlayerRouting {
                 arguments: settings.arguments as PlayerMissionArguments?,
                 missionRepository: Injector().get<NetworkMissionRepository>(),
                 profile: BlocProvider.of<UserDataBloc>(context).state.profile,
+                shoppingListRepository: Injector().get<NetworkShoppingListRepository>(),
               ),
               child: PlayerMissionPage(),
             );

@@ -29,4 +29,9 @@ abstract class ShoppingListRepository {
     required String familyId,
     required CompletedMissionShoppingListsRequest completedMissionShoppingLists,
   });
+
+  Future<void> removeShoppingList({
+    required String familyUid,
+    required String missionUid,
+  });
 }

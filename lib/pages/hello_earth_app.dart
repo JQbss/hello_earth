@@ -14,6 +14,7 @@ import 'package:hello_earth/repositories/family/natwork_family_repository.dart';
 import 'package:hello_earth/repositories/user/network_user_repository.dart';
 import 'package:hello_earth/routing/app_route_coordinator.dart';
 import 'package:hello_earth/routing/routing.dart';
+import 'package:hello_earth/storages/secure_storage.dart';
 import 'package:hello_earth/styles/app_colors/app_colors_dark.dart';
 
 class HelloEarthApp extends StatefulWidget {
@@ -76,6 +77,7 @@ class _HelloEarthAppState extends State<HelloEarthApp> {
       configurationBloc: _configurationBloc,
       credentialRepository: Injector().get<NetworkCredentialRepository>(),
       userRepository: Injector().get<NetworkUserRepository>(),
+      secureStorage: Injector().get<SecureStorage>(),
     );
     _sessionBloc.add(
       SessionStatusRequested(),

@@ -9,6 +9,7 @@ import 'package:hello_earth/networking/requests/current_level_request.dart';
 import 'package:hello_earth/networking/requests/current_mission_request.dart';
 import 'package:hello_earth/pages/player/player_mission/player_mission_arguments.dart';
 import 'package:hello_earth/repositories/mission/mission_repository.dart';
+import 'package:hello_earth/repositories/shopping_list/shopping_list_repository.dart';
 import 'package:hello_earth/ui/models/current_mission_model.dart';
 import 'package:hello_earth/ui/models/mission_model.dart';
 import 'package:hello_earth/ui/models/player_model.dart';
@@ -21,6 +22,7 @@ part 'player_mission_state.dart';
 class PlayerMissionBloc extends Bloc<PlayerMissionEvent, PlayerMissionState> {
   final PlayerMissionArguments? arguments;
   final MissionRepository missionRepository;
+  final ShoppingListRepository shoppingListRepository;
   final UserModel? profile;
   late final PlayerModel? playerModel;
 
@@ -28,6 +30,7 @@ class PlayerMissionBloc extends Bloc<PlayerMissionEvent, PlayerMissionState> {
     required this.arguments,
     required this.missionRepository,
     required this.profile,
+    required this.shoppingListRepository,
   }) : super(const PlayerMissionInitial()) {
     on<PlayerMissionFetchData>(_onPlayerMissionFetchData);
     on<PlayerMissionChangeRequested>(_onPlayerMissionChangeRequested);
@@ -128,6 +131,10 @@ class PlayerMissionBloc extends Bloc<PlayerMissionEvent, PlayerMissionState> {
       await missionRepository.updateLevel(
         familyUid: profile?.familyId ?? '',
         currentLevelRequest: currentLevelRequest,
+      );
+      await shoppingListRepository.removeShoppingList(
+        familyUid: profile?.familyId ?? '',
+        missionUid: state.mission?.uid ?? '',
       );
       emit(
         PlayerMissionCompleted(

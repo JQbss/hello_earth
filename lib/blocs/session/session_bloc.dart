@@ -10,6 +10,7 @@ import 'package:hello_earth/networking/models/role.dart';
 import 'package:hello_earth/networking/models/user_networking.dart';
 import 'package:hello_earth/repositories/credential/credential_repository.dart';
 import 'package:hello_earth/repositories/user/user_repository.dart';
+import 'package:hello_earth/storages/secure_storage.dart';
 
 part 'session_event.dart';
 
@@ -20,12 +21,14 @@ class SessionBloc extends Bloc<SessionEvent, SessionState> {
   final CredentialRepository credentialRepository;
   UserNetworking? user;
   final UserRepository userRepository;
+  final SecureStorage secureStorage;
 
   SessionBloc({
     required this.configurationBloc,
     required this.credentialRepository,
     this.user = null,
     required this.userRepository,
+    required this.secureStorage,
   }) : super(SessionInitial()) {
     on<SessionAuthenticationSucceed>(_onSessionAuthenticationSucceed);
     on<SessionStatusRequested>(_onSessionStatusRequested);
@@ -90,6 +93,8 @@ class SessionBloc extends Bloc<SessionEvent, SessionState> {
     SessionLogOutRequested event,
     Emitter<SessionState> emit,
   ) async {
+    await credentialRepository.signOut();
+    await secureStorage.removeAll();
     emit(
       SessionInactive(),
     );

@@ -6,6 +6,8 @@ extension StepMapper on StepNetworking {
   StepModel mapToStepModel() {
     return StepModel(
       name: name,
+      image: image,
+      video: video,
     );
   }
 }

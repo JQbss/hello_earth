@@ -43,7 +43,8 @@ class PlayerMissionBloc extends Bloc<PlayerMissionEvent, PlayerMissionState> {
     );
     try {
       if (playerModel?.currentMission == null) {
-        final CurrentMissionRequest currentMissionRequest = CurrentMissionRequest(
+        final CurrentMissionRequest currentMissionRequest =
+            CurrentMissionRequest(
           currentStep: 0,
           missionUid: mission.uid ?? '',
         );
@@ -68,6 +69,8 @@ class PlayerMissionBloc extends Bloc<PlayerMissionEvent, PlayerMissionState> {
     PlayerMissionChangeRequested event,
     Emitter<PlayerMissionState> emit,
   ) async {
+    final MissionModel? mission = arguments?.mission;
+    if (mission == null) return;
     try {
       playerModel?.currentMission?.currentStep = event.currentStep;
       final CurrentMissionRequest currentMissionRequest = CurrentMissionRequest(
@@ -76,6 +79,11 @@ class PlayerMissionBloc extends Bloc<PlayerMissionEvent, PlayerMissionState> {
       missionRepository.startMission(
         familyUid: profile?.familyId ?? '',
         missionRequest: currentMissionRequest,
+      );
+      emit(
+        PlayerMissionSuccess(
+          mission: mission,
+        ),
       );
     } catch (error) {
       emit(
@@ -88,7 +96,9 @@ class PlayerMissionBloc extends Bloc<PlayerMissionEvent, PlayerMissionState> {
     PlayerMissionFinishRequested event,
     Emitter<PlayerMissionState> emit,
   ) async {
-    try {} catch (error) {
+    try {
+
+    } catch (error) {
       emit(
         const PlayerMissionFailed(),
       );

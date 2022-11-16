@@ -10,9 +10,13 @@ part 'step_networking.g.dart';
 class StepNetworking {
   static const FromJsonFactory<StepNetworking> fromJsonFactory = _$StepNetworkingFromJson;
   final String? name;
+  final String? video;
+  final String? image;
 
   const StepNetworking({
     this.name,
+    this.image,
+    this.video,
   });
 
   factory StepNetworking.fromJson(Map<String, dynamic> json) => _$StepNetworkingFromJson(json);

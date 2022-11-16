@@ -9,4 +9,6 @@ part of 'step_networking.dart';
 StepNetworking _$StepNetworkingFromJson(Map<String, dynamic> json) =>
     StepNetworking(
       name: json['name'] as String?,
+      image: json['image'] as String?,
+      video: json['video'] as String?,
     );

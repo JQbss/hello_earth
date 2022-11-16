@@ -25,6 +25,9 @@ dependencies:
   intl: ^0.17.0
   json_annotation: ^4.7.0
   mockito: ^5.3.2
+  percent_indicator: ^4.0.1
+  youtube_player_flutter: ^8.1.1
+  visibility_detector: ^0.3.3
   qr_code_scanner: ^1.0.1
   qr_flutter: ^4.0.0
 

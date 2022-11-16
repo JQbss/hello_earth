@@ -27,6 +27,10 @@ class $AssetsPngIconsGen {
 class $AssetsSvgIconsGen {
   const $AssetsSvgIconsGen();
 
+  /// File path: assets/svg_icons/checkbox-circle.svg
+  SvgGenImage get checkboxCircle =>
+      const SvgGenImage('assets/svg_icons/checkbox-circle.svg');
+
   /// File path: assets/svg_icons/crown.svg
   SvgGenImage get crown => const SvgGenImage('assets/svg_icons/crown.svg');
 
@@ -37,7 +41,7 @@ class $AssetsSvgIconsGen {
   SvgGenImage get padlock => const SvgGenImage('assets/svg_icons/padlock.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values => [crown, level, padlock];
+  List<SvgGenImage> get values => [checkboxCircle, crown, level, padlock];
 }
 
 class Assets {

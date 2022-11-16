@@ -67,8 +67,17 @@ class NetworkShoppingListRepository implements ShoppingListRepository {
     required CompletedMissionShoppingListsRequest completedMissionShoppingLists,
   }) async {
     await reference
-        .child(
-            '${Endpoints.families.families}/${familyId}/${Endpoints.families.player}')
+        .child('${Endpoints.families.families}/${familyId}/${Endpoints.families.player}')
         .update(completedMissionShoppingLists.toJson());
+  }
+
+  @override
+  Future<void> removeShoppingList({
+    required String familyUid,
+    required String missionUid,
+  }) async {
+    await reference
+        .child('${Endpoints.families.families}/$familyUid/${Endpoints.shoppingLists.shoppingLists}/$missionUid')
+        .remove();
   }
 }

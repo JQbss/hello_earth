@@ -10,5 +10,5 @@ Map<String, dynamic> _$MissionQuestionnairesRequestToJson(
         MissionQuestionnairesRequest instance) =>
     <String, dynamic>{
       'missionQuestionnaires': instance.missionQuestionnaires
-          ?.map((k, e) => MapEntry(k, e?.toJson())),
+          .map((k, e) => MapEntry(k, e?.toJson())),
     };

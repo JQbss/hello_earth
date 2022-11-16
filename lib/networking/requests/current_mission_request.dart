@@ -7,11 +7,11 @@ part 'current_mission_request.g.dart';
 )
 class CurrentMissionRequest {
   final int currentStep;
-  final String? missionUid;
+  final String missionUid;
 
   const CurrentMissionRequest({
     required this.currentStep,
-    this.missionUid,
+    required this.missionUid,
   });
 
   Map<String, dynamic> toJson() => _$CurrentMissionRequestToJson(this);

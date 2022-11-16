@@ -13,7 +13,6 @@ import 'package:hello_earth/widgets/app_progress_indicator.dart';
 import 'package:hello_earth/widgets/app_youtub_video.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-
 class PlayerMissionPage extends StatefulWidget {
   const PlayerMissionPage();
 
@@ -21,8 +20,7 @@ class PlayerMissionPage extends StatefulWidget {
   State<PlayerMissionPage> createState() => _PlayerMissionPageState();
 }
 
-class _PlayerMissionPageState
-    extends BlocPageState<PlayerMissionPage, PlayerMissionBloc> {
+class _PlayerMissionPageState extends BlocPageState<PlayerMissionPage, PlayerMissionBloc> {
   @override
   void initState() {
     super.initState();
@@ -33,7 +31,12 @@ class _PlayerMissionPageState
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PlayerMissionBloc, PlayerMissionState>(
+    return BlocConsumer<PlayerMissionBloc, PlayerMissionState>(
+      listener: (_, state) {
+        if (state is PlayerMissionCompleted) {
+          Navigator.of(context).pop();
+        }
+      },
       builder: (_, state) {
         Widget child;
         if (state is PlayerMissionInitial) {
@@ -62,13 +65,13 @@ class _PlayerMissionPageState
     MissionModel? mission = bloc.state.mission;
     final int currentStep = bloc.playerModel?.currentMission?.currentStep ?? 0;
     if (mission == null) return SizedBox.shrink();
-    final int missionStep  = mission.steps?.length ?? 0;
+    final int missionStep = mission.steps?.length ?? 0;
     return SingleChildScrollView(
       child: Column(
         children: [
           _progressBar(mission, currentStep),
           _buildMissionSteps(mission, currentStep),
-          _finishedButton(missionStep,currentStep)
+          _finishedButton(missionStep, currentStep)
         ],
       ),
     );
@@ -77,8 +80,7 @@ class _PlayerMissionPageState
   Widget _progressBar(MissionModel mission, int currentStep) {
     final int numberMissionSteps = mission.steps?.length ?? 1;
 
-    final double percent =
-        (currentStep.toDouble()) / numberMissionSteps.toDouble();
+    final double percent = (currentStep.toDouble()) / numberMissionSteps.toDouble();
     return Padding(
       padding: const EdgeInsets.all(25.0),
       child: LinearPercentIndicator(
@@ -122,9 +124,7 @@ class _PlayerMissionPageState
               const Spacer(),
               AdaptiveButton(
                 child: Assets.svgIcons.checkboxCircle.svg(
-                  color: index >= currentStep
-                      ? AppColors.disabledMission
-                      : AppColors.secondary,
+                  color: index >= currentStep ? AppColors.disabledMission : AppColors.secondary,
                 ),
                 onPressed: () => {
                   bloc.add(
@@ -143,10 +143,10 @@ class _PlayerMissionPageState
             bottom: 10.0,
           ),
           child: Container(
+            width: double.infinity,
             decoration: BoxDecoration(
               color: AppColors.textFieldBackground.withOpacity(0.4),
-              borderRadius:
-                  BorderRadius.circular(AppDimensions.radius.button).copyWith(
+              borderRadius: BorderRadius.circular(AppDimensions.radius.button).copyWith(
                 topRight: Radius.circular(0),
               ),
             ),
@@ -213,7 +213,11 @@ class _PlayerMissionPageState
             color: AppColors.buttonText,
           ),
         ),
-        onPressed: () => {}
+        onPressed: () {
+          bloc.add(
+            const PlayerMissionFinishRequested(),
+          );
+        },
       ),
     );
   }

@@ -14,7 +14,7 @@ class MissionQuestionnaire {
   final String? missionName;
   final String? missionId;
   final String? questionnaireDescription;
-  final double? missionRating;
+  final int? missionRating;
 
   const MissionQuestionnaire({
     this.isCompleted,

@@ -1,6 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:hello_earth/networking/endpoints.dart';
 import 'package:hello_earth/networking/requests/current_mission_request.dart';
+import 'package:hello_earth/networking/requests/mission_questionnaires_request.dart';
 import 'package:hello_earth/repositories/mission/mission_repository.dart';
 
 class NetworkMissionRepository implements MissionRepository {
@@ -40,5 +41,27 @@ class NetworkMissionRepository implements MissionRepository {
         .child(
             '${Endpoints.families.families}/${familyUid}/${Endpoints.families.player}/${Endpoints.missions.currentMission}')
         .update(missionRequest.toJson());
+  }
+
+  @override
+  Future<void> startQuestionnaires({
+    required String familyUid,
+    required MissionQuestionnairesRequest missionQuestionnaires,
+  }) async {
+    await reference
+        .child(
+            '${Endpoints.families.families}/${familyUid}/${Endpoints.families.parent}')
+        .update(missionQuestionnaires.toJson());
+  }
+
+  @override
+  Future<void> updateQuestionnaires({
+    required String familyUid,
+    required MissionQuestionnairesRequest missionQuestionnaires,
+  }) async {
+    await reference
+        .child(
+            '${Endpoints.families.families}/${familyUid}/${Endpoints.families.parent}')
+        .update(missionQuestionnaires.toJson());
   }
 }

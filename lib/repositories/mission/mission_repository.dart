@@ -1,4 +1,5 @@
 import 'package:hello_earth/networking/requests/current_mission_request.dart';
+import 'package:hello_earth/networking/requests/mission_questionnaires_request.dart';
 
 abstract class MissionRepository {
   Future<void> startMission({
@@ -13,5 +14,15 @@ abstract class MissionRepository {
 
   Future<void> removeCurrentMission({
     required String familyUid,
+  });
+
+  Future<void> startQuestionnaires({
+    required String familyUid,
+    required MissionQuestionnairesRequest missionQuestionnaires,
+  });
+
+  Future<void> updateQuestionnaires({
+    required String familyUid,
+    required MissionQuestionnairesRequest missionQuestionnaires,
   });
 }

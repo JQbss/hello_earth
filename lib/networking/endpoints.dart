@@ -17,6 +17,7 @@ class _Families {
 class _Missions {
   final String currentMission = 'currentMission';
   final String mainMissions = 'mainMissions';
+  final String missionQuestionnaires = 'missionQuestionnaires';
 }
 
 class _ShoppingLists {

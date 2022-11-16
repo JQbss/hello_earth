@@ -5,6 +5,9 @@ import 'package:hello_earth/blocs/user_data/user_data_bloc.dart';
 import 'package:hello_earth/injector/injector.dart';
 import 'package:hello_earth/pages/parent/home_parent/home_parent_bloc.dart';
 import 'package:hello_earth/pages/parent/home_parent/home_parent_page.dart';
+import 'package:hello_earth/pages/parent/mission_questionnaire/mission_questionnaire_arguments.dart';
+import 'package:hello_earth/pages/parent/mission_questionnaire/mission_questionnaire_bloc.dart';
+import 'package:hello_earth/pages/parent/mission_questionnaire/mission_questionnaire_page.dart';
 import 'package:hello_earth/repositories/family/natwork_family_repository.dart';
 import 'package:hello_earth/repositories/main_missions/network_main_missions_repository.dart';
 import 'package:hello_earth/repositories/mission/network_mission_repository.dart';
@@ -13,6 +16,7 @@ import 'package:hello_earth/routing/routing.dart';
 class HomeParentRouting {
   static const String _prefix = 'home_parent';
   static const String home = _prefix;
+  static const String questionnaire = '$home/questionnaire';
 
   const HomeParentRouting._();
 
@@ -33,6 +37,20 @@ class HomeParentRouting {
                 profile: BlocProvider.of<UserDataBloc>(context).state.profile,
               ),
               child: HomeParentPage(),
+            );
+          },
+        );
+        break;
+      case questionnaire:
+        child = BlocBuilder<ThemeBloc, ThemeState>(
+          builder: (_, __) {
+            return BlocProvider<MissionQuestionnaireBloc>(
+              create: (context) => MissionQuestionnaireBloc(
+                arguments: settings.arguments as MissionQuestionnaireArguments?,
+                missionRepository: Injector().get<NetworkMissionRepository>(),
+                profile: BlocProvider.of<UserDataBloc>(context).state.profile,
+              ),
+              child: MissionQuestionnairePage(),
             );
           },
         );

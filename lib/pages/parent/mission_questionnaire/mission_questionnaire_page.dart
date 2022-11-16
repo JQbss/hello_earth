@@ -13,12 +13,10 @@ class MissionQuestionnairePage extends StatefulWidget {
   const MissionQuestionnairePage();
 
   @override
-  State<MissionQuestionnairePage> createState() =>
-      _MissionQuestionnairePageState();
+  State<MissionQuestionnairePage> createState() => _MissionQuestionnairePageState();
 }
 
-class _MissionQuestionnairePageState
-    extends BlocPageState<MissionQuestionnairePage, MissionQuestionnaireBloc> {
+class _MissionQuestionnairePageState extends BlocPageState<MissionQuestionnairePage, MissionQuestionnaireBloc> {
   late final TextFieldData questionnaireDescriptionTextField;
 
   @override
@@ -32,7 +30,12 @@ class _MissionQuestionnairePageState
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MissionQuestionnaireBloc, MissionQuestionnaireState>(
+    return BlocConsumer<MissionQuestionnaireBloc, MissionQuestionnaireState>(
+      listener: (_, state) {
+        if (state is MissionQuestionnaireSaveSuccess) {
+          Navigator.of(context).pop();
+        }
+      },
       builder: (_, state) {
         Widget child;
         if (state is MissionQuestionnaireLoading) {
@@ -96,8 +99,7 @@ class _MissionQuestionnairePageState
             maxLines: 8,
             hintText: '...',
             labelText: 'Wpisz swoję uwagi odnośnie wykonanego zadania',
-            onSubmitted: () => FocusScope.of(context)
-                .requestFocus(questionnaireDescriptionTextField.focusNode),
+            onSubmitted: () => FocusScope.of(context).requestFocus(questionnaireDescriptionTextField.focusNode),
           ),
           SizedBox(
             height: 50,
@@ -153,10 +155,9 @@ class _MissionQuestionnairePageState
 
   Widget _buildSaveButton() {
     return Padding(
-      padding: const EdgeInsets.only(bottom:20.0),
+      padding: const EdgeInsets.only(bottom: 20.0),
       child: AdaptiveButton(
         child: Container(
-
           decoration: BoxDecoration(
             color: AppColors.primary,
             borderRadius: BorderRadius.circular(AppDimensions.radius.button),
@@ -170,14 +171,10 @@ class _MissionQuestionnairePageState
           width: double.infinity,
           height: AppDimensions.height.button,
         ),
-
-
         onPressed: () => {
-          // bloc.add(
-          // // SignInViewChangeRequested(
-          // //   isFormEnabled: true,
-          // // ),
-          // ),
+          bloc.add(
+            const MissionQuestionnaireFinishRequested(),
+          ),
         },
       ),
     );

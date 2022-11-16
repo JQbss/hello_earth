@@ -20,8 +20,7 @@ part 'mission_questionnaire_event.dart';
 
 part 'mission_questionnaire_state.dart';
 
-class MissionQuestionnaireBloc
-    extends Bloc<MissionQuestionnaireEvent, MissionQuestionnaireState> {
+class MissionQuestionnaireBloc extends Bloc<MissionQuestionnaireEvent, MissionQuestionnaireState> {
   final MissionQuestionnaireArguments? arguments;
   final MissionRepository missionRepository;
   final UserModel? profile;
@@ -40,10 +39,8 @@ class MissionQuestionnaireBloc
     required this.profile,
   }) : super(const MissionQuestionnaireInitial()) {
     on<MissionQuestionnaireFetchData>(_onMissionQuestionnaireFetchData);
-    on<MissionQuestionnaireFinishRequested>(
-        _onMissionQuestionnaireFinishRequested);
-    on<MissionQuestionnaireRatingChangeRequested>(
-        _onMissionQuestionnaireRatingChangeRequested);
+    on<MissionQuestionnaireFinishRequested>(_onMissionQuestionnaireFinishRequested);
+    on<MissionQuestionnaireRatingChangeRequested>(_onMissionQuestionnaireRatingChangeRequested);
   }
 
   Future<void> _onMissionQuestionnaireFetchData(
@@ -54,8 +51,7 @@ class MissionQuestionnaireBloc
     final ParentModel? parentModel = parent;
     final MissionModel? mission = arguments?.mission;
     if (parentModel == null || parent == null || mission == null) return;
-    final Map<String, MissionQuestionnaireModel?>? questionnaires =
-        parent?.missionQuestionnaires;
+    final Map<String, MissionQuestionnaireModel?>? questionnaires = parent?.missionQuestionnaires;
     emit(
       MissionQuestionnaireLoading(
         missionQuestionnaire: state.missionQuestionnaire,
@@ -66,22 +62,17 @@ class MissionQuestionnaireBloc
       if (questionnaires?.containsKey(mission.uid) ?? false) {
         questionnaire = questionnaires?[mission.uid];
       } else {
-        final MissionQuestionnairesRequest missionQuestionnairesRequest =
-            MissionQuestionnairesRequest(
-          missionQuestionnaires: parentModel.missionQuestionnaires
-              .mapToMissionQuestionnaireRequest(),
+        final MissionQuestionnairesRequest missionQuestionnairesRequest = MissionQuestionnairesRequest(
+          missionQuestionnaires: parentModel.missionQuestionnaires.mapToMissionQuestionnaireRequest(),
         );
-        final MissionQuestionnaireModel newQuestionnaire =
-            MissionQuestionnaireModel(
+        final MissionQuestionnaireModel newQuestionnaire = MissionQuestionnaireModel(
           isCompleted: false,
           missionId: mission.uid,
           missionName: mission.title,
         );
         questionnaire = newQuestionnaire;
-        final MissionQuestionnaireRequest questionnaireRequest =
-            newQuestionnaire.mapToMissionQuestionnaireRequest();
-        missionQuestionnairesRequest.missionQuestionnaires[mission.uid ?? ''] =
-            questionnaireRequest;
+        final MissionQuestionnaireRequest questionnaireRequest = newQuestionnaire.mapToMissionQuestionnaireRequest();
+        missionQuestionnairesRequest.missionQuestionnaires[mission.uid ?? ''] = questionnaireRequest;
         await missionRepository.startQuestionnaires(
           familyUid: profile?.familyId ?? '',
           missionQuestionnaires: missionQuestionnairesRequest,
@@ -109,7 +100,46 @@ class MissionQuestionnaireBloc
   Future<void> _onMissionQuestionnaireFinishRequested(
     MissionQuestionnaireFinishRequested event,
     Emitter<MissionQuestionnaireState> emit,
-  ) async {}
+  ) async {
+    final ParentModel? parentModel = parent;
+    final MissionModel? mission = arguments?.mission;
+    if (parentModel == null || mission == null) return;
+    emit(
+      MissionQuestionnaireLoading(
+        missionQuestionnaire: state.missionQuestionnaire,
+      ),
+    );
+    try {
+      final MissionQuestionnairesRequest missionQuestionnairesRequest = MissionQuestionnairesRequest(
+        missionQuestionnaires: parentModel.missionQuestionnaires.mapToMissionQuestionnaireRequest(),
+      );
+      final MissionQuestionnaireModel newQuestionnaire = MissionQuestionnaireModel(
+        isCompleted: true,
+        missionId: mission.uid,
+        missionName: mission.title,
+        missionRating: dropdownValue,
+        questionnaireDescription: questionnaireDescriptionTextField.text,
+      );
+      final MissionQuestionnaireRequest questionnaireRequest = newQuestionnaire.mapToMissionQuestionnaireRequest();
+      missionQuestionnairesRequest.missionQuestionnaires[mission.uid ?? ''] = questionnaireRequest;
+      await missionRepository.startQuestionnaires(
+        familyUid: profile?.familyId ?? '',
+        missionQuestionnaires: missionQuestionnairesRequest,
+      );
+      emit(
+        MissionQuestionnaireSaveSuccess(
+          missionQuestionnaire: state.missionQuestionnaire,
+        ),
+      );
+    } catch (error) {
+      emit(
+        MissionQuestionnaireFailed(
+          missionQuestionnaire: state.missionQuestionnaire,
+        ),
+      );
+    }
+  }
+
   Future<void> _onMissionQuestionnaireRatingChangeRequested(
     MissionQuestionnaireRatingChangeRequested event,
     Emitter<MissionQuestionnaireState> emit,

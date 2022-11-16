@@ -11,6 +11,7 @@ import 'package:hello_earth/pages/bloc_page_state.dart';
 import 'package:hello_earth/pages/parent/home_parent/home_parent_bloc.dart';
 import 'package:hello_earth/pages/parent/mission_questionnaire/mission_questionnaire_arguments.dart';
 import 'package:hello_earth/routing/dashboard_tabs/parent/home_parent_routing.dart';
+import 'package:hello_earth/routing/routing.dart';
 
 import 'package:hello_earth/styles/app_colors/app_colors.dart';
 import 'package:hello_earth/styles/app_dimensions.dart';
@@ -281,23 +282,13 @@ class _HomeParentPageState extends BlocPageState<HomeParentPage, HomeParentBloc>
     Navigator.of(
       context,
       rootNavigator: true,
-    ).pushNamed(
+    ).pushNamedAndRemoveUntil(
       HomeParentRouting.questionnaire,
+      (route) => route.settings.name == Routing.dashboard,
       arguments: MissionQuestionnaireArguments(
         parent: bloc.state.parentModel,
         mission: mission,
       ),
     );
-    // UserDataBloc userBloc = BlocProvider.of<UserDataBloc>(context);
-    // bloc.add(
-    //   HomePlayerMissionStartRequested(
-    //     familyUid: userBloc.state.profile?.familyId ?? '',
-    //     missionUid: missionUid,
-    //   ),
-    // );
-    // Navigator.of(
-    //   context,
-    //   rootNavigator: true,
-    // ).pop();
   }
 }

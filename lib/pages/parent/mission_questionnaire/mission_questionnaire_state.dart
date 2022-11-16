@@ -41,3 +41,9 @@ class MissionQuestionnaireSuccess extends MissionQuestionnaireState {
         UniquePropProvider.get(),
       ];
 }
+
+class MissionQuestionnaireSaveSuccess extends MissionQuestionnaireState {
+  const MissionQuestionnaireSaveSuccess({
+    required super.missionQuestionnaire,
+  });
+}

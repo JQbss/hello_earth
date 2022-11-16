@@ -9,6 +9,7 @@ import 'package:hello_earth/styles/app_colors/app_colors.dart';
 import 'package:hello_earth/ui/models/ingredient_model.dart';
 import 'package:hello_earth/ui/models/shopping_list_model.dart';
 import 'package:hello_earth/widgets/adaptive_button.dart';
+import 'package:hello_earth/widgets/app_progress_indicator.dart';
 
 class ShoppingListDetailsPage extends StatefulWidget {
   const ShoppingListDetailsPage({
@@ -34,9 +35,7 @@ class _ShoppingListDetailsPageState extends BlocPageState<ShoppingListDetailsPag
       builder: (context, state) {
         final Widget child;
         if (state is ShoppingListDetailsInitial) {
-          child = const Center(
-            child: CircularProgressIndicator(),
-          );
+          child = AppProgressIndicator();
         } else {
           child = _buildBody();
         }

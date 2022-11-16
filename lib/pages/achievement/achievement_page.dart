@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_earth/pages/achievement/achievement_bloc.dart';
 import 'package:hello_earth/pages/bloc_page_state.dart';
 import 'package:hello_earth/styles/app_colors/app_colors.dart';
+import 'package:hello_earth/widgets/app_progress_indicator.dart';
 
 class AchievementPage extends StatefulWidget {
   const AchievementPage();
@@ -29,9 +30,7 @@ class _AchievementPageState
         if (state is AchievementInitial) {
           child = Transform.scale(
             scale: 0.4,
-            child: CircularProgressIndicator(
-              color: AppColors.primary,
-            ),
+            child: AppProgressIndicator(),
           );
         } else if (state is AchievementCompleted) {
           child = SizedBox();

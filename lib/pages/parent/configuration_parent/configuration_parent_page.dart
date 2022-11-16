@@ -10,6 +10,7 @@ import 'package:hello_earth/ui/models/contraindication_model.dart';
 import 'package:hello_earth/ui/models/user_model.dart';
 import 'package:hello_earth/utils/navigation_utils.dart';
 import 'package:hello_earth/widgets/adaptive_button.dart';
+import 'package:hello_earth/widgets/app_progress_indicator.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class ConfigurationParentPage extends StatefulWidget {
@@ -51,18 +52,12 @@ class _ConfigurationParentPageState extends BlocPageState<ConfigurationParentPag
           parent: userModel,
         ),
       );
-      return _buildCreateFamilyBody();
+      return AppProgressIndicator();
     } else if (bloc.state is ConfigurationPlayerCreateNeeded) {
       return _buildQRCodeWithOnBoardTextBody();
     } else {
       return _buildQuestionnaireBody();
     }
-  }
-
-  Widget _buildCreateFamilyBody() {
-    return Center(
-      child: CircularProgressIndicator(),
-    );
   }
 
   Widget _buildQRCodeWithOnBoardTextBody() {

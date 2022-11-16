@@ -15,6 +15,7 @@ import 'package:hello_earth/routing/dashboard_tabs/settings_routing.dart';
 import 'package:hello_earth/routing/dashboard_tabs/shopping_lists_routing.dart';
 import 'package:hello_earth/styles/app_colors/app_colors.dart';
 import 'package:hello_earth/utils/navigation_utils.dart';
+import 'package:hello_earth/widgets/app_progress_indicator.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({
@@ -65,9 +66,7 @@ class _DashboardPageState extends BlocPageState<DashboardPage, DashboardBloc> {
           final SessionState sessionState =
               BlocProvider.of<SessionBloc>(context).state;
           if (sessionState is SessionInitial) {
-            return Scaffold(
-              body: CircularProgressIndicator(),
-            );
+            return  AppProgressIndicator();
           }
           return SafeArea(
             child: AnimatedSwitcher(
@@ -136,7 +135,7 @@ class _DashboardPageState extends BlocPageState<DashboardPage, DashboardBloc> {
     } else if (sessionBloc.isChild() && isProfileLoaded) {
       return _buildPlayerPages(state);
     } else {
-      return CircularProgressIndicator();
+      return AppProgressIndicator();
     }
   }
 

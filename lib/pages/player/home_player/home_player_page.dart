@@ -18,6 +18,7 @@ import 'package:hello_earth/ui/models/level_model.dart';
 import 'package:hello_earth/ui/models/mission_model.dart';
 import 'package:hello_earth/utils/navigation_utils.dart';
 import 'package:hello_earth/widgets/adaptive_button.dart';
+import 'package:hello_earth/widgets/app_progress_indicator.dart';
 
 class HomePlayerPage extends StatefulWidget {
   const HomePlayerPage({
@@ -44,9 +45,7 @@ class _HomePlayerPageState extends BlocPageState<HomePlayerPage, HomePlayerBloc>
     return BlocBuilder<ConfigurationBloc, ConfigurationState>(
       builder: (_, state) {
         if (state is ConfigurationInitial) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
+          return AppProgressIndicator();
         } else if (state is ConfigurationCompleted) {
           return BlocBuilder<HomePlayerBloc, HomePlayerState>(
             builder: (_, __) {

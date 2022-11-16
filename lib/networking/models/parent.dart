@@ -8,9 +8,11 @@ part 'parent.g.dart';
 )
 class Parent {
   static const FromJsonFactory<Parent> fromJsonFactory = _$ParentFromJson;
+  final List<String>? completedQuestionnaire;
   final String uid;
 
   Parent({
+    required this.completedQuestionnaire,
     required this.uid,
   });
 

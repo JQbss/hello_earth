@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:hello_earth/networking/endpoints.dart';
 import 'package:hello_earth/networking/models/base_response.dart';
+import 'package:hello_earth/networking/models/parent.dart';
 import 'package:hello_earth/networking/models/player.dart';
 import 'package:hello_earth/networking/requests/family_request.dart';
 import 'package:hello_earth/networking/requests/finish_questionnaire_request.dart';
@@ -49,6 +50,22 @@ class NetworkFamilyRepository implements FamilyRepository {
     required String familyId,
   }) {
     return reference.child('${Endpoints.families.families}/${familyId}/${Endpoints.families.player}').onValue;
+  }
+
+  @override
+  Future<BaseResponse<Parent>> getParent({
+    required String familyId,
+  }) async {
+    final DataSnapshot dataSnapshot =
+    await reference.child('${Endpoints.families.families}/${familyId}/${Endpoints.families.parent}').get();
+    return BaseResponse<Parent>.fromJson(jsonDecode(jsonEncode(dataSnapshot.value)) as Map<String, dynamic>);
+  }
+
+  @override
+  Stream<DatabaseEvent> getParentSubscription({
+    required String familyId,
+  }) {
+    return reference.child('${Endpoints.families.families}/${familyId}/${Endpoints.families.parent}').onValue;
   }
 
   @override

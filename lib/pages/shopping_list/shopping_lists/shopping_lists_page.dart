@@ -12,6 +12,7 @@ import 'package:hello_earth/ui/models/role_model.dart';
 import 'package:hello_earth/ui/models/shopping_list_model.dart';
 import 'package:hello_earth/ui/models/shopping_lists_model.dart';
 import 'package:hello_earth/widgets/adaptive_button.dart';
+import 'package:hello_earth/widgets/app_progress_indicator.dart';
 import 'package:hello_earth/widgets/bezier_curve_title.dart';
 
 class ShoppingListsPage extends StatefulWidget {
@@ -37,9 +38,7 @@ class _ShoppingListsPageState
       builder: (context, state) {
         final Widget child;
         if (state is ShoppingListsLoading) {
-          child = const Center(
-            child: CircularProgressIndicator(),
-          );
+          child = AppProgressIndicator();
         } else {
           child = _buildBody();
         }
@@ -98,8 +97,8 @@ class _ShoppingListsPageState
     return Container(
       decoration: BoxDecoration(
         border: Border(
-          top: BorderSide(width: 1.0, color: AppColors.black),
-          bottom: BorderSide(width: 1.0, color: AppColors.black),
+          top: BorderSide(width: 1.0, color: AppColors.black.withOpacity(0.3)),
+          bottom: BorderSide(width: 1.0, color: AppColors.black.withOpacity(0.3)),
         ),
       ),
       child: AdaptiveButton(

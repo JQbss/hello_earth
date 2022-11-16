@@ -22,8 +22,7 @@ class ShoppingListsPage extends StatefulWidget {
   State<ShoppingListsPage> createState() => _ShoppingListsPageState();
 }
 
-class _ShoppingListsPageState
-    extends BlocPageState<ShoppingListsPage, ShoppingListsBloc> {
+class _ShoppingListsPageState extends BlocPageState<ShoppingListsPage, ShoppingListsBloc> {
   @override
   void initState() {
     super.initState();
@@ -48,22 +47,6 @@ class _ShoppingListsPageState
   }
 
   Widget _buildBody() {
-    bloc.add(ShoppingListFetchData());
-    final ShoppingListsModel? shoppingListsModels = bloc.state.shoppingLists;
-    if (shoppingListsModels == null) return const SizedBox.shrink();
-    final List<ShoppingListModel> shoppingLists = (shoppingListsModels
-                .shoppingLists?.entries
-                .map((shoppingList) => shoppingList.value)
-                .toList() ??
-            [])
-        .filterNotNull();
-    final List<String> shoppingListsKeys = (shoppingListsModels
-                .shoppingLists?.entries
-                .map((shoppingList) => shoppingList.key)
-                .toList() ??
-            [])
-        .filterNotNull();
-    if (shoppingLists.isEmpty) return const SizedBox.shrink();
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -73,16 +56,37 @@ class _ShoppingListsPageState
               title: S.of(context).shoppingListTitle,
             ),
           ),
-          ListView.builder(
-            shrinkWrap: true,
-            itemBuilder: (_, index) => _buildShoppListButton(
-              shoppingList: shoppingLists[index],
-              uid: shoppingListsKeys[index],
-            ),
-            itemCount: shoppingLists.length,
-          ),
+          _buildList(),
         ],
       ),
+    );
+  }
+
+  Widget _buildList() {
+    final ShoppingListsModel? shoppingListsModels = bloc.state.shoppingLists;
+    if (shoppingListsModels == null) {
+      return Container(
+        height: 120,
+        color: Colors.red,
+        child: BezierCurveTitle(
+          title: S.of(context).shoppingListTitle,
+        ),
+      );
+    }
+    final List<ShoppingListModel> shoppingLists =
+        (shoppingListsModels.shoppingLists?.entries.map((shoppingList) => shoppingList.value).toList() ?? [])
+            .filterNotNull();
+    final List<String> shoppingListsKeys =
+        (shoppingListsModels.shoppingLists?.entries.map((shoppingList) => shoppingList.key).toList() ?? [])
+            .filterNotNull();
+    if (shoppingLists.isEmpty) return const SizedBox.shrink();
+    return ListView.builder(
+      shrinkWrap: true,
+      itemBuilder: (_, index) => _buildShoppListButton(
+        shoppingList: shoppingLists[index],
+        uid: shoppingListsKeys[index],
+      ),
+      itemCount: shoppingLists.length,
     );
   }
 
@@ -90,8 +94,7 @@ class _ShoppingListsPageState
     required ShoppingListModel? shoppingList,
     required String uid,
   }) {
-    if (bloc.profile?.role == RoleModel.parent &&
-        !(shoppingList?.isParentVisible ?? false)) {
+    if (bloc.profile?.role == RoleModel.parent && !(shoppingList?.isParentVisible ?? false)) {
       return const SizedBox.shrink();
     }
     return Container(
@@ -113,7 +116,7 @@ class _ShoppingListsPageState
                 ),
               )
             else
-              SizedBox.shrink()  ,
+              SizedBox.shrink(),
             Text(
               style: TextStyle(
                 fontSize: 16.0,
@@ -133,8 +136,7 @@ class _ShoppingListsPageState
           ],
         ),
         onPressed: () {
-          final ShoppingListDetailsArguments arguments =
-              ShoppingListDetailsArguments(
+          final ShoppingListDetailsArguments arguments = ShoppingListDetailsArguments(
             ingredients: shoppingList?.ingredients,
             isParentVisible: shoppingList?.isParentVisible,
             missionName: shoppingList?.missionName,
